@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
+import 'package:gm_frontend/src/pages/login/login_controller.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
-
+  LoginController con = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,6 +16,7 @@ class LoginPage extends StatelessWidget {
       body: Stack(
         children: [
           _backgroundCover(context),
+          _boxForm(context),
           Column(
             children: [_imageCover(), _textAppName()],
           )
@@ -39,6 +42,85 @@ class LoginPage extends StatelessWidget {
     );
   }
 
+  Widget _boxForm(BuildContext context) {
+    return Container(
+        height: MediaQuery.of(context).size.height * 0.45,
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.35,
+            left: 50,
+            right: 50),
+        decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black54,
+            blurRadius: 15,
+            offset: Offset(0, 0.75),
+          )
+        ]),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _textYourInfo(),
+              _textFieldEmail(),
+              _textFieldPassword(),
+              _buttonLogin()
+            ],
+          ),
+        ));
+  }
+
+  Widget _textFieldEmail() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 40),
+      child: TextField(
+        controller: con.emailController,
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          hintText: 'Correo Electronico',
+          prefixIcon: Icon(Icons.email),
+        ),
+      ),
+    );
+  }
+
+  Widget _textFieldPassword() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 40),
+      child: TextField(
+        controller: con.passwordController,
+        keyboardType: TextInputType.text,
+        obscureText: true,
+        decoration: InputDecoration(
+          hintText: 'Contaseña',
+          prefixIcon: Icon(Icons.lock),
+        ),
+      ),
+    );
+  }
+
+  Widget _buttonLogin() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+      child: ElevatedButton(
+          onPressed: () => con.login(),
+          style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: 15)),
+          child: Text(
+            'LOGIN',
+            style: TextStyle(color: Colors.black),
+          )),
+    );
+  }
+
+  Widget _textYourInfo() {
+    return Container(
+        margin: EdgeInsets.only(top: 40, bottom: 45),
+        child: Text(
+          'Ingresa esta informacion',
+          style: TextStyle(color: Colors.black),
+        ));
+  }
+
   Widget _textDontHaveAccount() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -51,12 +133,15 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         SizedBox(width: 7),
-        Text(
-          'Regristrate aqui',
-          style: TextStyle(
-            color: Colors.amber,
-            fontWeight: FontWeight.bold,
-            fontSize: 17,
+        GestureDetector(
+          onTap: () => con.goToRegisterPage(),
+          child: Text(
+            'Regristrate aqui',
+            style: TextStyle(
+              color: Colors.amber,
+              fontWeight: FontWeight.bold,
+              fontSize: 17,
+            ),
           ),
         )
       ],
