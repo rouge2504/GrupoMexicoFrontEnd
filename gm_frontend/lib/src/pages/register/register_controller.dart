@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gm_frontend/src/models/user.dart';
+import 'package:gm_frontend/src/providers/users_provider.dart';
 
 class RegisterController extends GetxController {
   TextEditingController emailController = TextEditingController();
@@ -9,7 +11,9 @@ class RegisterController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
 
-  void register() {
+  UsersProvider usersProvider = UsersProvider();
+
+  void register() async {
     String email = emailController.text.trim();
     String name = nameController.text.trim();
     String lastName = lastNameController.text.trim();
@@ -21,8 +25,19 @@ class RegisterController extends GetxController {
     print('Password ${password}');
 
     if (isValidForm(email, name, lastName, phone, password, confirmPassword)) {
+      User user = User(
+          email: email,
+          name: name,
+          lastname: lastName,
+          phone: phone,
+          password: password);
+
+      Response response = await usersProvider.create(user);
+
+      print('RESPONSE: ${response.body}');
+
       Get.snackbar(
-          'Formulario Invalido', 'Estas listo para enviar peticion http');
+          'Formulario valido', 'Estas listo para enviar peticion http');
     }
   }
 
