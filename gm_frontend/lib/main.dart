@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:gm_frontend/src/models/user.dart';
+import 'package:gm_frontend/src/pages/home/home_page.dart';
 import 'package:gm_frontend/src/pages/login/login_page.dart';
 import 'package:gm_frontend/src/pages/register/register_page.dart';
 
-void main() {
+User userSession = User.fromJson(GetStorage().read('user') ?? {});
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -26,10 +31,11 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       title: 'Grupo Mexico',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: userSession.id != null ? '/home' : '/',
       getPages: [
         GetPage(name: '/', page: () => LoginPage()),
         GetPage(name: '/register', page: () => RegisterPage()),
+        GetPage(name: '/home', page: () => HomePage()),
       ],
       theme: ThemeData(
           primaryColor: Colors.amber,
