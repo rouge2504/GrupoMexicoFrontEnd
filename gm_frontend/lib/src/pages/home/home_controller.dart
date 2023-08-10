@@ -8,4 +8,10 @@ class HomeController extends GetxController {
   HomeController() {
     print('USUARIO DE SESION: ${user.toJson()}');
   }
+
+  void signOut() {
+    GetStorage().remove('user');
+    Get.offNamedUntil(
+        '/', (route) => false); //Elimina el historial de pantallas
+  }
 }
