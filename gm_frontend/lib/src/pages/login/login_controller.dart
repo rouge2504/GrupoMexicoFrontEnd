@@ -26,7 +26,7 @@ class LoginController extends GetxController {
 
     if (isValidForm(email, password)) {
       ResponseApi responseApi = await usersProvider.login(email, password);
-      print('Response Api: ${responseApi.toJson()}');
+      print('Response Api!!!: ${responseApi.toJson()}');
 
       if (responseApi.success == true) {
         GetStorage().write('user', responseApi.data);

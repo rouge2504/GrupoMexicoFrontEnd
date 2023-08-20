@@ -6,75 +6,75 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:gm_frontend/src/models/response_api.dart';
 import 'package:gm_frontend/src/models/user.dart';
+import 'package:gm_frontend/src/pages/client/profile/info/client_profile_info_controller.dart';
 import 'package:gm_frontend/src/providers/users_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
-class RegisterController extends GetxController {
-  TextEditingController emailController = TextEditingController();
+class ClientProfileUpdateController extends GetxController {
+  User user = User.fromJson(GetStorage().read('user'));
+  ClientProfileInfoController clientProfileInfoController = Get.find();
+  UsersProvider usersProvider = UsersProvider();
   TextEditingController nameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController passwordConfirmController = TextEditingController();
-
-  UsersProvider usersProvider = UsersProvider();
-
   ImagePicker picker = ImagePicker();
   File? imageFile;
 
-  void register(BuildContext context) async {
-    String email = emailController.text.trim();
+  ClientProfileUpdateController() {
+    nameController.text = user.name ?? '';
+    lastNameController.text = user.lastname ?? '';
+    phoneController.text = user.phone ?? '';
+  }
+
+  void updateInfo(BuildContext context) async {
     String name = nameController.text.trim();
     String lastName = lastNameController.text.trim();
     String phone = phoneController.text.trim();
-    String password = passwordController.text.trim();
-    String confirmPassword = passwordConfirmController.text.trim();
+    print('fuck ${user.id}');
 
-    print('Email ${email}');
-    print('Password ${password}');
-
-    if (isValidForm(email, name, lastName, phone, password, confirmPassword)) {
+    if (isValidForm(name, lastName, phone)) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
-      progressDialog.show(max: 100, msg: 'Registrando Datos...');
-      User user = User(
-          email: email,
-          name: name,
-          lastname: lastName,
-          phone: phone,
-          password: password);
-
-      Stream stream = await usersProvider.createWithImage(user, imageFile!);
-      stream.listen((res) {
+      progressDialog.show(max: 100, msg: 'Actualizando Datos...');
+      User myUser = User(
+        id: user.id,
+        name: name,
+        lastname: lastName,
+        phone: phone,
+        sessionToken: user.sessionToken,
+      );
+      if (imageFile == null) {
         progressDialog.close();
-        ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
-        print('Hi! ${json.decode(res)}');
+
+        ResponseApi responseApi = await usersProvider.update(myUser);
+        print('Response Api Update: ${responseApi.data}');
+
+        Get.snackbar('Proceso terminado', responseApi.data ?? '');
         if (responseApi.success == true) {
           GetStorage().write('user', responseApi.data);
-          Get.snackbar('Login Exitoso', responseApi.message ?? '');
-          goToHomePage();
-        } else {
-          Get.snackbar('Registro fallido', responseApi.message ?? '');
+          clientProfileInfoController.user.value =
+              User.fromJson(GetStorage().read('user') ?? {});
         }
-      });
+      } else {
+        Stream stream = await usersProvider.updateWithImage(myUser, imageFile!);
+        stream.listen((res) {
+          progressDialog.close();
+          ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
+          print('Response Api Update: ${responseApi.data}');
+          Get.snackbar('Proceso terminado', responseApi.data ?? '');
+          if (responseApi.success == true) {
+            GetStorage().write('user', responseApi.data);
+            clientProfileInfoController.user.value =
+                User.fromJson(GetStorage().read('user') ?? {});
+          } else {
+            Get.snackbar('Registro fallido', responseApi.message ?? '');
+          }
+        });
+      }
     }
   }
 
-  void goToHomePage() {
-    Get.offNamedUntil('/client/products/list', (route) => false);
-  }
-
-  bool isValidForm(String email, String name, String lastName, String phone,
-      String password, String confirmPassword) {
-    if (!GetUtils.isEmail(email)) {
-      Get.snackbar('Formulario no valido', 'El email no es valido');
-      return false;
-    }
-    if (email.isEmpty) {
-      Get.snackbar('Formulario no valido', 'Debes ingresar el email');
-      return false;
-    }
-
+  bool isValidForm(String name, String lastName, String phone) {
     if (name.isEmpty) {
       Get.snackbar('Formulario no valido', 'Debes ingresar el nombre');
       return false;
@@ -87,28 +87,6 @@ class RegisterController extends GetxController {
 
     if (phone.isEmpty) {
       Get.snackbar('Formulario no valido', 'Debes ingresar el numero');
-      return false;
-    }
-
-    if (password.isEmpty) {
-      Get.snackbar('Formulario no valido', 'Debes ingresar el password');
-      return false;
-    }
-
-    if (confirmPassword.isEmpty) {
-      Get.snackbar('Formulario no valido',
-          'Debes ingresar la confirmacion del password');
-      return false;
-    }
-
-    if (password != confirmPassword) {
-      Get.snackbar('Formulario no valido', 'Los Password no coinciden');
-      return false;
-    }
-
-    if (imageFile == null) {
-      Get.snackbar(
-          'Formulario no valido', 'Debes seleccionar una imagen de perfil');
       return false;
     }
 
