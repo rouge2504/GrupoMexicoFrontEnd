@@ -10,6 +10,7 @@ import 'package:gm_frontend/src/pages/client/profile/update/client_profile_updat
 import 'package:gm_frontend/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
 import 'package:gm_frontend/src/pages/home/home_page.dart';
 import 'package:gm_frontend/src/pages/login/login_page.dart';
+import 'package:gm_frontend/src/pages/payments/create/client_payments_create_page.dart';
 import 'package:gm_frontend/src/pages/register/register_page.dart';
 import 'package:gm_frontend/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:gm_frontend/src/pages/roles/roles_page.dart';
@@ -39,10 +40,15 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       title: 'Grupo Mexico',
       debugShowCheckedModeBanner: false,
-      initialRoute: userSession.id != null
+      /*initialRoute: userSession.id != null
           ? userSession.roles!.length > 1
               ? '/roles'
               : '/client/products/list'
+          : '/',*/
+      initialRoute: userSession.id != null
+          ? userSession.roles!.length > 1
+              ? '/roles'
+              : '/client/payments/create'
           : '/',
       getPages: [
         GetPage(name: '/', page: () => LoginPage()),
@@ -63,6 +69,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/client/profile/update',
             page: () => ClientProfileUpdatePage()),
+        GetPage(
+            name: '/client/payments/create',
+            page: () => ClientPaymentsCreatePage()),
       ],
       theme: ThemeData(
           primaryColor: Colors.amber,
