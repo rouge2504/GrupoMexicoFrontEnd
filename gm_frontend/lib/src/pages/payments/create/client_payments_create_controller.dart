@@ -39,6 +39,9 @@ class ClientPlaymentsCreateController extends GetxController {
               cvv: cvvCode.value,
               documentId: 'C.C.',
               documentNumber: '5151515151');
+      Get.toNamed('/client/payments/installments', arguments: {
+        'card_token': mercadoPagoCardToken.toJson(),
+      });
       print('Mercado Pago ${mercadoPagoCardToken.toJson()}');
     }
   }

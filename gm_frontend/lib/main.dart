@@ -11,6 +11,7 @@ import 'package:gm_frontend/src/pages/delivery/orders/list/delivery_orders_list_
 import 'package:gm_frontend/src/pages/home/home_page.dart';
 import 'package:gm_frontend/src/pages/login/login_page.dart';
 import 'package:gm_frontend/src/pages/payments/create/client_payments_create_page.dart';
+import 'package:gm_frontend/src/pages/payments/installments/client_payments_installments_page.dart';
 import 'package:gm_frontend/src/pages/register/register_page.dart';
 import 'package:gm_frontend/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:gm_frontend/src/pages/roles/roles_page.dart';
@@ -72,6 +73,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/client/payments/create',
             page: () => ClientPaymentsCreatePage()),
+        GetPage(
+            name: '/client/payments/installments',
+            page: () => ClientPaymentsIntallmentsPage()),
       ],
       theme: ThemeData(
           primaryColor: Colors.amber,
