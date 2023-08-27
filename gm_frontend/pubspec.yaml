@@ -53,6 +53,9 @@ dev_dependencies:
   sn_progress_dialog: ^1.1.3
   flutter_credit_card: ^3.0.7
   fluttertoast: ^8.2.2
+  qr_flutter:
+    git:
+      url: https://github.com/theyakka/qr.flutter.git
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
