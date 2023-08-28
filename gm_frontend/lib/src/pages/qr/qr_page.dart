@@ -22,7 +22,7 @@ class QRPage extends StatelessWidget {
               style: TextStyle(fontSize: 30),
             ),
             Text('Hola'),
-            QrImageView(data: 'Rogelio Trejo Perez'),
+            QrImageView(data: con.temp.toString()),
           ],
         ),
       ),
