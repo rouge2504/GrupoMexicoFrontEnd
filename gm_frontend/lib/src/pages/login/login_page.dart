@@ -9,10 +9,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        height: 50,
-        child: _textDontHaveAccount(),
-      ),
       body: Stack(
         children: [
           _boxForm(context),
@@ -25,12 +21,12 @@ class LoginPage extends StatelessWidget {
     return Container(
       //height: MediaQuery.of(context).size.height * 0.1,
       margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.55,
-        left: 50,
-        right: 50,
+        top: MediaQuery.of(context).size.height * 0.70,
+        left: 15,
+        right: 15,
       ),
       child: Column(
-        children: [_buttonRegister(), _buttonLogin()],
+        children: [_buttonRegister(context), _buttonLogin(), _forgotAccount()],
       ),
     );
   }
@@ -38,57 +34,58 @@ class LoginPage extends StatelessWidget {
   Widget _buttonLogin() {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
               padding: EdgeInsets.symmetric(vertical: 15)),
           child: Text(
-            'LOGIN',
-            style: TextStyle(color: Colors.black),
+            'Iniciar Sesión',
+            style: TextStyle(color: Colors.white, fontSize: 20),
           )),
     );
   }
 
-  Widget _buttonRegister() {
+  Widget _forgotAccount() {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              foregroundColor: Colors.black,
+              elevation: 0,
+              padding: EdgeInsets.symmetric(vertical: 15)),
+          child: Text(
+            'Olvide mi contraseña',
+            style: TextStyle(color: Colors.black, fontSize: 20),
+          )),
+    );
+  }
+
+  Widget _buttonRegister(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              foregroundColor: Colors.black,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              side: BorderSide(
+                  width: 1.0, color: Theme.of(context).colorScheme.primary),
               padding: EdgeInsets.symmetric(vertical: 15)),
           child: Text(
             'Registrarse',
-            style: TextStyle(color: Colors.black),
-          )),
-    );
-  }
-
-  Widget _textDontHaveAccount() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          '¿No tienes cuenta?',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 17,
-          ),
-        ),
-        SizedBox(width: 7),
-        GestureDetector(
-          onTap: () {},
-          child: Text(
-            'Regristrate aqui',
             style: TextStyle(
-              color: Colors.amber,
-              fontWeight: FontWeight.bold,
-              fontSize: 17,
-            ),
-          ),
-        )
-      ],
+                color: Theme.of(context).colorScheme.primary, fontSize: 20),
+          )),
     );
   }
 

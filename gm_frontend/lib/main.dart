@@ -36,6 +36,21 @@ class _MyAppState extends State<MyApp> {
             page: () => ClientPaymentsIntallmentsPage()),
         GetPage(name: '/qr', page: () => QRPage()),
       ],
+      theme: ThemeData(
+          primaryColor: Color.fromRGBO(210, 39, 48, 1),
+          fontFamily: 'Raleway',
+          colorScheme: ColorScheme(
+              brightness: Brightness.light,
+              primary: Color.fromRGBO(210, 39, 48, 1),
+              onPrimary: Colors.grey,
+              secondary: const Color.fromRGBO(45, 140, 158, 1),
+              onSecondary: Colors.grey,
+              error: Colors.grey,
+              onError: Colors.grey,
+              background: Colors.grey,
+              onBackground: Colors.grey,
+              surface: Colors.grey,
+              onSurface: Colors.grey)),
       navigatorKey: Get.key,
     );
   }
