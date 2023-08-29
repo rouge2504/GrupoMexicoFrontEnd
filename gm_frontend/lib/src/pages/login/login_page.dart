@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:gm_frontend/src/assets/assets.dart';
 import 'package:gm_frontend/src/pages/login/login_controller.dart';
 
 class LoginPage extends StatelessWidget {
@@ -11,9 +12,31 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          _backgroundCover(),
+          _imageLogo(),
           _boxForm(context),
         ],
       ),
+    );
+  }
+
+  Widget _imageLogo() {
+    return Center(
+        child: Image(
+      image: AssetImage(Assets.LOGO),
+      width: 300,
+    ));
+  }
+
+  Widget _backgroundCover() {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(Assets.BACKGROUND_LOGIN_IMAGE),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: null /* add child content here */,
     );
   }
 

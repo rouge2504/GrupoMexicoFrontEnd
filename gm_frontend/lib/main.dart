@@ -8,6 +8,7 @@ import 'package:gm_frontend/src/pages/payments/installments/client_payments_inst
 import 'package:gm_frontend/src/pages/payments/paid/payments_paid_page.dart';
 import 'package:gm_frontend/src/pages/qr/qr_generator/qr_page.dart';
 import 'package:gm_frontend/src/pages/qr/qr_reader/qr_reader_page.dart';
+import 'package:gm_frontend/src/pages/splash/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,9 +30,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/payments/create',
+      initialRoute: '/splash',
       debugShowCheckedModeBanner: false,
       getPages: [
+        GetPage(name: '/splash', page: () => SplashPage()),
         GetPage(name: '/login', page: () => LoginPage()),
         GetPage(name: '/on_boarding', page: () => OnBoardingPage()),
         GetPage(
