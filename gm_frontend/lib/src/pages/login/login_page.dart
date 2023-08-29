@@ -43,7 +43,11 @@ class LoginPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 15)),
           child: Text(
             'Iniciar Sesión',
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold),
           )),
     );
   }
@@ -84,7 +88,10 @@ class LoginPage extends StatelessWidget {
           child: Text(
             'Registrarse',
             style: TextStyle(
-                color: Theme.of(context).colorScheme.primary, fontSize: 20),
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 20,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold),
           )),
     );
   }

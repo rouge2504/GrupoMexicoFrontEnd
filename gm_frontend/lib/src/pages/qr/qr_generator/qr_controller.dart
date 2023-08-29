@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:gm_frontend/src/models/QrMolding.dart';
 
-class QRController extends GetxController {
+class QRGeneratorController extends GetxController {
   QrMolding? qrMolding;
 
   dynamic? temp;

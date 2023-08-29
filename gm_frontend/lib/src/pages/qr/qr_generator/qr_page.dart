@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gm_frontend/src/pages/qr/qr_controller.dart';
+import 'package:gm_frontend/src/pages/qr/qr_generator/qr_controller.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class QRPage extends StatelessWidget {
-  QRController con = Get.put(QRController());
+class QRGeneratorPage extends StatelessWidget {
+  QRGeneratorController con = Get.put(QRGeneratorController());
 
   @override
   Widget build(BuildContext context) {
