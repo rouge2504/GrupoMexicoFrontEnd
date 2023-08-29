@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/qr/qr_reader',
+      initialRoute: '/payments/create',
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: '/login', page: () => LoginPage()),
