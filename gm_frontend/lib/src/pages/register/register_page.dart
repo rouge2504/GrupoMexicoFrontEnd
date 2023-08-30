@@ -48,7 +48,7 @@ class RegisterPage extends StatelessWidget {
         BoxShadow(
           color: Colors.black54,
           blurRadius: 15,
-          offset: Offset(0, 0.75),
+          offset: Offset(0, 0.50),
         )
       ]),
       child: Column(
@@ -56,7 +56,8 @@ class RegisterPage extends StatelessWidget {
           _Title(),
           _textFieldName(context),
           _textFieldEmail(context),
-          _textFieldPhone(context),
+          _textFieldPhone(context), _WAAdvertising(),
+
           //_buttonRegister(context)
         ],
       ),
@@ -76,9 +77,21 @@ class RegisterPage extends StatelessWidget {
         ));
   }
 
+  Widget _WAAdvertising() {
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: 25),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          'Este número debe tener Whatsapp en caso de emergencia´',
+          style: TextStyle(
+            fontSize: 12.0,
+          ),
+        ));
+  }
+
   Widget _textFieldEmail(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       decoration: new BoxDecoration(
         shape: BoxShape.rectangle,
         border: new Border.all(
@@ -90,6 +103,7 @@ class RegisterPage extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 20),
         child: TextField(
           textAlign: TextAlign.left,
+          keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             hintText: 'Correo electronico',
             border: InputBorder.none,
@@ -101,7 +115,7 @@ class RegisterPage extends StatelessWidget {
 
   Widget _textFieldName(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       decoration: new BoxDecoration(
         shape: BoxShape.rectangle,
         border: new Border.all(
@@ -124,7 +138,7 @@ class RegisterPage extends StatelessWidget {
 
   Widget _textFieldPhone(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       decoration: new BoxDecoration(
         shape: BoxShape.rectangle,
         border: new Border.all(
@@ -135,6 +149,7 @@ class RegisterPage extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
         child: TextField(
+          keyboardType: TextInputType.number,
           textAlign: TextAlign.left,
           decoration: InputDecoration(
             hintText: 'Telefono a 10 digitos',
