@@ -19,6 +19,9 @@ class RegisterPage extends StatelessWidget {
                 fontFamily: 'Raleway',
                 fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
+        actions: [
+          _counterPage(),
+        ],
       ),
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
@@ -31,21 +34,60 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Widget _pageForm1(BuildContext context) {
+  Widget _counterPage() {
     return Column(
       children: [
-        _boxForm(context),
-        _buttonNext(context),
+        Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Text(
+            'Paso 1 de ' + (con.activePage.value + 1).toString(),
+            style: TextStyle(color: Colors.black, fontSize: 12),
+          ),
+        ),
+        Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List<Widget>.generate(
+                2,
+                (index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: InkWell(
+                        child: CircleAvatar(
+                          radius: 8,
+                          // check if a dot is connected to the current page
+                          // if true, give it a different color
+                          backgroundColor: con.activePage.value == index
+                              ? Colors.amber
+                              : Colors.grey,
+                        ),
+                      ),
+                    )),
+          ),
+        ),
       ],
     );
   }
 
+  Widget _pageForm1(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _boxForm(context),
+          _buttonNext(context),
+        ],
+      ),
+    );
+  }
+
   Widget _pageForm2(BuildContext context) {
-    return Column(
-      children: [
-        _boxFormPasword(context),
-        _buttonRegister(context),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _boxFormPasword(context),
+          _buttonRegister(context),
+        ],
+      ),
     );
   }
 

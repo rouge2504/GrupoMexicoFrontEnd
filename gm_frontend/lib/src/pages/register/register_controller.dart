@@ -17,6 +17,10 @@ class RegisterController extends GetxController {
   var validForm = false.obs;
   var validFormPassword = false.obs;
 
+  var activePage = 0.obs;
+
+  var pages = [].obs;
+
   RegisterController() {
     emailController.addListener(() {
       validForm.value = isValid(emailController.text.trim(),
@@ -43,6 +47,7 @@ class RegisterController extends GetxController {
   }
 
   void nextButton() {
+    activePage.value++;
     pageController.nextPage(
         duration: Duration(milliseconds: 250), curve: Curves.bounceInOut);
   }
