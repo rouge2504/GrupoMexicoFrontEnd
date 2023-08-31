@@ -1,13 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:gm_frontend/src/pages/register/register_controller.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+  RegisterController con = RegisterController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: _buttonBack(context),
         title: Text('Registra tus datos',
@@ -18,9 +20,10 @@ class RegisterPage extends StatelessWidget {
                 fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
       ),
-      body: Stack(
+      body: Column(
         children: [
           _boxForm(context),
+          _buttonRegister(context),
         ],
       ),
     );
@@ -43,7 +46,9 @@ class RegisterPage extends StatelessWidget {
 
   Widget _boxForm(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(1.0),
+      //margin: EdgeInsets.all(1.0),
+      //padding: EdgeInsets.fromLTRB(0, 0, 0, 210),
+      height: MediaQuery.of(context).size.height * 0.7,
       decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
         BoxShadow(
           color: Colors.black54,
@@ -102,6 +107,7 @@ class RegisterPage extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
         child: TextField(
+          controller: con.emailController,
           textAlign: TextAlign.left,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
@@ -126,6 +132,7 @@ class RegisterPage extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
         child: TextField(
+          controller: con.nameController,
           textAlign: TextAlign.left,
           decoration: InputDecoration(
             hintText: 'Nombre y apellido',
@@ -149,6 +156,7 @@ class RegisterPage extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
         child: TextField(
+          controller: con.phoneController,
           keyboardType: TextInputType.number,
           textAlign: TextAlign.left,
           decoration: InputDecoration(
@@ -163,14 +171,21 @@ class RegisterPage extends StatelessWidget {
   Widget _buttonRegister(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: con.validForm.value ? () => {} : null,
           style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 15)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            padding: EdgeInsets.symmetric(vertical: 20),
+          ),
           child: Text(
-            'Registrarse',
-            style: TextStyle(color: Colors.black),
+            'Siguiente',
+            style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.white,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold),
           )),
     );
   }
