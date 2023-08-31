@@ -20,12 +20,32 @@ class RegisterPage extends StatelessWidget {
                 fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
       ),
-      body: Column(
+      body: PageView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: con.pageController,
         children: [
-          _boxForm(context),
-          _buttonRegister(context),
+          _pageForm1(context),
+          _pageForm2(context),
         ],
       ),
+    );
+  }
+
+  Widget _pageForm1(BuildContext context) {
+    return Column(
+      children: [
+        _boxForm(context),
+        _buttonNext(context),
+      ],
+    );
+  }
+
+  Widget _pageForm2(BuildContext context) {
+    return Column(
+      children: [
+        _boxFormPasword(context),
+        _buttonRegister(context),
+      ],
     );
   }
 
@@ -42,6 +62,29 @@ class RegisterPage extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  Widget _boxFormPasword(BuildContext context) {
+    return Container(
+      //margin: EdgeInsets.all(1.0),
+      //padding: EdgeInsets.fromLTRB(0, 0, 0, 210),
+      height: MediaQuery.of(context).size.height * 0.7,
+      decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: Colors.black54,
+          blurRadius: 15,
+          offset: Offset(0, 0.50),
+        )
+      ]),
+      child: Column(
+        children: [
+          _TitlePassword(),
+          _textFielPassword(context),
+          _textFielPasswordConfirm(context),
+          //_buttonRegister(context)
+        ],
+      ),
+    );
   }
 
   Widget _boxForm(BuildContext context) {
@@ -67,6 +110,19 @@ class RegisterPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _TitlePassword() {
+    return Container(
+        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          'Crea tu contraseña',
+          style: TextStyle(
+              fontSize: 20.0,
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.bold),
+        ));
   }
 
   Widget _Title() {
@@ -143,6 +199,58 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
+  Widget _textFielPassword(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      decoration: new BoxDecoration(
+        shape: BoxShape.rectangle,
+        border: new Border.all(
+          color: Theme.of(context).colorScheme.surface,
+          width: 1.0,
+        ),
+      ),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        child: TextField(
+          controller: con.passwordController,
+          keyboardType: TextInputType.text,
+          obscureText: true,
+          textAlign: TextAlign.left,
+          decoration: InputDecoration(
+              hintText: 'Contraseña',
+              border: InputBorder.none,
+              suffix: Icon(Icons.visibility_off_outlined)),
+        ),
+      ),
+    );
+  }
+
+  Widget _textFielPasswordConfirm(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      decoration: new BoxDecoration(
+        shape: BoxShape.rectangle,
+        border: new Border.all(
+          color: Theme.of(context).colorScheme.surface,
+          width: 1.0,
+        ),
+      ),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        child: TextField(
+          controller: con.passwordConfirmController,
+          keyboardType: TextInputType.text,
+          obscureText: true,
+          textAlign: TextAlign.left,
+          decoration: InputDecoration(
+              hintText: 'Confirmar contraseña',
+              border: InputBorder.none,
+              suffix: Icon(Icons.visibility_off_outlined)),
+        ),
+      ),
+    );
+  }
+
   Widget _textFieldPhone(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -168,12 +276,35 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
+  Widget _buttonNext(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+      child: ElevatedButton(
+          onPressed: con.validForm.value ? () => con.nextButton() : null,
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            padding: EdgeInsets.symmetric(vertical: 20),
+          ),
+          child: Text(
+            'Siguiente',
+            style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.white,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold),
+          )),
+    );
+  }
+
   Widget _buttonRegister(BuildContext context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       child: ElevatedButton(
-          onPressed: con.validForm.value ? () => {} : null,
+          onPressed:
+              con.validFormPassword.value ? () => con.nextButton() : null,
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),

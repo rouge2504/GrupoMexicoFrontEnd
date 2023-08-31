@@ -8,11 +8,14 @@ class RegisterController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
 
+  PageController pageController = PageController();
+
   var email = ''.obs;
   var name = ''.obs;
   var phone = ''.obs;
 
   var validForm = false.obs;
+  var validFormPassword = false.obs;
 
   RegisterController() {
     emailController.addListener(() {
@@ -27,6 +30,21 @@ class RegisterController extends GetxController {
       validForm.value = isValid(emailController.text.trim(),
           nameController.text.trim(), phoneController.text.trim());
     });
+
+    passwordController.addListener(() {
+      validFormPassword.value = isValidPassword(passwordController.text.trim(),
+          passwordConfirmController.text.trim());
+    });
+
+    passwordConfirmController.addListener(() {
+      validFormPassword.value = isValidPassword(passwordController.text.trim(),
+          passwordConfirmController.text.trim());
+    });
+  }
+
+  void nextButton() {
+    pageController.nextPage(
+        duration: Duration(milliseconds: 250), curve: Curves.bounceInOut);
   }
 
   void register() {
@@ -68,6 +86,20 @@ class RegisterController extends GetxController {
 
     if (phone.isEmpty) {
       //Get.snackbar('Formulario no valido', 'Debes ingresar el numero');
+      return false;
+    }
+
+    return true;
+  }
+
+  bool isValidPassword(String password, String passwordConfirm) {
+    if (password.isEmpty) {
+      //Get.snackbar('Formulario no valido', 'El email no es valido');
+      return false;
+    }
+
+    if (passwordConfirm.isEmpty) {
+      //Get.snackbar('Formulario no valido', 'Debes ingresar el nombre');
       return false;
     }
 
