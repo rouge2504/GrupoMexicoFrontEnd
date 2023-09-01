@@ -21,4 +21,8 @@ class OnBoardingController extends GetxController {
   void onPageViewChange(int index) {
     pageIndex.value = index;
   }
+
+  void goToLoginPage() {
+    Get.toNamed('/login');
+  }
 }

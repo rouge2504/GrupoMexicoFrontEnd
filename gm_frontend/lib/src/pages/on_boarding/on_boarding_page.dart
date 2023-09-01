@@ -57,7 +57,7 @@ class OnBoardingPage extends StatelessWidget {
                                   fontFamily: 'Raleway',
                                   fontWeight: FontWeight.bold),
                             ),
-                            onPressed: () => con.BackPage(),
+                            onPressed: () => con.goToLoginPage(),
                           )
                         : SizedBox(
                             width: 0,
@@ -82,19 +82,41 @@ class OnBoardingPage extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width * 0.90,
       height: MediaQuery.of(context).size.height * 0.10,
-      child: ElevatedButton(
-        child: Text('Siguiente',
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontFamily: 'Raleway',
-                fontWeight: FontWeight.bold)),
-        style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            padding: EdgeInsets.symmetric(vertical: 20)),
-        onPressed: () => con.NextPage(),
-      ),
+      child: con.pageIndex.value != demo_data.length - 1
+          ? templateNextButton(context)
+          : templateStartButton(context),
+    );
+  }
+
+  Widget templateNextButton(BuildContext context) {
+    return ElevatedButton(
+      child: Text('Siguiente',
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.bold)),
+      style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          padding: EdgeInsets.symmetric(vertical: 20)),
+      onPressed: () => con.NextPage(),
+    );
+  }
+
+  Widget templateStartButton(BuildContext context) {
+    return ElevatedButton(
+      child: Text('Comenzar',
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.bold)),
+      style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          padding: EdgeInsets.symmetric(vertical: 20)),
+      onPressed: () => con.goToLoginPage(),
     );
   }
 
