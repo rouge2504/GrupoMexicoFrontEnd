@@ -46,10 +46,17 @@ class RegisterController extends GetxController {
     });
   }
 
+  void onPageViewChange(int page) {
+    print(page);
+    activePage.value = page;
+  }
+
   void nextButton() {
     activePage.value++;
     pageController.nextPage(
         duration: Duration(milliseconds: 250), curve: Curves.bounceInOut);
+
+    print('NEXT BUTTON ${activePage.value}');
   }
 
   void register() {

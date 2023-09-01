@@ -8,64 +8,82 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: _buttonBack(context),
-        title: Text('Registra tus datos',
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.surface,
-                fontSize: 20,
-                fontFamily: 'Raleway',
-                fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
-        actions: [
-          _counterPage(),
-        ],
-      ),
-      body: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: con.pageController,
-        children: [
-          _pageForm1(context),
-          _pageForm2(context),
-        ],
-      ),
-    );
+    return Obx(() => Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            leading: _buttonBack(context),
+            title: Text('Registra tus datos',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 20,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.bold)),
+            backgroundColor: Colors.white,
+            actions: [
+              _counterPage(context),
+            ],
+          ),
+          body: PageView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: con.pageController,
+            onPageChanged: (index) => con.onPageViewChange,
+            children: [
+              _pageForm1(context),
+              _pageForm2(context),
+            ],
+          ),
+        ));
   }
 
-  Widget _counterPage() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: Text(
-            'Paso 1 de ' + (con.activePage.value + 1).toString(),
-            style: TextStyle(color: Colors.black, fontSize: 12),
-          ),
-        ),
-        Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List<Widget>.generate(
-                2,
-                (index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+  Widget _counterPage(BuildContext context) {
+    return Obx(() => Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text(
+                'Paso ${(con.activePage.value + 1).toString()} de 2',
+                style: TextStyle(color: Colors.black, fontSize: 12),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List<Widget>.generate(
+                    2,
+                    (index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: InkWell(
-                        child: CircleAvatar(
-                          radius: 8,
-                          // check if a dot is connected to the current page
-                          // if true, give it a different color
-                          backgroundColor: con.activePage.value == index
-                              ? Colors.amber
-                              : Colors.grey,
-                        ),
+                        child: con.activePage.value == index
+                            ? CircleAvatar(
+                                radius: 6,
+                                // check if a dot is connected to the current page
+                                // if true, give it a different color
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                              )
+                            : Align(
+                                child: Container(
+                                  height: 6,
+                                  width: 12,
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 1),
+                                  decoration: new BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                    border: Border.all(
+                                        color: Colors.black, width: 0.0),
+                                    borderRadius: new BorderRadius.all(
+                                        Radius.elliptical(100, 100)),
+                                  ),
+                                ),
+                              ),
                       ),
-                    )),
-          ),
-        ),
-      ],
-    );
+                    ),
+                  )),
+            ),
+          ],
+        ));
   }
 
   Widget _pageForm1(BuildContext context) {
