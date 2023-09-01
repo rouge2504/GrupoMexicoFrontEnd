@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/register',
+      initialRoute: '/on_boarding',
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: '/splash', page: () => SplashPage()),
