@@ -12,6 +12,12 @@ class OnBoardingController extends GetxController {
         duration: Duration(microseconds: 30), curve: Curves.ease);
   }
 
+  void BackPage() {
+    pageIndex--;
+    pageController.previousPage(
+        duration: Duration(milliseconds: 30), curve: Curves.ease);
+  }
+
   void onPageViewChange(int index) {
     pageIndex.value = index;
   }
