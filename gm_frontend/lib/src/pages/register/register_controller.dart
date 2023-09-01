@@ -21,6 +21,9 @@ class RegisterController extends GetxController {
 
   var pages = [].obs;
 
+  var passwordVisible = false.obs;
+  var passwordConfirmVisible = false.obs;
+
   RegisterController() {
     emailController.addListener(() {
       validForm.value = isValid(emailController.text.trim(),

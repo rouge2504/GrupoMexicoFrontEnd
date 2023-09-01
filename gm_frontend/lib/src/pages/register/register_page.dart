@@ -260,55 +260,78 @@ class RegisterPage extends StatelessWidget {
   }
 
   Widget _textFielPassword(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      decoration: new BoxDecoration(
-        shape: BoxShape.rectangle,
-        border: new Border.all(
-          color: Theme.of(context).colorScheme.surface,
-          width: 1.0,
-        ),
-      ),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
-        child: TextField(
-          controller: con.passwordController,
-          keyboardType: TextInputType.text,
-          obscureText: true,
-          textAlign: TextAlign.left,
-          decoration: InputDecoration(
-              hintText: 'Contraseña',
-              border: InputBorder.none,
-              suffix: Icon(Icons.visibility_off_outlined)),
-        ),
-      ),
-    );
+    return Obx(() => Container(
+          margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          decoration: new BoxDecoration(
+            shape: BoxShape.rectangle,
+            border: new Border.all(
+              color: Theme.of(context).colorScheme.surface,
+              width: 1.0,
+            ),
+          ),
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: TextField(
+              controller: con.passwordController,
+              keyboardType: TextInputType.text,
+              obscureText: !con.passwordVisible.value,
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                hintText: 'Contraseña',
+                border: InputBorder.none,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    // Based on passwordVisible state choose the icon
+                    con.passwordVisible.value
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                  ),
+                  onPressed: () {
+                    con.passwordVisible.value = !con.passwordVisible.value;
+                  },
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 
   Widget _textFielPasswordConfirm(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      decoration: new BoxDecoration(
-        shape: BoxShape.rectangle,
-        border: new Border.all(
-          color: Theme.of(context).colorScheme.surface,
-          width: 1.0,
-        ),
-      ),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
-        child: TextField(
-          controller: con.passwordConfirmController,
-          keyboardType: TextInputType.text,
-          obscureText: true,
-          textAlign: TextAlign.left,
-          decoration: InputDecoration(
-              hintText: 'Confirmar contraseña',
-              border: InputBorder.none,
-              suffix: Icon(Icons.visibility_off_outlined)),
-        ),
-      ),
-    );
+    return Obx(() => Container(
+          margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          decoration: new BoxDecoration(
+            shape: BoxShape.rectangle,
+            border: new Border.all(
+              color: Theme.of(context).colorScheme.surface,
+              width: 1.0,
+            ),
+          ),
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: TextField(
+              controller: con.passwordConfirmController,
+              keyboardType: TextInputType.text,
+              obscureText: !con.passwordConfirmVisible.value,
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                hintText: 'Confirma contraseña',
+                border: InputBorder.none,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    // Based on passwordVisible state choose the icon
+                    con.passwordConfirmVisible.value
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                  ),
+                  onPressed: () {
+                    con.passwordConfirmVisible.value =
+                        !con.passwordConfirmVisible.value;
+                  },
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 
   Widget _textFieldPhone(BuildContext context) {
