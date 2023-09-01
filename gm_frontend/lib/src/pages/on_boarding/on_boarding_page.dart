@@ -103,8 +103,9 @@ class OnBoardingPage extends StatelessWidget {
                                 margin:
                                     const EdgeInsets.symmetric(horizontal: 1),
                                 decoration: new BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
+                                  color: index < con.pageIndex.value
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context).colorScheme.onSurface,
                                   border: Border.all(
                                       color: Colors.black, width: 0.0),
                                   borderRadius: new BorderRadius.all(
@@ -121,6 +122,7 @@ class OnBoardingPage extends StatelessWidget {
       child: PageView.builder(
           itemCount: demo_data.length,
           controller: con.pageController,
+          physics: NeverScrollableScrollPhysics(),
           onPageChanged: (index) => con.onPageViewChange(index),
           itemBuilder: (context, index) => OnBoardingContent(
               title: demo_data[index].title,
