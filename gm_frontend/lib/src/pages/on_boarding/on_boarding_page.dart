@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/box.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
@@ -80,18 +81,37 @@ class OnBoardingPage extends StatelessWidget {
   }
 
   Widget dotContent(BuildContext context) {
-    return Container(
+    return Obx(() => Container(
         margin: EdgeInsets.symmetric(vertical: 30),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List<Widget>.generate(
-                3,
+                demo_data.length,
                 (index) => Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 2),
                     child: InkWell(
-                        child: CircleAvatar(
-                      radius: 6,
-                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      child: con.pageIndex.value == index
+                          ? CircleAvatar(
+                              radius: 6,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                            )
+                          : Align(
+                              child: Container(
+                                height: 6,
+                                width: 12,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 1),
+                                decoration: new BoxDecoration(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                  border: Border.all(
+                                      color: Colors.black, width: 0.0),
+                                  borderRadius: new BorderRadius.all(
+                                      Radius.elliptical(100, 100)),
+                                ),
+                              ),
+                            ),
                     ))))));
   }
 
@@ -101,6 +121,7 @@ class OnBoardingPage extends StatelessWidget {
       child: PageView.builder(
           itemCount: demo_data.length,
           controller: con.pageController,
+          onPageChanged: (index) => con.onPageViewChange(index),
           itemBuilder: (context, index) => OnBoardingContent(
               title: demo_data[index].title,
               image: demo_data[index].image,
