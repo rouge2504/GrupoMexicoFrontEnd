@@ -3,10 +3,14 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:gm_frontend/main.dart';
 import 'package:gm_frontend/src/environment/environment.dart';
+import 'package:gm_frontend/src/models/costumerMercadoPago.dart';
 import 'package:gm_frontend/src/models/mercado_pago_card_token.dart';
+import 'package:gm_frontend/src/models/mercado_pago_customer.dart';
 import 'package:gm_frontend/src/models/mercado_pago_document_type.dart';
 import 'package:gm_frontend/src/models/mercado_pago_payment_method_installments.dart';
 import 'package:gm_frontend/src/models/response_api.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:gm_frontend/src/models/user.dart';
 
 class MercadoPagoProvider extends GetConnect {
@@ -114,6 +118,71 @@ class MercadoPagoProvider extends GetConnect {
       print('NO SALE ESTA BASURA');
     }
     return ResponseApi();
+  }
+
+  Future<ResponseApi> createClient({
+    @required String? email,
+    @required String? first_name,
+    @required String? last_name,
+    @required String? area_code,
+    @required String? number,
+  }) async {
+    String url = '${Environment.API_URL}api/payment/createUser';
+    print('URL: ${url}');
+    Response response = await post(
+      url,
+      {
+        "email": email,
+        "first_name": first_name,
+        "last_name": last_name,
+        "phone": {"area_code": area_code, "number": number},
+        "identification": {"type": "CPF", "number": "12345678900"},
+        "default_address": "Home",
+        "address": {
+          "id": "123123",
+          "zip_code": "01234567",
+          "street_name": "Rua Exemplo",
+          "street_number": 123,
+          "city": {}
+        },
+        "date_registered": "2021-10-20T11:37:30.000-04:00",
+        "description": "Description del user",
+        "default_card": "None",
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ${Environment.ACCESS_TOKEN}'
+      },
+    );
+    print('REspuesta: ${response}');
+    print('REspuesta BODY: ${response.body}');
+    print('REspuesta STATUS Cliente: ${response.statusCode}');
+    if (response.body != null) {
+      ResponseApi responseApi = ResponseApi.fromJson(response.body);
+      return responseApi;
+    } else {
+      print('NO SALE ESTA BASURA DE CLIENTE');
+    }
+    return ResponseApi();
+  }
+
+  Future<CostumerMercadoPago> findClient(String email) async {
+    Response response =
+        await get('$url/customers/search?email=${email}', headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${Environment.ACCESS_TOKEN}',
+    }); //ESPERA HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
+
+    print(
+        "Esta es la respuesta para encontrar cliente: ${response.statusCode}");
+    if (response.statusCode == 401) {
+      Get.snackbar('Peticion denegada',
+          'Tu usuario no tiene permitido leer esta informacion');
+      return CostumerMercadoPago();
+    }
+    print("Respuesta de Api FindClient ${response.body}");
+    CostumerMercadoPago res = CostumerMercadoPago.fromJson(response.body);
+    return res;
   }
 
   Future<MercadoPagoCardToken> createCardToken({
