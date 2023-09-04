@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gm_frontend/src/pages/home/home_page.dart';
 import 'package:gm_frontend/src/pages/login/login_page.dart';
 import 'package:gm_frontend/src/pages/on_boarding/on_boarding_page.dart';
 import 'package:gm_frontend/src/pages/payments/create/client/create_client_page.dart';
@@ -32,13 +33,14 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/payments/create/client',
+      initialRoute: '/home',
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: '/splash', page: () => SplashPage()),
         GetPage(name: '/login', page: () => LoginPage()),
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/on_boarding', page: () => OnBoardingPage()),
+        GetPage(name: '/home', page: () => HomePage()),
         GetPage(
             name: '/payments/create', page: () => ClientPaymentsCreatePage()),
         GetPage(
