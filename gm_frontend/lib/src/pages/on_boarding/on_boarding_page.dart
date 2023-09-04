@@ -17,53 +17,71 @@ class OnBoardingPage extends StatelessWidget {
   }
 
   Widget pageForm(BuildContext context) {
-    return Column(
-      children: [
-        Row(
+    return Obx(() => Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 50, left: 25),
-              child: Text(
-                'Atrás',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 20,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.bold),
+              height: MediaQuery.of(context).size.height * 0.15,
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 40, left: 25),
+                    child: con.pageIndex != 0
+                        ? TextButton(
+                            child: Text(
+                              'Atras',
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 20,
+                                  fontFamily: 'Raleway',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () => con.BackPage(),
+                          )
+                        : SizedBox(
+                            width: 0,
+                            height: 0,
+                          ),
+                  ),
+                  Spacer(
+                    flex: 10,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 40, right: 25),
+                    child: con.pageIndex != demo_data.length - 1
+                        ? TextButton(
+                            child: Text(
+                              'Omitir',
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 20,
+                                  fontFamily: 'Raleway',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () => con.BackPage(),
+                          )
+                        : SizedBox(
+                            width: 0,
+                            height: 0,
+                          ),
+                  ),
+                ],
               ),
             ),
-            Spacer(
-              flex: 10,
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 50, right: 25),
-              child: Text(
-                'Omitir',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 20,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.bold),
-              ),
+            Column(
+              children: [
+                pageContentForm(context),
+                dotContent(context),
+                buttonNext(context),
+              ],
             )
           ],
-        ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            pageContentForm(),
-            dotContent(context),
-            buttonNext(),
-          ],
-        )
-      ],
-    );
+        ));
   }
 
-  Widget buttonNext() {
+  Widget buttonNext(BuildContext context) {
     return Container(
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      width: MediaQuery.of(context).size.width * 0.90,
+      height: MediaQuery.of(context).size.height * 0.10,
       child: ElevatedButton(
         child: Text('Siguiente',
             style: TextStyle(
@@ -74,7 +92,7 @@ class OnBoardingPage extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
-            padding: EdgeInsets.symmetric(vertical: 15)),
+            padding: EdgeInsets.symmetric(vertical: 20)),
         onPressed: () => con.NextPage(),
       ),
     );
@@ -82,7 +100,7 @@ class OnBoardingPage extends StatelessWidget {
 
   Widget dotContent(BuildContext context) {
     return Obx(() => Container(
-        margin: EdgeInsets.symmetric(vertical: 30),
+        height: MediaQuery.of(context).size.height * 0.10,
         child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List<Widget>.generate(
@@ -116,9 +134,9 @@ class OnBoardingPage extends StatelessWidget {
                     ))))));
   }
 
-  Widget pageContentForm() {
+  Widget pageContentForm(BuildContext context) {
     return SizedBox(
-      height: 500,
+      height: MediaQuery.of(context).size.height * 0.64,
       child: PageView.builder(
           itemCount: demo_data.length,
           controller: con.pageController,
