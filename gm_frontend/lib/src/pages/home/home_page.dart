@@ -35,51 +35,144 @@ class HomePage extends StatelessWidget {
                 onPressed: () {
                   // Respond to button press
                 },
-                child: /*Icon(Icons.camera, color: Colors.white,),*/ ImageIcon(
-                  AssetImage(Assets.QR_ICON),
-                  color: Colors.white,
-                  size: 300,
-                ),
+                child: Container(
+                    decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(Assets.QR_ICON),
+                    scale: 0.8,
+                    fit: BoxFit.scaleDown,
+                  ),
+                )),
               ),
             ),
           ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        height: MediaQuery.of(context).size.height * 0.125,
+      bottomNavigationBar: BottomBar(context),
+    );
+  }
+
+  BottomAppBar BottomBar(BuildContext context) {
+    return BottomAppBar(
+      shape: AutomaticNotchedShape(RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(35)))),
+      height: MediaQuery.of(context).size.height * 0.125,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           //children inside bottom appbar
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: Colors.white,
+            Container(
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    alignment: Alignment.center,
+                    icon: ImageIcon(
+                      AssetImage(Assets.HOME_OUTLINE_1),
+                      color: Theme.of(context).colorScheme.surface,
+                      size: 150,
+                    ),
+                    onPressed: () {},
+                  ),
+                  Text(
+                    'Inicio',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.surface,
+                        fontSize: 12,
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
               ),
-              onPressed: () {},
             ),
-            IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              onPressed: () {},
+            Spacer(
+              flex: 1,
             ),
-            IconButton(
-              icon: Icon(
-                Icons.print,
-                color: Colors.white,
+            Container(
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    alignment: Alignment.center,
+                    icon: ImageIcon(
+                      AssetImage(Assets.SEARCH_OUTLINE),
+                      color: Theme.of(context).colorScheme.surface,
+                      size: 150,
+                    ),
+                    onPressed: () {},
+                  ),
+                  Text(
+                    'Destino',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.surface,
+                        fontSize: 12,
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
               ),
-              onPressed: () {},
             ),
-            IconButton(
-              icon: Icon(
-                Icons.people,
-                color: Colors.white,
+            Spacer(
+              flex: 5,
+            ),
+            Container(
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    alignment: Alignment.center,
+                    icon: ImageIcon(
+                      AssetImage(Assets.MEDIA_OUTLINE_1),
+                      color: Theme.of(context).colorScheme.surface,
+                      size: 150,
+                    ),
+                    onPressed: () {},
+                  ),
+                  Text(
+                    'Radio',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.surface,
+                        fontSize: 12,
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
               ),
-              onPressed: () {},
+            ),
+            Spacer(
+              flex: 1,
+            ),
+            Container(
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    alignment: Alignment.center,
+                    icon: ImageIcon(
+                      AssetImage(Assets.MENU_OUTLINE),
+                      color: Theme.of(context).colorScheme.surface,
+                      size: 150,
+                    ),
+                    onPressed: () {},
+                  ),
+                  Text(
+                    'Menu',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.surface,
+                        fontSize: 12,
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
             ),
           ],
         ),

@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
           onSecondary: Colors.grey,
           error: Colors.grey,
           onError: Colors.grey,
-          background: Colors.grey,
+          background: const Color.fromRGBO(225, 224, 223, 1),
           onBackground: Colors.grey,
           surface: Color.fromRGBO(84, 88, 89, 1),
           onSurface: Color.fromRGBO(225, 94, 99, 1),

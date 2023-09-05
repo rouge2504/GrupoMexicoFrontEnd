@@ -79,6 +79,12 @@ flutter:
     - assets/images/onboarding_2.png
     - assets/images/onboarding_3.png
     - assets/images/qr_icon.png
+    - assets/images/media_outline.png
+    - assets/images/home_outline.png
+    - assets/images/home_outline_1.png
+    - assets/images/search_1.png
+    - assets/images/media_outline_1.png
+    - assets/images/menu_outline.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
