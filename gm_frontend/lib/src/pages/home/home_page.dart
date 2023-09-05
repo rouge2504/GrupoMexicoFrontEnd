@@ -50,35 +50,54 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomBar(context),
-      appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: Icon(
-            Icons.menu,
-            color: Theme.of(context).colorScheme.surface,
+      appBar: AppBarHome(context),
+    );
+  }
+
+  AppBar AppBarHome(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.white,
+      toolbarHeight: MediaQuery.of(context).size.height * 0.125,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: ImageIcon(
+          AssetImage(Assets.PIN),
+          color: Theme.of(context).colorScheme.onSecondary,
+          size: 100,
+        ),
+      ),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Tramo',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.surface,
+              fontSize: 13,
+              fontFamily: 'Raleway',
+            ),
           ),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Toluca',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: 12,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'Toluca, Atlacomulco, km 31',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: 12,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.bold),
-              )
-            ],
-          )),
+          Text(
+            'Toluca, Atlacomulco, km 31',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 15,
+              fontFamily: 'Raleway',
+            ),
+          )
+        ],
+      ),
+      actions: [
+        ImageIcon(
+          AssetImage(Assets.PROFILE_OUTLINE),
+          color: Theme.of(context).colorScheme.surface,
+          size: 100,
+        ),
+      ],
     );
   }
 

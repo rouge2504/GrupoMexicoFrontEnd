@@ -13,4 +13,6 @@ class Assets {
   static const String HOME_OUTLINE_1 = "assets/images/home_outline_1.png";
   static const String SEARCH_OUTLINE = "assets/images/search_1.png";
   static const String MENU_OUTLINE = "assets/images/menu_outline.png";
+  static const String PIN = "assets/images/pin.png";
+  static const String PROFILE_OUTLINE = "assets/images/profile_outline.png";
 }

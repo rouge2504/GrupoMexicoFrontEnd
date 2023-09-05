@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primaryColor: Color.fromRGBO(210, 39, 48, 1),
         fontFamily: 'Raleway',
+        scaffoldBackgroundColor: Color.fromRGBO(245, 245, 245, 1),
         colorScheme: ColorScheme(
           brightness: Brightness.light,
           primary: Color.fromRGBO(210, 39, 48, 1),

@@ -85,6 +85,8 @@ flutter:
     - assets/images/search_1.png
     - assets/images/media_outline_1.png
     - assets/images/menu_outline.png
+    - assets/images/pin.png
+    - assets/images/profile_outline.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
