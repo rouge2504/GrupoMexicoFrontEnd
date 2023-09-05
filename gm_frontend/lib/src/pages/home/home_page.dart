@@ -50,6 +50,35 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomBar(context),
+      appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: Icon(
+            Icons.menu,
+            color: Theme.of(context).colorScheme.surface,
+          ),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Toluca',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 12,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                'Toluca, Atlacomulco, km 31',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 12,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.bold),
+              )
+            ],
+          )),
     );
   }
 
