@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
+import 'package:gm_frontend/src/utils/state_colors.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -49,23 +50,82 @@ class HomePage extends StatelessWidget {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomBar(context),
+      bottomNavigationBar: Container(
+        height: MediaQuery.of(context).size.height * 0.125,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+          boxShadow: [
+            BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0),
+          ),
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            iconSize: 35,
+            enableFeedback: true,
+            unselectedLabelStyle: TextStyle(
+                color: Theme.of(context).colorScheme.surface,
+                fontSize: 12,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold),
+            selectedLabelStyle: TextStyle(
+                color: Theme.of(context).colorScheme.surface,
+                fontSize: 12,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold),
+            items: [
+              BottomNavigationBarItem(
+                  icon: ImageIcon(
+                    AssetImage(Assets.HOME_OUTLINE_1),
+                  ),
+                  label: 'Inicio'),
+              BottomNavigationBarItem(
+                  icon: ImageIcon(
+                    AssetImage(Assets.SEARCH_OUTLINE),
+                  ),
+                  label: 'Destino'),
+              BottomNavigationBarItem(
+                  icon: ImageIcon(
+                    AssetImage(Assets.HOME_OUTLINE_1),
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                  label: 'Inicio'),
+              BottomNavigationBarItem(
+                  icon: ImageIcon(
+                    AssetImage(Assets.MEDIA_OUTLINE_1),
+                  ),
+                  label: 'Radio'),
+              BottomNavigationBarItem(
+                  icon: ImageIcon(
+                    AssetImage(Assets.MENU_OUTLINE),
+                  ),
+                  label: 'Menu')
+            ],
+          ),
+        ),
+      ), //BottomBar(context),
       appBar: AppBarHome(context),
       body: Column(
         children: [
           Banner(context),
           ButtonPanic(context),
           SizedBox(
-            height: 15,
+            height: 10,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SosButton(context),
               SizedBox(
-                width: 10,
+                width: 18,
               ),
-              SosButton(context),
+              CautionButton(context),
             ],
           )
         ],
@@ -73,9 +133,9 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Container SosButton(BuildContext context) {
+  Widget CautionButton(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.45,
+      width: MediaQuery.of(context).size.width * 0.44,
       height: MediaQuery.of(context).size.height * 0.25,
       child: ElevatedButton(
         onPressed: () {},
@@ -86,57 +146,128 @@ class HomePage extends StatelessWidget {
           ),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               height: 10,
             ),
             Stack(alignment: Alignment.center, children: [
               CircleAvatar(
-                radius: 55,
+                radius: 50,
                 backgroundColor: Color.fromRGBO(255, 237, 237, 0.3),
                 child: Container(
                   alignment: Alignment.center,
                 ),
               ),
               CircleAvatar(
-                radius: 50,
+                radius: 45,
                 backgroundColor: Color.fromRGBO(242, 215, 215, 1),
                 child: Container(
                   alignment: Alignment.center,
                 ),
               ),
               CircleAvatar(
-                radius: 45,
+                radius: 40,
                 backgroundColor: Color.fromRGBO(225, 167, 167, 1),
                 child: Container(
                   alignment: Alignment.center,
                 ),
               ),
               CircleAvatar(
-                radius: 35,
+                radius: 30,
                 backgroundColor: Color.fromRGBO(225, 41, 41, 1),
                 child: Container(
                   alignment: Alignment.center,
                 ),
               ),
             ]),
-            SizedBox(
-              height: 10,
-            ),
-            Text('No tengo frenos',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: 25,
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.bold,
-                ))
+            Text(
+              'Reportar \n incidente',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: StateColors.CAUTION,
+                fontSize: 20,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold,
+              ),
+              softWrap: false,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            )
           ],
         ),
       ),
     );
   }
 
-  Container ButtonPanic(BuildContext context) {
+  Widget SosButton(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.44,
+      height: MediaQuery.of(context).size.height * 0.25,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Stack(alignment: Alignment.center, children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: Color.fromRGBO(255, 237, 237, 0.3),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+              CircleAvatar(
+                radius: 45,
+                backgroundColor: Color.fromRGBO(242, 215, 215, 1),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+              CircleAvatar(
+                radius: 40,
+                backgroundColor: Color.fromRGBO(225, 167, 167, 1),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+              CircleAvatar(
+                radius: 30,
+                backgroundColor: Color.fromRGBO(225, 41, 41, 1),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+            ]),
+            Text(
+              'Necesito \n ayuda',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: StateColors.ALERT,
+                fontSize: 20,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold,
+              ),
+              softWrap: false,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget ButtonPanic(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20),
       width: double.infinity,
@@ -200,7 +331,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Container Banner(BuildContext context) {
+  Widget Banner(BuildContext context) {
     return Container(
         margin: EdgeInsets.all(20),
         width: double.infinity,
@@ -238,7 +369,7 @@ class HomePage extends StatelessWidget {
             )));
   }
 
-  Expanded BannerTextEvent() {
+  Widget BannerTextEvent() {
     return Expanded(
       flex: 6,
       child: Text(
@@ -252,7 +383,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Container EventIcon(BuildContext context) {
+  Widget EventIcon(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 6),
       child: Column(
