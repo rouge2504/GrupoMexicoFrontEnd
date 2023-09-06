@@ -15,4 +15,9 @@ class Assets {
   static const String MENU_OUTLINE = "assets/images/menu_outline.png";
   static const String PIN = "assets/images/pin.png";
   static const String PROFILE_OUTLINE = "assets/images/profile_outline.png";
+  static const String BACKGROUND_TEST =
+      "assets/images/background_banner_test.png";
+  static const String EVENT_OUTLINE = "assets/images/event_outline.png";
+  static const String ARROW_LEFT_OUTLINE =
+      "assets/images/arrow_left_outline.png";
 }

@@ -51,6 +51,106 @@ class HomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomBar(context),
       appBar: AppBarHome(context),
+      body: Column(children: [Banner(context)]),
+    );
+  }
+
+  Container Banner(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.all(20),
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.125,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(Assets.BACKGROUND_TEST), fit: BoxFit.fill),
+            border: Border.all(
+                width: 3, color: Theme.of(context).colorScheme.secondary),
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+            ),
+            onPressed: () {},
+            child: Row(
+              children: [
+                EventIcon(context),
+                SizedBox(
+                  width: 10,
+                ),
+                BannerTextEvent(),
+                Spacer(flex: 1),
+                Container(
+                  //alignment: Alignment.centerRight,
+                  child: ImageIcon(
+                    AssetImage(Assets.ARROW_LEFT_OUTLINE),
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                ),
+              ],
+            )));
+  }
+
+  Expanded BannerTextEvent() {
+    return Expanded(
+      flex: 6,
+      child: Text(
+        'LEYENDAS DE GUANUAJUATO',
+        style: TextStyle(
+            fontFamily: 'FjallaOne', color: Colors.white, fontSize: 20),
+        softWrap: false,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
+
+  Container EventIcon(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 6),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 20,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            child: Container(
+              alignment: Alignment.center,
+              child: ImageIcon(
+                AssetImage(Assets.EVENT_OUTLINE),
+                color: Colors.white,
+                size: 28,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            height: 24,
+            width: 60,
+            margin: const EdgeInsets.symmetric(horizontal: 1),
+            child: Container(
+              alignment: Alignment.center,
+              child: Text(
+                'EVENTOS',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'FjallaOne',
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            decoration: new BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
+              //border: Border.all(color: Colors.black, width: 0.0),
+              borderRadius: new BorderRadius.all(Radius.elliptical(100, 100)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
