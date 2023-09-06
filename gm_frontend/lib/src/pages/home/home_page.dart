@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
+import 'package:gm_frontend/src/pages/home/home_controller.dart';
 import 'package:gm_frontend/src/utils/state_colors.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomeController con = HomeController();
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +69,9 @@ class HomePage extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             iconSize: 35,
             enableFeedback: true,
+            elevation: 10,
+            currentIndex: con.indexBottomPage.value,
+            onTap: con.onTap,
             unselectedLabelStyle: TextStyle(
                 color: Theme.of(context).colorScheme.surface,
                 fontSize: 12,
