@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
 import 'package:gm_frontend/src/pages/home/home_controller.dart';
 import 'package:gm_frontend/src/utils/state_colors.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   HomeController con = HomeController();
@@ -51,68 +52,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Container(
-        height: MediaQuery.of(context).size.height * 0.125,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-          boxShadow: [
-            BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.0),
-            topRight: Radius.circular(30.0),
-          ),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            iconSize: 35,
-            enableFeedback: true,
-            elevation: 10,
-            currentIndex: con.indexBottomPage.value,
-            onTap: con.onTap,
-            unselectedLabelStyle: TextStyle(
-                color: Theme.of(context).colorScheme.surface,
-                fontSize: 12,
-                fontFamily: 'Raleway',
-                fontWeight: FontWeight.bold),
-            selectedLabelStyle: TextStyle(
-                color: Theme.of(context).colorScheme.surface,
-                fontSize: 12,
-                fontFamily: 'Raleway',
-                fontWeight: FontWeight.bold),
-            items: [
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage(Assets.HOME_OUTLINE_1),
-                  ),
-                  label: 'Inicio'),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage(Assets.SEARCH_OUTLINE),
-                  ),
-                  label: 'Destino'),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage(Assets.HOME_OUTLINE_1),
-                    color: Theme.of(context).colorScheme.surface,
-                  ),
-                  label: 'Inicio'),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage(Assets.MEDIA_OUTLINE_1),
-                  ),
-                  label: 'Radio'),
-              BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage(Assets.MENU_OUTLINE),
-                  ),
-                  label: 'Menu')
-            ],
-          ),
-        ),
-      ), //BottomBar(context),
+      bottomNavigationBar: NavBarNavigatorBottom(context), //BottomBar(context),
       appBar: AppBarHome(context),
       body: Column(
         children: [
@@ -135,6 +75,72 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget NavBarNavigatorBottom(BuildContext context) {
+    return Obx(() => Container(
+          height: MediaQuery.of(context).size.height * 0.125,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            boxShadow: [
+              BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            ),
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              iconSize: 35,
+              elevation: 10,
+              currentIndex: con.indexBottomPage.value,
+              onTap: con.onTap,
+              selectedItemColor: Theme.of(context).colorScheme.primary,
+              unselectedItemColor: Theme.of(context).colorScheme.surface,
+              /* unselectedLabelStyle: TextStyle(
+              color: Theme.of(context).colorScheme.surface,
+              fontSize: 12,
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.bold),
+          selectedLabelStyle: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontSize: 12,
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.bold),*/
+              items: [
+                BottomNavigationBarItem(
+                    icon: ImageIcon(
+                      AssetImage(Assets.HOME_OUTLINE_1),
+                    ),
+                    label: 'Inicio'),
+                BottomNavigationBarItem(
+                    icon: ImageIcon(
+                      AssetImage(Assets.SEARCH_OUTLINE),
+                    ),
+                    label: 'Destino'),
+                BottomNavigationBarItem(
+                    icon: ImageIcon(
+                      AssetImage(Assets.HOME_OUTLINE_1),
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
+                    label: 'Inicio'),
+                BottomNavigationBarItem(
+                    icon: ImageIcon(
+                      AssetImage(Assets.MEDIA_OUTLINE_1),
+                    ),
+                    label: 'Radio'),
+                BottomNavigationBarItem(
+                    icon: ImageIcon(
+                      AssetImage(Assets.MENU_OUTLINE),
+                    ),
+                    label: 'Menu')
+              ],
+            ),
+          ),
+        ));
   }
 
   Widget CautionButton(BuildContext context) {

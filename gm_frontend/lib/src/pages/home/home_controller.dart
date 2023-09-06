@@ -13,6 +13,15 @@ class HomeController extends GetxController {
       case 1:
         print('Destino');
         break;
+      case 2:
+        print('Ups');
+        break;
+      case 3:
+        print('Media');
+        break;
+      case 4:
+        print('Menu');
+        break;
     }
   }
 }

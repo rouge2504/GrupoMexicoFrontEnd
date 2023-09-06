@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gm_frontend/src/pages/home/home_page.dart';
 import 'package:gm_frontend/src/pages/login/login_page.dart';
+import 'package:gm_frontend/src/pages/menu/menu_page.dart';
 import 'package:gm_frontend/src/pages/on_boarding/on_boarding_page.dart';
 import 'package:gm_frontend/src/pages/payments/create/client/create_client_page.dart';
 import 'package:gm_frontend/src/pages/payments/create/client_payments_create_page.dart';
@@ -41,6 +42,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/on_boarding', page: () => OnBoardingPage()),
         GetPage(name: '/home', page: () => HomePage()),
+        GetPage(name: '/menu', page: () => MenuPage()),
         GetPage(
             name: '/payments/create', page: () => ClientPaymentsCreatePage()),
         GetPage(

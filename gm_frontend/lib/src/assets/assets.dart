@@ -20,4 +20,8 @@ class Assets {
   static const String EVENT_OUTLINE = "assets/images/event_outline.png";
   static const String ARROW_LEFT_OUTLINE =
       "assets/images/arrow_left_outline.png";
+  static const String BACK_ARROW = "assets/images/back_arrow.png";
+  static const String EMERGENCY = "assets/images/emergency.png";
+  static const String ALERT = "assets/images/alert.png";
+  static const String CAUTION = "assets/images/caution.png";
 }

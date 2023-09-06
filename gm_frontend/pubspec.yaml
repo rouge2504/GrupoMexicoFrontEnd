@@ -90,6 +90,10 @@ flutter:
     - assets/images/background_banner_test.png
     - assets/images/event_outline.png
     - assets/images/arrow_left_outline.png
+    - assets/images/back_arrow.png
+    - assets/images/alert.png
+    - assets/images/caution.png
+    - assets/images/emergency.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
