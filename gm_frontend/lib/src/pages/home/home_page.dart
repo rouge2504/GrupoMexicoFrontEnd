@@ -51,7 +51,152 @@ class HomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomBar(context),
       appBar: AppBarHome(context),
-      body: Column(children: [Banner(context)]),
+      body: Column(
+        children: [
+          Banner(context),
+          ButtonPanic(context),
+          SizedBox(
+            height: 15,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SosButton(context),
+              SizedBox(
+                width: 10,
+              ),
+              SosButton(context),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Container SosButton(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.45,
+      height: MediaQuery.of(context).size.height * 0.25,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Stack(alignment: Alignment.center, children: [
+              CircleAvatar(
+                radius: 55,
+                backgroundColor: Color.fromRGBO(255, 237, 237, 0.3),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: Color.fromRGBO(242, 215, 215, 1),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+              CircleAvatar(
+                radius: 45,
+                backgroundColor: Color.fromRGBO(225, 167, 167, 1),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+              CircleAvatar(
+                radius: 35,
+                backgroundColor: Color.fromRGBO(225, 41, 41, 1),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+            ]),
+            SizedBox(
+              height: 10,
+            ),
+            Text('No tengo frenos',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 25,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.bold,
+                ))
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container ButtonPanic(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 20, right: 20),
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height * 0.25,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Stack(alignment: Alignment.center, children: [
+              CircleAvatar(
+                radius: 55,
+                backgroundColor: Color.fromRGBO(255, 237, 237, 0.3),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: Color.fromRGBO(242, 215, 215, 1),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+              CircleAvatar(
+                radius: 45,
+                backgroundColor: Color.fromRGBO(225, 167, 167, 1),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+              CircleAvatar(
+                radius: 35,
+                backgroundColor: Color.fromRGBO(225, 41, 41, 1),
+                child: Container(
+                  alignment: Alignment.center,
+                ),
+              ),
+            ]),
+            SizedBox(
+              height: 10,
+            ),
+            Text('No tengo frenos',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 25,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.bold,
+                ))
+          ],
+        ),
+      ),
     );
   }
 
