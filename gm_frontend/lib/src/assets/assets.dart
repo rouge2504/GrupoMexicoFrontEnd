@@ -27,4 +27,12 @@ class Assets {
   static const String EMERGENCY_ICON = "assets/images/emergency_icon.png";
   static const String ALERT_ICON = "assets/images/alert_icon.png";
   static const String SOS_ICON = "assets/images/sos_icon.png";
+  static const String CAR_ICON = "assets/images/car_icon.png";
+  static const String HELP_ICON = "assets/images/help_icon.png";
+  static const String LOG_OUT_ICON = "assets/images/log_out_icon.png";
+  static const String MONEY_HISTORY_ICON =
+      "assets/images/money_history_icon.png";
+  static const String MONEY_ICON = "assets/images/money_icon.png";
+  static const String NOTIFICATION_ICON = "assets/images/notification_icon.png";
+  static const String SUGGESTION_ICON = "assets/images/suggestion_icon.png";
 }

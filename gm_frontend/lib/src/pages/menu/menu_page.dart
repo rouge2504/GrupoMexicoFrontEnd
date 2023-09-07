@@ -33,29 +33,111 @@ class MenuPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height * 0.6,
-        decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black,
-            blurRadius: 15,
-            offset: Offset(0, 0.75),
-          )
-        ]),
-        child: Column(children: [
-          PerfilButton(context),
-          PerfilButton(context),
-          PerfilButton(context),
-          PerfilButton(context),
-          PerfilButton(context),
-          PerfilButton(context),
-          PerfilButton(context),
-        ]),
+      body: Column(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.6,
+            decoration:
+                BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black,
+                blurRadius: 15,
+                offset: Offset(0, 0.65),
+              )
+            ]),
+            child: Container(
+              child: Column(children: [
+                ButtonItem(
+                    context, 'Mi perfil', Assets.PROFILE_OUTLINE, () => {}),
+                ButtonItem(context, 'Mis vehiculos', Assets.CAR_ICON, () => {}),
+                ButtonItem(
+                    context, 'Medios de Pago', Assets.MONEY_ICON, () => {}),
+                ButtonItem(context, 'Historial de pagos',
+                    Assets.MONEY_HISTORY_ICON, () => {}),
+                ButtonItem(context, 'Notificaciones', Assets.NOTIFICATION_ICON,
+                    () => {}),
+                ButtonItem(
+                    context, 'Sugerencias', Assets.SUGGESTION_ICON, () => {}),
+                ButtonItem(context, 'Preguntas frecuentes', Assets.HELP_ICON,
+                    () => {}),
+              ]),
+            ),
+          ),
+          LogOutButton(context),
+        ],
       ),
     );
   }
 
-  Widget PerfilButton(BuildContext context) {
+  Widget LogOutButton(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * .15,
+      child: Column(children: [
+        Container(
+          height: MediaQuery.of(context).size.height * 0.065,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              shadowColor: Colors.transparent,
+              foregroundColor: Colors.black,
+              elevation: 0,
+            ),
+            onPressed: () {},
+            child: Row(
+              children: [
+                ImageIcon(
+                  AssetImage(Assets.LOG_OUT_ICON),
+                  color: Theme.of(context).colorScheme.surface,
+                  size: 25,
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  'Cerrar sesión',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 20,
+                    fontFamily: 'Raleway',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height * 0.065,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              shadowColor: Colors.transparent,
+              foregroundColor: Colors.black,
+              elevation: 0,
+            ),
+            onPressed: () {},
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 2,
+                ),
+                Text(
+                  'Acerca de',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 18,
+                    fontFamily: 'Raleway',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Widget ButtonItem(
+      BuildContext context, String text, String nameImage, Function function) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.085,
       child: ElevatedButton(
@@ -65,21 +147,21 @@ class MenuPage extends StatelessWidget {
           foregroundColor: Colors.black,
           elevation: 0,
         ),
-        onPressed: () {},
+        onPressed: () => function,
         child: Row(
           children: [
             ImageIcon(
-              AssetImage(Assets.PROFILE_OUTLINE),
-              color: Theme.of(context).colorScheme.onSecondary,
+              AssetImage(nameImage),
+              color: Theme.of(context).colorScheme.surface,
               size: 30,
             ),
             SizedBox(
               width: 15,
             ),
             Text(
-              'Mi perfil',
+              text,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSecondary,
+                color: Theme.of(context).colorScheme.surface,
                 fontSize: 20,
                 fontFamily: 'Raleway',
               ),
