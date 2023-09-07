@@ -11,46 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox(
-            height: 152,
-            width: 152,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 70),
-              child: FloatingActionButton(
-                backgroundColor: Color.fromRGBO(255, 209, 211, 1),
-                onPressed: () {
-                  // Respond to button press
-                },
-                child: Icon(Icons.add),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 140,
-            width: 140,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 70),
-              child: FloatingActionButton(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                onPressed: () {
-                  // Respond to button press
-                },
-                child: Container(
-                    decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(Assets.QR_ICON),
-                    scale: 0.8,
-                    fit: BoxFit.scaleDown,
-                  ),
-                )),
-              ),
-            ),
-          ),
-        ],
-      ),
+      floatingActionButton: FloatinActionButton(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: NavBarNavigatorBottom(context), //BottomBar(context),
       appBar: AppBarHome(context),
@@ -74,6 +35,49 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  Widget FloatinActionButton(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        SizedBox(
+          height: 152,
+          width: 152,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 70),
+            child: FloatingActionButton(
+              backgroundColor: Color.fromRGBO(255, 209, 211, 1),
+              onPressed: () {
+                // Respond to button press
+              },
+              child: Icon(Icons.add),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 140,
+          width: 140,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 70),
+            child: FloatingActionButton(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              onPressed: () {
+                // Respond to button press
+              },
+              child: Container(
+                  decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(Assets.QR_ICON),
+                  scale: 0.8,
+                  fit: BoxFit.scaleDown,
+                ),
+              )),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -162,33 +166,11 @@ class HomePage extends StatelessWidget {
               height: 10,
             ),
             Stack(alignment: Alignment.center, children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Color.fromRGBO(255, 237, 237, 0.3),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
-              ),
-              CircleAvatar(
-                radius: 45,
-                backgroundColor: Color.fromRGBO(242, 215, 215, 1),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
-              ),
-              CircleAvatar(
-                radius: 40,
-                backgroundColor: Color.fromRGBO(225, 167, 167, 1),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
-              ),
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: Color.fromRGBO(225, 41, 41, 1),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
+              Image(image: AssetImage(Assets.CAUTION), width: 125),
+              ImageIcon(
+                AssetImage(Assets.ALERT_ICON),
+                color: Colors.white,
+                size: 100,
               ),
             ]),
             Text(
@@ -229,33 +211,11 @@ class HomePage extends StatelessWidget {
               height: 10,
             ),
             Stack(alignment: Alignment.center, children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Color.fromRGBO(255, 237, 237, 0.3),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
-              ),
-              CircleAvatar(
-                radius: 45,
-                backgroundColor: Color.fromRGBO(242, 215, 215, 1),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
-              ),
-              CircleAvatar(
-                radius: 40,
-                backgroundColor: Color.fromRGBO(225, 167, 167, 1),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
-              ),
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: Color.fromRGBO(225, 41, 41, 1),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
+              Image(image: AssetImage(Assets.ALERT), width: 125),
+              ImageIcon(
+                AssetImage(Assets.SOS_ICON),
+                color: Colors.white,
+                size: 100,
               ),
             ]),
             Text(
@@ -292,37 +252,12 @@ class HomePage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SizedBox(
-              height: 20,
-            ),
             Stack(alignment: Alignment.center, children: [
-              CircleAvatar(
-                radius: 55,
-                backgroundColor: Color.fromRGBO(255, 237, 237, 0.3),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
-              ),
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Color.fromRGBO(242, 215, 215, 1),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
-              ),
-              CircleAvatar(
-                radius: 45,
-                backgroundColor: Color.fromRGBO(225, 167, 167, 1),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
-              ),
-              CircleAvatar(
-                radius: 35,
-                backgroundColor: Color.fromRGBO(225, 41, 41, 1),
-                child: Container(
-                  alignment: Alignment.center,
-                ),
+              Image(image: AssetImage(Assets.EMERGENCY), width: 125),
+              ImageIcon(
+                AssetImage(Assets.EMERGENCY_ICON),
+                color: Colors.white,
+                size: 100,
               ),
             ]),
             SizedBox(

@@ -24,4 +24,7 @@ class Assets {
   static const String EMERGENCY = "assets/images/emergency.png";
   static const String ALERT = "assets/images/alert.png";
   static const String CAUTION = "assets/images/caution.png";
+  static const String EMERGENCY_ICON = "assets/images/emergency_icon.png";
+  static const String ALERT_ICON = "assets/images/alert_icon.png";
+  static const String SOS_ICON = "assets/images/sos_icon.png";
 }
