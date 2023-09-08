@@ -48,6 +48,7 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 70),
             child: FloatingActionButton(
+              heroTag: 'btn_1',
               backgroundColor: Color.fromRGBO(255, 209, 211, 1),
               onPressed: () {
                 // Respond to button press
@@ -62,6 +63,7 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 70),
             child: FloatingActionButton(
+              heroTag: 'btn_2',
               backgroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () {
                 // Respond to button press

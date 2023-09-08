@@ -35,4 +35,8 @@ class Assets {
   static const String MONEY_ICON = "assets/images/money_icon.png";
   static const String NOTIFICATION_ICON = "assets/images/notification_icon.png";
   static const String SUGGESTION_ICON = "assets/images/suggestion_icon.png";
+  static const String GAS_ICON = "assets/images/gas_icon.png";
+  static const String SERVICE_STATION_ICON =
+      "assets/images/service_station_icon.png";
+  static const String TOOLTOOTH_ICON = "assets/images/tooltooth_icon.png";
 }

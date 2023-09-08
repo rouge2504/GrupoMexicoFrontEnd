@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
 import 'package:get/get.dart';
-import 'package:gm_frontend/src/pages/menu/menu_side_controller.dart';
+import 'package:gm_frontend/src/pages/home/menu/menu_side_controller.dart';
 
 class MenuPage extends StatelessWidget {
   MenuSideController con = MenuSideController();
@@ -256,6 +256,7 @@ class MenuPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 70),
             child: FloatingActionButton(
+              heroTag: 'btn_3',
               backgroundColor: Color.fromRGBO(255, 209, 211, 1),
               onPressed: () {
                 // Respond to button press
@@ -270,6 +271,7 @@ class MenuPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 70),
             child: FloatingActionButton(
+              heroTag: 'btn_4',
               backgroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () {
                 // Respond to button press

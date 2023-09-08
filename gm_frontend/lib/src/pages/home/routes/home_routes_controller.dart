@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MenuSideController extends GetxController {
+class HomeRoutesController extends GetxController {
   var indexBottomPage = 0.obs;
 
-  MenuSideController() {
-    indexBottomPage.value = 4;
+  HomeRoutesController() {
+    indexBottomPage.value = 1;
   }
 
   void onTap(int index) {
@@ -13,6 +13,7 @@ class MenuSideController extends GetxController {
     switch (index) {
       case 0:
         print('Home');
+        Get.toNamed('/home');
         break;
       case 1:
         print('Destino');
@@ -25,6 +26,7 @@ class MenuSideController extends GetxController {
         break;
       case 4:
         print('Menu');
+        Get.toNamed('/home/menu');
         break;
     }
   }
