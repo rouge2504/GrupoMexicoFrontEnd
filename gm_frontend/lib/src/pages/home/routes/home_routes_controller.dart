@@ -6,6 +6,7 @@ class HomeRoutesController extends GetxController {
 
   HomeRoutesController() {
     indexBottomPage.value = 1;
+    print("Routes Controller active");
   }
 
   void onTap(int index) {
@@ -29,5 +30,6 @@ class HomeRoutesController extends GetxController {
         Get.toNamed('/home/menu');
         break;
     }
+    indexBottomPage.value = 1;
   }
 }

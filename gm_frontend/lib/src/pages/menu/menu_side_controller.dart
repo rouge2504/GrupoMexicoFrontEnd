@@ -13,12 +13,10 @@ class MenuSideController extends GetxController {
     switch (index) {
       case 0:
         print('Home');
-        super.dispose();
         Get.toNamed('/home');
         break;
       case 1:
         print('Destino on menu');
-
         Get.toNamed('/home/routes');
         break;
       case 2:
@@ -31,6 +29,5 @@ class MenuSideController extends GetxController {
         print('Menu');
         break;
     }
-    indexBottomPage.value = 4;
   }
 }

@@ -4,8 +4,14 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   var indexBottomPage = 0.obs;
 
+  HomeController() {
+    indexBottomPage.value = 0;
+    print("Home Controller active");
+  }
+
   void onTap(int index) {
     indexBottomPage.value = index;
+
     switch (index) {
       case 0:
         print('Home');
@@ -25,5 +31,6 @@ class HomeController extends GetxController {
         Get.toNamed('/home/menu');
         break;
     }
+    indexBottomPage.value = 0;
   }
 }

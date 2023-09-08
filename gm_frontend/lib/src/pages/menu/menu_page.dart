@@ -183,29 +183,29 @@ class MenuPage extends StatelessWidget {
   }
 
   Widget NavBarNavigatorBottom(BuildContext context) {
-    return Obx(() => Container(
-          height: MediaQuery.of(context).size.height * 0.125,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-            boxShadow: [
-              BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0),
-            ),
-            child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              iconSize: 35,
-              elevation: 10,
-              currentIndex: con.indexBottomPage.value,
-              onTap: con.onTap,
-              selectedItemColor: Theme.of(context).colorScheme.primary,
-              unselectedItemColor: Theme.of(context).colorScheme.surface,
-              /* unselectedLabelStyle: TextStyle(
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.125,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+        boxShadow: [
+          BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30.0),
+          topRight: Radius.circular(30.0),
+        ),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          iconSize: 35,
+          elevation: 10,
+          //currentIndex: con.indexBottomPage.value,
+          onTap: con.onTap,
+          selectedItemColor: Theme.of(context).colorScheme.primary,
+          unselectedItemColor: Theme.of(context).colorScheme.surface,
+          /* unselectedLabelStyle: TextStyle(
               color: Theme.of(context).colorScheme.surface,
               fontSize: 12,
               fontFamily: 'Raleway',
@@ -215,37 +215,37 @@ class MenuPage extends StatelessWidget {
               fontSize: 12,
               fontFamily: 'Raleway',
               fontWeight: FontWeight.bold),*/
-              items: [
-                BottomNavigationBarItem(
-                    icon: ImageIcon(
-                      AssetImage(Assets.HOME_OUTLINE_1),
-                    ),
-                    label: 'Inicio'),
-                BottomNavigationBarItem(
-                    icon: ImageIcon(
-                      AssetImage(Assets.SEARCH_OUTLINE),
-                    ),
-                    label: 'Destino'),
-                BottomNavigationBarItem(
-                    icon: ImageIcon(
-                      AssetImage(Assets.HOME_OUTLINE_1),
-                      color: Theme.of(context).colorScheme.surface,
-                    ),
-                    label: 'Inicio'),
-                BottomNavigationBarItem(
-                    icon: ImageIcon(
-                      AssetImage(Assets.MEDIA_OUTLINE_1),
-                    ),
-                    label: 'Radio'),
-                BottomNavigationBarItem(
-                    icon: ImageIcon(
-                      AssetImage(Assets.MENU_OUTLINE),
-                    ),
-                    label: 'Menu')
-              ],
-            ),
-          ),
-        ));
+          items: [
+            BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage(Assets.HOME_OUTLINE_1),
+                ),
+                label: 'Inicio'),
+            BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage(Assets.SEARCH_OUTLINE),
+                ),
+                label: 'Destino'),
+            BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage(Assets.HOME_OUTLINE_1),
+                  color: Theme.of(context).colorScheme.surface,
+                ),
+                label: 'Inicio'),
+            BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage(Assets.MEDIA_OUTLINE_1),
+                ),
+                label: 'Radio'),
+            BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage(Assets.MENU_OUTLINE),
+                ),
+                label: 'Menu')
+          ],
+        ),
+      ),
+    );
   }
 
   Widget FloatinActionButton(BuildContext context) {

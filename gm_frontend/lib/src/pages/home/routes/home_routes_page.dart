@@ -19,7 +19,9 @@ class HomeRoutesPage extends StatelessWidget {
             AssetImage(Assets.BACK_ARROW),
             color: Theme.of(context).colorScheme.surface,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         )),
         backgroundColor: Colors.white,
         title: Text(
