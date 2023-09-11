@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
+import 'package:gm_frontend/src/models/user.dart';
+import 'package:gm_frontend/src/pages/home/home_page.dart';
 import 'dart:async';
 
 import 'package:gm_frontend/src/pages/login/login_page.dart';
@@ -19,6 +21,9 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
+    init();
+    User userSession = User.fromJson(GetStorage().read('user') ?? {});
+    print(userSession.id);
     var onBoardingActive =
         GetStorage().read(PreferenceApp.ON_BOARDING_ACTIVE) ?? false;
     print('Splahs Onboarding: ${onBoardingActive}');
@@ -27,8 +32,15 @@ class _SplashPageState extends State<SplashPage> {
         () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    onBoardingActive ? LoginPage() : OnBoardingPage())));
+                builder: (context) => onBoardingActive
+                    ? userSession.id != null
+                        ? HomePage()
+                        : LoginPage()
+                    : OnBoardingPage())));
+  }
+
+  void init() async {
+    await GetStorage.init();
   }
 
   @override

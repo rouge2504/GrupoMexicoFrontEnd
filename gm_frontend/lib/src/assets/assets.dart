@@ -41,4 +41,6 @@ class Assets {
   static const String SERVICE_STATION_ICON =
       "assets/images/service_station_icon.png";
   static const String TOOLTOOTH_ICON = "assets/images/tooltooth_icon.png";
+  static const String CLOSE_ROUNDED_ICON =
+      "assets/images/close_rounded_icon.png";
 }

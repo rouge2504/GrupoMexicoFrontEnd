@@ -2,11 +2,178 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
 import 'package:gm_frontend/src/pages/home/home_controller.dart';
+import 'package:gm_frontend/src/utils/preferences_app.dart';
 import 'package:gm_frontend/src/utils/state_colors.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePage createState() => _HomePage();
+}
+
+class _HomePage extends State<HomePage> {
   HomeController con = HomeController();
+
+  @override
+  void initState() {
+    super.initState();
+    print('Init page Home Page');
+    init();
+    var popupHome = GetStorage().read(PreferenceApp.POP_UP_HOME) ?? false;
+
+    if (!popupHome) {
+      PopUpWindow();
+    }
+  }
+
+  void PopUpWindow() {
+    return WidgetsBinding.instance?.addPostFrameCallback((_) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Colors.white,
+          insetPadding: EdgeInsets.all(6),
+          elevation: 10,
+          titlePadding: const EdgeInsets.all(0.0),
+          title: Container(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _getCloseButton(context),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                    child: Column(
+                      children: [
+                        Text(
+                          '¡Te damos la bienvenida!',
+                          style: TextStyle(
+                              fontSize: 25.0,
+                              fontFamily: 'Raleway',
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          'Ahora tendrás un viaje más rápido, seguro y asistido. ',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            height: 1.5,
+                            fontFamily: 'Raleway',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Completa tus datos vehiculares y medios de pago para poder realizar el pago de casetas desde tu celular.',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            height: 1.5,
+                            fontFamily: 'Raleway',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        _buttonClose(context),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        _buttonRegisterCar(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    });
+  }
+
+  void init() async {
+    await GetStorage.init();
+  }
+
+  Widget _buttonClose(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: ElevatedButton(
+          onPressed: () {
+            GetStorage().write(PreferenceApp.POP_UP_HOME, true);
+          },
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              foregroundColor: Colors.black,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              side: BorderSide(
+                  width: 1.0, color: Theme.of(context).colorScheme.primary),
+              padding: EdgeInsets.symmetric(vertical: 15)),
+          child: Text(
+            'Completar más tarde',
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 20,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold),
+          )),
+    );
+  }
+
+  Widget _buttonRegisterCar() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+            GetStorage().write(PreferenceApp.POP_UP_HOME, true);
+          },
+          style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              padding: EdgeInsets.symmetric(vertical: 15)),
+          child: Text(
+            'Completar ahora',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold),
+          )),
+    );
+  }
+
+  _getCloseButton(context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          alignment: FractionalOffset.topRight,
+          child: GestureDetector(
+            child: ImageIcon(
+              AssetImage(Assets.CLOSE_ROUNDED_ICON),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              GetStorage().write(PreferenceApp.POP_UP_HOME, true);
+            },
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
