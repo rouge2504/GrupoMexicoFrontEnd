@@ -163,6 +163,7 @@ class RegisterPage extends StatelessWidget {
         children: [
           _Title(),
           _textFieldName(context),
+          _textFieldLastName(context),
           _textFieldEmail(context),
           _textFieldPhone(context), _WAAdvertising(),
 
@@ -251,7 +252,31 @@ class RegisterPage extends StatelessWidget {
           controller: con.nameController,
           textAlign: TextAlign.left,
           decoration: InputDecoration(
-            hintText: 'Nombre y apellido',
+            hintText: 'Nombre',
+            border: InputBorder.none,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _textFieldLastName(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      decoration: new BoxDecoration(
+        shape: BoxShape.rectangle,
+        border: new Border.all(
+          color: Theme.of(context).colorScheme.surface,
+          width: 1.0,
+        ),
+      ),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        child: TextField(
+          controller: con.lastNameController,
+          textAlign: TextAlign.left,
+          decoration: InputDecoration(
+            hintText: 'Apellido',
             border: InputBorder.none,
           ),
         ),
@@ -387,7 +412,7 @@ class RegisterPage extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       child: ElevatedButton(
           onPressed:
-              con.validFormPassword.value ? () => con.nextButton() : null,
+              con.validFormPassword.value ? () => con.register(context) : null,
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),

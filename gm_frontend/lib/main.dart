@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gm_frontend/src/models/user.dart';
 import 'package:gm_frontend/src/pages/home/home_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/home_routes_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/recent_payments/home_routes_recent_payments_page.dart';
@@ -15,8 +16,11 @@ import 'package:gm_frontend/src/pages/qr/qr_generator/qr_page.dart';
 import 'package:gm_frontend/src/pages/qr/qr_reader/qr_reader_page.dart';
 import 'package:gm_frontend/src/pages/register/register_page.dart';
 import 'package:gm_frontend/src/pages/splash/splash_page.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+User userSession = User.fromJson(GetStorage().read('user') ?? {});
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -36,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/home/routes/recent_payments',
+      initialRoute: userSession.id != null ? '/home' : '/login',
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: '/splash', page: () => SplashPage()),

@@ -1,17 +1,29 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:gm_frontend/src/models/response_api.dart';
+import 'package:gm_frontend/src/models/user.dart';
+import 'package:gm_frontend/src/providers/users_provider.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class RegisterController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
 
   PageController pageController = PageController();
 
+  UsersProvider usersProvider = UsersProvider();
+
   var email = ''.obs;
   var name = ''.obs;
+  var lastName = ''.obs;
   var phone = ''.obs;
 
   var validForm = false.obs;
@@ -19,23 +31,30 @@ class RegisterController extends GetxController {
 
   var activePage = 0.obs;
 
-  var pages = [].obs;
-
   var passwordVisible = false.obs;
   var passwordConfirmVisible = false.obs;
 
   RegisterController() {
     emailController.addListener(() {
-      validForm.value = isValid(emailController.text.trim(),
-          nameController.text.trim(), phoneController.text.trim());
+      validForm.value = isValid(
+          emailController.text.trim(),
+          nameController.text.trim(),
+          lastNameController.text.trim(),
+          phoneController.text.trim());
     });
     nameController.addListener(() {
-      validForm.value = isValid(emailController.text.trim(),
-          nameController.text.trim(), phoneController.text.trim());
+      validForm.value = isValid(
+          emailController.text.trim(),
+          nameController.text.trim(),
+          lastNameController.text.trim(),
+          phoneController.text.trim());
     });
     phoneController.addListener(() {
-      validForm.value = isValid(emailController.text.trim(),
-          nameController.text.trim(), phoneController.text.trim());
+      validForm.value = isValid(
+          emailController.text.trim(),
+          nameController.text.trim(),
+          lastNameController.text.trim(),
+          phoneController.text.trim());
     });
 
     passwordController.addListener(() {
@@ -62,14 +81,45 @@ class RegisterController extends GetxController {
     print('NEXT BUTTON ${activePage.value}');
   }
 
-  void register() {
+  void register(BuildContext context) async {
     String email = emailController.text.trim();
     String name = nameController.text.trim();
+    String lastName = lastNameController.text.trim();
     String phone = phoneController.text.trim();
-    isValidForm(email, name, phone);
+    String password = passwordController.text.trim();
+
+    User user = User(
+        email: email,
+        name: name,
+        lastname: lastName,
+        phone: phone,
+        password: password);
+    if (isValidForm(email, name, lastName, phone)) {
+      ProgressDialog progressDialog = ProgressDialog(context: context);
+      progressDialog.show(max: 100, msg: 'Registrando Datos...');
+      ResponseApi responseApi = await usersProvider.createUser(user);
+      if (responseApi != null) {
+        if (responseApi.success!) {
+          progressDialog.close();
+          user.id = responseApi.data.toString();
+          GetStorage().write('user', user);
+          Get.snackbar('Login Exitoso', responseApi.message ?? '');
+          goToHomePage();
+        } else {
+          progressDialog.close();
+          Get.snackbar('Algo salio mal', '');
+        }
+      }
+    } else {
+      print('Algo salio terriblemente mal');
+    }
   }
 
-  bool isValidForm(String email, String name, String phone) {
+  void goToHomePage() {
+    Get.offNamedUntil('/home', (route) => false);
+  }
+
+  bool isValidForm(String email, String name, String lastName, String phone) {
     if (email.isEmpty) {
       Get.snackbar('Formulario no valido', 'El email no es valido');
       return false;
@@ -88,13 +138,18 @@ class RegisterController extends GetxController {
     return true;
   }
 
-  bool isValid(String email, String name, String phone) {
+  bool isValid(String email, String name, String lastName, String phone) {
     if (email.isEmpty) {
       //Get.snackbar('Formulario no valido', 'El email no es valido');
       return false;
     }
 
     if (name.isEmpty) {
+      //Get.snackbar('Formulario no valido', 'Debes ingresar el nombre');
+      return false;
+    }
+
+    if (lastName.isEmpty) {
       //Get.snackbar('Formulario no valido', 'Debes ingresar el nombre');
       return false;
     }
