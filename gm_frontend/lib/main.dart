@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gm_frontend/src/models/user.dart';
 import 'package:gm_frontend/src/pages/home/home_page.dart';
+import 'package:gm_frontend/src/pages/home/media/resources_media_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/home_routes_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/recent_payments/home_routes_recent_payments_page.dart';
 import 'package:gm_frontend/src/pages/login/login_page.dart';
@@ -41,7 +42,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
+<<<<<<< HEAD
       initialRoute: '/register_car',
+=======
+      initialRoute: '/home/media',
+>>>>>>> 3350ef74a4d73c3cb2293f6565aaae5ddcd900dd
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: '/splash', page: () => SplashPage()),
@@ -51,6 +56,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/on_boarding', page: () => OnBoardingPage()),
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/home/routes', page: () => HomeRoutesPage()),
+        GetPage(name: '/home/media', page: () => ResourcesMediaPage()),
         GetPage(
             name: '/home/routes/recent_payments',
             page: () => HomeRoutesRecentPaymentsPage()),
