@@ -52,17 +52,57 @@ class HomeRoutesRecentPaymentsPage extends StatelessWidget {
         body: TabBarView(children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListView(children: [
-              CardItem(context),
-              CardItem(context),
-            ]),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView(shrinkWrap: true, children: [
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                  ]),
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListView(children: [
-              CardItem(context),
-              CardItem(context),
-            ]),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView(shrinkWrap: true, children: [
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                    CardItem(context),
+                  ]),
+                ),
+              ],
+            ),
           ),
         ]),
       ),
