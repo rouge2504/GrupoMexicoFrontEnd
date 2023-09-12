@@ -15,6 +15,7 @@ import 'package:gm_frontend/src/pages/payments/paid/payments_paid_page.dart';
 import 'package:gm_frontend/src/pages/qr/qr_generator/qr_page.dart';
 import 'package:gm_frontend/src/pages/qr/qr_reader/qr_reader_page.dart';
 import 'package:gm_frontend/src/pages/register/register_page.dart';
+import 'package:gm_frontend/src/pages/register_car/register_car_page.dart';
 import 'package:gm_frontend/src/pages/splash/splash_page.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -40,12 +41,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/splash',
+      initialRoute: '/register_car',
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: '/splash', page: () => SplashPage()),
         GetPage(name: '/login', page: () => LoginPage()),
         GetPage(name: '/register', page: () => RegisterPage()),
+        GetPage(name: '/register_car', page: () => RegisterCarPage()),
         GetPage(name: '/on_boarding', page: () => OnBoardingPage()),
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/home/routes', page: () => HomeRoutesPage()),

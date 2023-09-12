@@ -50,7 +50,7 @@ dev_dependencies:
   get: ^4.6.5
   http: ^1.1.0
   get_storage: ^2.1.1
-  # # image_picker: ^1.0.2
+  image_picker: ^1.0.2
   sn_progress_dialog: ^1.1.3
   flutter_credit_card: ^3.0.7
   fluttertoast: ^8.2.2
@@ -112,6 +112,7 @@ flutter:
     - assets/images/tooltooth_icon.png
     - assets/images/tooltooth_icon.png
     - assets/images/close_rounded_icon.png
+    - assets/images/image_outline.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
