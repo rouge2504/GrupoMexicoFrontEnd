@@ -17,6 +17,7 @@ class Assets {
   static const String MENU_OUTLINE = "assets/images/menu_outline.png";
   static const String PIN = "assets/images/pin.png";
   static const String PROFILE_OUTLINE = "assets/images/profile_outline.png";
+  static const String PROFILE_OUTLINE_1 = "assets/images/profile_outline_1.png";
   static const String BACKGROUND_TEST =
       "assets/images/background_banner_test.png";
   static const String EVENT_OUTLINE = "assets/images/event_outline.png";
@@ -42,6 +43,7 @@ class Assets {
   static const String SERVICE_STATION_ICON =
       "assets/images/service_station_icon.png";
   static const String TOOLTOOTH_ICON = "assets/images/tooltooth_icon.png";
+  static const String CLOSE_OUTLINE = "assets/images/close_outline.png";
   static const String CLOSE_ROUNDED_ICON =
       "assets/images/close_rounded_icon.png";
 }

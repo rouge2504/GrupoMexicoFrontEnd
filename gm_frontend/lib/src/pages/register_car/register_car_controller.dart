@@ -10,6 +10,14 @@ import 'package:gm_frontend/src/providers/users_provider.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'package:flutter_credit_card/credit_card_model.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:gm_frontend/src/models/mercado_pago_card_holder.dart';
+import 'package:gm_frontend/src/models/mercado_pago_card_token.dart';
+import 'package:gm_frontend/src/models/mercado_pago_document_type.dart';
+import 'package:gm_frontend/src/pages/providers/mercado_pago_provider.dart';
+
 class RegisterCarController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -34,6 +42,13 @@ class RegisterCarController extends GetxController {
 
   var passwordVisible = false.obs;
   var passwordConfirmVisible = false.obs;
+
+  TextEditingController documentNumberController = TextEditingController();
+  var cardNumber = ''.obs;
+  var expireDate = ''.obs;
+  var cardHolderName = ''.obs;
+  var cvvCode = ''.obs;
+  var isCvvFocused = true.obs;
 
   ImagePicker picker = ImagePicker();
   File? imageFile;
@@ -218,5 +233,13 @@ class RegisterCarController extends GetxController {
     }
 
     return true;
+  }
+
+  void onCreditCardModelChanged(CreditCardModel creditCardModel) {
+    cardNumber.value = creditCardModel.cardNumber;
+    expireDate.value = creditCardModel.expiryDate;
+    cardHolderName.value = creditCardModel.cardHolderName;
+    isCvvFocused.value = creditCardModel.isCvvFocused;
+    cvvCode.value = creditCardModel.cvvCode;
   }
 }

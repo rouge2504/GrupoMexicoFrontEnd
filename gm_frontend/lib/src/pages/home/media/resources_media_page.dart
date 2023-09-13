@@ -92,12 +92,12 @@ class ResourcesMediaPage extends StatelessWidget {
                 //   fit: BoxFit.cover,
                 // ),
 
-                Image.network(
+                /*Image.network(
                   'https://www.gmautopista.com/PublishingImages/Slides/slide0505.jpg',
                   width: double.infinity,
                   fit: BoxFit.cover,
                   height: 80,
-                ),
+                ),*/
                 // Add a container with padding that contains the card's title, text, and buttons
                 Container(
                   padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),

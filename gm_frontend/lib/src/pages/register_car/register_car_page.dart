@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
 import 'package:gm_frontend/src/pages/register_car/register_car_controller.dart';
 
+import 'package:flutter_credit_card/credit_card_form.dart';
+import 'package:flutter_credit_card/credit_card_model.dart';
+import 'package:flutter_credit_card/credit_card_widget.dart';
+import 'package:flutter_credit_card/glassmorphism_config.dart';
+
 class RegisterCarPage extends StatelessWidget {
   RegisterCarController con = Get.put(RegisterCarController());
 
@@ -30,9 +35,102 @@ class RegisterCarPage extends StatelessWidget {
             onPageChanged: (index) => con.onPageViewChange,
             children: [
               _pageForm1(context),
-              _pageForm2(context),
+              CardForm(context),
             ],
           ),
+        ));
+  }
+
+  Widget CardForm(BuildContext context) {
+    return Obx(() => ListView(
+          children: [
+            CreditCardWidget(
+              cardNumber: con.cardNumber.value,
+              expiryDate: con.expireDate.value,
+              cardHolderName: con.cardHolderName.value,
+              cvvCode: con.cvvCode.value,
+              showBackView: con.isCvvFocused.value,
+              cardBgColor: Colors.red,
+              labelValidThru: 'VALID\nTHRU',
+              obscureCardNumber: true,
+              obscureInitialCardNumber: false,
+              obscureCardCvv: true,
+              height: 175,
+              labelCardHolder: 'NOMBRE Y APELLIDO',
+              textStyle: TextStyle(color: Colors.black),
+              width: MediaQuery.of(context).size.width,
+              animationDuration: Duration(milliseconds: 1000),
+              frontCardBorder: Border.all(color: Colors.grey),
+              backCardBorder: Border.all(color: Colors.grey),
+              onCreditCardWidgetChange: (CreditCardBrand) {},
+              glassmorphismConfig: Glassmorphism(
+                blurX: 10.0,
+                blurY: 10.0,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                    Colors.grey.withAlpha(70),
+                    Colors.white.withAlpha(20),
+                  ],
+                  stops: const <double>[
+                    0.3,
+                    0,
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: CreditCardForm(
+                formKey: GlobalKey(), // Required
+                onCreditCardModelChange:
+                    con.onCreditCardModelChanged, // Required
+                themeColor: Colors.red,
+                obscureCvv: true,
+                obscureNumber: true,
+                isHolderNameVisible: true,
+                isCardNumberVisible: true,
+                isExpiryDateVisible: true,
+                enableCvv: true,
+                cardNumberValidator: (String? cardNumber) {},
+                expiryDateValidator: (String? expiryDate) {},
+                cvvValidator: (String? cvv) {},
+                cardHolderValidator: (String? cardHolderName) {},
+                onFormComplete: () {
+                  // callback to execute at the end of filling card data
+                },
+                cardNumberDecoration: const InputDecoration(
+                  suffixIcon: Icon(Icons.credit_card),
+                  border: OutlineInputBorder(),
+                  labelText: 'Numero de la tarjeta',
+                  hintText: 'XXXX XXXX XXXX XXXX',
+                ),
+                expiryDateDecoration: const InputDecoration(
+                  suffixIcon: Icon(Icons.date_range),
+                  border: OutlineInputBorder(),
+                  labelText: 'Fecha de Expiracion',
+                  hintText: 'XX/XX',
+                ),
+                cvvCodeDecoration: const InputDecoration(
+                  suffixIcon: Icon(Icons.lock),
+                  border: OutlineInputBorder(),
+                  labelText: 'CVV',
+                  hintText: 'XXX',
+                ),
+                cardHolderDecoration: const InputDecoration(
+                  suffixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(),
+                  labelText: 'Titular de la tarjeta',
+                ),
+                cardHolderName: '',
+                cardNumber: '',
+                cvvCode: '',
+                expiryDate: '',
+              ),
+            ),
+            _buttonRegister(context)
+          ],
         ));
   }
 
@@ -48,7 +146,7 @@ class RegisterCarPage extends StatelessWidget {
                 backgroundImage: con.imageFile != null
                     ? FileImage(con.imageFile!)
                     : const AssetImage(Assets.IMAGE_OUTLINE) as ImageProvider,
-                radius: 60,
+                radius: 40,
                 backgroundColor: Colors.white,
               ),
             )),
@@ -108,25 +206,21 @@ class RegisterCarPage extends StatelessWidget {
   }
 
   Widget _pageForm1(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _boxForm(context),
-          _buttonNext(context),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        _boxForm(context),
+        _buttonNext(context),
+      ],
     );
   }
 
   Widget _pageForm2(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          _boxFormPasword(context),
-          _buttonRegister(context),
-        ],
-      ),
+    return Column(
+      children: [
+        _boxFormPasword(context),
+        _buttonRegister(context),
+      ],
     );
   }
 
@@ -172,7 +266,7 @@ class RegisterCarPage extends StatelessWidget {
     return Container(
       //margin: EdgeInsets.all(1.0),
       //padding: EdgeInsets.fromLTRB(0, 0, 0, 210),
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: MediaQuery.of(context).size.height * 0.65,
       decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
         BoxShadow(
           color: Colors.black54,
@@ -186,8 +280,8 @@ class RegisterCarPage extends StatelessWidget {
           _imageUser(context),
           _textFieldAlias(context),
           _textFieldPlaca(context),
-          _textFieldEmail(context),
-          _textFieldPhone(context), _WAAdvertising(),
+          ContentRow1(context),
+          ContentRow2(context),
 
           //_buttonRegister(context)
         ],
@@ -195,17 +289,95 @@ class RegisterCarPage extends StatelessWidget {
     );
   }
 
-  Widget _TitlePassword() {
+  Container ContentRow1(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        alignment: Alignment.centerLeft,
-        child: Text(
-          'Crea tu contraseña',
-          style: TextStyle(
-              fontSize: 20.0,
-              fontFamily: 'Raleway',
-              fontWeight: FontWeight.bold),
-        ));
+      child: Row(
+        children: [
+          _textFieldMark(context),
+          _textFieldModel(context),
+        ],
+      ),
+    );
+  }
+
+  Container ContentRow2(BuildContext context) {
+    return Container(
+      child: Row(
+        children: [
+          _textFieldYear(context),
+          _textFieldEdges(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _textFieldEdges(BuildContext context) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        decoration: new BoxDecoration(
+          shape: BoxShape.rectangle,
+          border: new Border.all(
+            color: Theme.of(context).colorScheme.surface,
+            width: 1.0,
+          ),
+        ),
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: TextField(
+            controller: con.emailController,
+            textAlign: TextAlign.left,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              hintText: 'Ejes',
+              border: InputBorder.none,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _textFieldYear(BuildContext context) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        decoration: new BoxDecoration(
+          shape: BoxShape.rectangle,
+          border: new Border.all(
+            color: Theme.of(context).colorScheme.surface,
+            width: 1.0,
+          ),
+        ),
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: TextField(
+            controller: con.emailController,
+            textAlign: TextAlign.left,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              hintText: 'Año',
+              border: InputBorder.none,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _TitlePassword() {
+    return Expanded(
+      child: Container(
+          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Crea tu contraseña',
+            style: TextStyle(
+                fontSize: 20.0,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold),
+          )),
+    );
   }
 
   Widget _Title() {
@@ -233,25 +405,27 @@ class RegisterCarPage extends StatelessWidget {
         ));
   }
 
-  Widget _textFieldEmail(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      decoration: new BoxDecoration(
-        shape: BoxShape.rectangle,
-        border: new Border.all(
-          color: Theme.of(context).colorScheme.surface,
-          width: 1.0,
-        ),
-      ),
+  Widget _textFieldMark(BuildContext context) {
+    return Expanded(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
-        child: TextField(
-          controller: con.emailController,
-          textAlign: TextAlign.left,
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            hintText: 'Correo electronico',
-            border: InputBorder.none,
+        margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        decoration: new BoxDecoration(
+          shape: BoxShape.rectangle,
+          border: new Border.all(
+            color: Theme.of(context).colorScheme.surface,
+            width: 1.0,
+          ),
+        ),
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: TextField(
+            controller: con.emailController,
+            textAlign: TextAlign.left,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              hintText: 'Marca',
+              border: InputBorder.none,
+            ),
           ),
         ),
       ),
@@ -381,25 +555,27 @@ class RegisterCarPage extends StatelessWidget {
         ));
   }
 
-  Widget _textFieldPhone(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      decoration: new BoxDecoration(
-        shape: BoxShape.rectangle,
-        border: new Border.all(
-          color: Theme.of(context).colorScheme.surface,
-          width: 1.0,
-        ),
-      ),
+  Widget _textFieldModel(BuildContext context) {
+    return Expanded(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
-        child: TextField(
-          controller: con.phoneController,
-          keyboardType: TextInputType.number,
-          textAlign: TextAlign.left,
-          decoration: InputDecoration(
-            hintText: 'Telefono a 10 digitos',
-            border: InputBorder.none,
+        margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        decoration: new BoxDecoration(
+          shape: BoxShape.rectangle,
+          border: new Border.all(
+            color: Theme.of(context).colorScheme.surface,
+            width: 1.0,
+          ),
+        ),
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: TextField(
+            controller: con.phoneController,
+            keyboardType: TextInputType.number,
+            textAlign: TextAlign.left,
+            decoration: InputDecoration(
+              hintText: 'Modelo',
+              border: InputBorder.none,
+            ),
           ),
         ),
       ),
