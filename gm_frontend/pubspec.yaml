@@ -90,6 +90,7 @@ flutter:
     - assets/images/menu_outline.png
     - assets/images/pin.png
     - assets/images/profile_outline.png
+    - assets/images/profile_outline_1.png
     - assets/images/background_banner_test.png
     - assets/images/event_outline.png
     - assets/images/arrow_left_outline.png
@@ -113,6 +114,7 @@ flutter:
     - assets/images/tooltooth_icon.png
     - assets/images/close_rounded_icon.png
     - assets/images/image_outline.png
+    - assets/images/close_outline.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
