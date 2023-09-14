@@ -238,7 +238,7 @@ class MenuPage extends StatelessWidget {
                     icon: ImageIcon(
                       AssetImage(Assets.MEDIA_OUTLINE_1),
                     ),
-                    label: 'Radio'),
+                    label: 'Media'),
                 BottomNavigationBarItem(
                     icon: ImageIcon(
                       AssetImage(Assets.MENU_OUTLINE),

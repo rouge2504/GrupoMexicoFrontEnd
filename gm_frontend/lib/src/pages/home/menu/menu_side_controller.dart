@@ -31,6 +31,8 @@ class MenuSideController extends GetxController {
         break;
       case 3:
         print('Media');
+        Get.toNamed('/home/media');
+
         break;
       case 4:
         print('Menu');

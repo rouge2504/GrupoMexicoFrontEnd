@@ -304,7 +304,7 @@ class _HomePage extends State<HomePage> {
                     icon: ImageIcon(
                       AssetImage(Assets.MEDIA_OUTLINE_1),
                     ),
-                    label: 'Radio'),
+                    label: 'Media'),
                 BottomNavigationBarItem(
                     icon: ImageIcon(
                       AssetImage(Assets.MENU_OUTLINE),

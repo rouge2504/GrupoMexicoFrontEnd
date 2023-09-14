@@ -24,6 +24,7 @@ class HomeController extends GetxController {
         print('Ups');
         break;
       case 3:
+        Get.toNamed('/home/media');
         print('Media');
         break;
       case 4:

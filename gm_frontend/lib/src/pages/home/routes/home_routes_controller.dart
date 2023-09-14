@@ -18,11 +18,13 @@ class HomeRoutesController extends GetxController {
         break;
       case 1:
         print('Destino');
+        Get.toNamed('/home/routes');
         break;
       case 2:
         print('Ups');
         break;
       case 3:
+        Get.toNamed('/home/media');
         print('Media');
         break;
       case 4:
