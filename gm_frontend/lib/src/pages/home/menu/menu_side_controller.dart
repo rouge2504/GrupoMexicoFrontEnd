@@ -8,6 +8,11 @@ class MenuSideController extends GetxController {
     indexBottomPage.value = 4;
   }
 
+  void GoToAccount() {
+    Get.toNamed('/home/menu/account');
+    print('Oprimeindo');
+  }
+
   void onTap(int index) {
     indexBottomPage.value = index;
     switch (index) {
@@ -29,6 +34,7 @@ class MenuSideController extends GetxController {
         break;
       case 4:
         print('Menu');
+        Get.toNamed('/home/menu');
         break;
     }
     indexBottomPage.value = 4;

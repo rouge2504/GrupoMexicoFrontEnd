@@ -17,6 +17,14 @@ class MenuAccountController extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordConfirmController = TextEditingController();
+
+  var passwordVisible = false.obs;
+  var passwordConfirmVisible = false.obs;
+
+  var selectedOption = 0.obs;
+
   ImagePicker picker = ImagePicker();
   File? imageFile;
   void nextButton() {

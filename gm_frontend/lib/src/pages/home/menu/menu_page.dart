@@ -49,8 +49,8 @@ class MenuPage extends StatelessWidget {
             ]),
             child: Container(
               child: Column(children: [
-                ButtonItem(
-                    context, 'Mi perfil', Assets.PROFILE_OUTLINE, () => {}),
+                ButtonItem(context, 'Mi perfil', Assets.PROFILE_OUTLINE,
+                    con.GoToAccount),
                 ButtonItem(context, 'Mis vehiculos', Assets.CAR_ICON, () => {}),
                 ButtonItem(
                     context, 'Medios de Pago', Assets.MONEY_ICON, () => {}),
@@ -149,7 +149,9 @@ class MenuPage extends StatelessWidget {
           foregroundColor: Colors.black,
           elevation: 0,
         ),
-        onPressed: () => function,
+        onPressed: () {
+          function();
+        },
         child: Row(
           children: [
             ImageIcon(
