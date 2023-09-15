@@ -331,9 +331,6 @@ class _HomePage extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 10,
-            ),
             Stack(alignment: Alignment.center, children: [
               Image(image: AssetImage(Assets.CAUTION), width: 125),
               ImageIcon(
@@ -347,7 +344,7 @@ class _HomePage extends State<HomePage> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: StateColors.CAUTION,
-                fontSize: 20,
+                fontSize: 18,
                 fontFamily: 'Raleway',
                 fontWeight: FontWeight.bold,
               ),
@@ -376,9 +373,6 @@ class _HomePage extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 10,
-            ),
             Stack(alignment: Alignment.center, children: [
               Image(image: AssetImage(Assets.ALERT), width: 125),
               ImageIcon(
@@ -392,7 +386,7 @@ class _HomePage extends State<HomePage> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: StateColors.ALERT,
-                fontSize: 20,
+                fontSize: 18,
                 fontFamily: 'Raleway',
                 fontWeight: FontWeight.bold,
               ),

@@ -44,6 +44,7 @@ class Assets {
       "assets/images/service_station_icon.png";
   static const String TOOLTOOTH_ICON = "assets/images/tooltooth_icon.png";
   static const String CLOSE_OUTLINE = "assets/images/close_outline.png";
+  static const String DELETE_OUTLINE = "assets/images/delete_outline.png";
   static const String CLOSE_ROUNDED_ICON =
       "assets/images/close_rounded_icon.png";
 }

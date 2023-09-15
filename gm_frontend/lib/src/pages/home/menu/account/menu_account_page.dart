@@ -24,7 +24,6 @@ class _MenuAccountPageState extends State<MenuAccountPage> {
           ),
           onPressed: () {
             Navigator.pop(context);
-            // con.pageController.jumpToPage(0);
           },
         )),
         actions: [
@@ -51,200 +50,24 @@ class _MenuAccountPageState extends State<MenuAccountPage> {
         ),
       ),
       body: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: con.pageController,
-        children: [
-          AccountMain(context),
-          UserPage(context),
-          RecoveryPassword(context)
-        ],
-      ),
-    );
-  }
-
-  SingleChildScrollView RecoveryPassword(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(18.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            //margin: EdgeInsets.all(1.0),
-            //padding: EdgeInsets.fromLTRB(0, 0, 0, 210),
-            height: MediaQuery.of(context).size.height * 0.68,
-            decoration:
-                BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Colors.black54,
-                blurRadius: 0.5,
-                offset: Offset(0, 0.50),
-              )
-            ]),
-
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    'Enviaremos un código de verificación para confirmar tu cambio de contraseña.',
-                    style: TextStyle(
-                        color: const Color.fromRGBO(55, 55, 55, 1),
-                        fontFamily: 'Raleway',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18),
-                  ),
-                ),
-                textFielPassword(context),
-                textFielPasswordConfirm(context),
-
-                Container(
-                    padding: EdgeInsets.all(16),
-                    child: Text(
-                      '¿Dónde quieres recibir el código de verificación?',
-                      style: TextStyle(
-                          color: const Color.fromRGBO(55, 55, 55, 1),
-                          fontFamily: 'Raleway',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18),
-                    )),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    RadioListTile<RxInt>(
-                      title: const Text(
-                        'Correo',
-                        style: TextStyle(
-                            color: const Color.fromRGBO(84, 88, 89, 1),
-                            fontFamily: 'Raleway',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 18),
-                      ),
-                      value: 1.obs,
-                      groupValue: con.selectedOption,
-                      onChanged: (RxInt? value) {
-                        setState(() {
-                          con.selectedOption = value!;
-                          print("Selected Option: ${con.selectedOption}");
-                        });
-                      },
-                    ),
-                    RadioListTile<RxInt>(
-                      title: const Text(
-                        'Numero de telefono',
-                        style: TextStyle(
-                            color: const Color.fromRGBO(84, 88, 89, 1),
-                            fontFamily: 'Raleway',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 18),
-                      ),
-                      value: 2.obs,
-                      groupValue: con.selectedOption,
-                      onChanged: (RxInt? value) {
-                        setState(() {
-                          con.selectedOption = value!;
-                          print("Selected Option: ${con.selectedOption}");
-                        });
-                      },
-                    ),
-                  ],
-                )
-                //_buttonRegister(context)
-              ],
+            child: Container(
+              child: Column(
+                children: [
+                  CardUser(context),
+                  ChangePassword(context),
+                ],
+              ),
             ),
           ),
-          _buttonNext(context),
+          _pageForm1(context),
         ],
       ),
     );
   }
 
-  Widget textFielPassword(BuildContext context) {
-    return Obx(() => Container(
-          margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-          decoration: new BoxDecoration(
-            shape: BoxShape.rectangle,
-            border: new Border.all(
-              color: Theme.of(context).colorScheme.surface,
-              width: 1.0,
-            ),
-          ),
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: TextField(
-              controller: con.passwordController,
-              keyboardType: TextInputType.text,
-              obscureText: !con.passwordVisible.value,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                hintText: 'Contraseña',
-                border: InputBorder.none,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    // Based on passwordVisible state choose the icon
-                    con.passwordVisible.value
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                  ),
-                  onPressed: () {
-                    con.passwordVisible.value = !con.passwordVisible.value;
-                  },
-                ),
-              ),
-            ),
-          ),
-        ));
-  }
-
-  Widget textFielPasswordConfirm(BuildContext context) {
-    return Obx(() => Container(
-          margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-          decoration: new BoxDecoration(
-            shape: BoxShape.rectangle,
-            border: new Border.all(
-              color: Theme.of(context).colorScheme.surface,
-              width: 1.0,
-            ),
-          ),
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: TextField(
-              controller: con.passwordConfirmController,
-              keyboardType: TextInputType.text,
-              obscureText: !con.passwordConfirmVisible.value,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                hintText: 'Confirma contraseña',
-                border: InputBorder.none,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    // Based on passwordVisible state choose the icon
-                    con.passwordConfirmVisible.value
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                  ),
-                  onPressed: () {
-                    con.passwordConfirmVisible.value =
-                        !con.passwordConfirmVisible.value;
-                  },
-                ),
-              ),
-            ),
-          ),
-        ));
-  }
-
-  Widget AccountMain(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          CardUser(context),
-          ChangePassword(context),
-        ],
-      ),
-    );
-  }
-
-  Widget UserPage(BuildContext context) {
+  Widget _pageForm1(BuildContext context) {
     return SingleChildScrollView(
       padding: EdgeInsets.all(18.0),
       child: Column(
@@ -455,134 +278,37 @@ class _MenuAccountPageState extends State<MenuAccountPage> {
     );
   }
 
-  Widget ChangePassword(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-          padding: EdgeInsets.only(left: 15, right: 15),
-          minimumSize: Size(50, 50),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          alignment: Alignment.centerLeft),
-      onPressed: () {
-        con.pageController.jumpToPage(2);
-      },
-      child: Container(
-
-          //margin: EdgeInsets.only(left: 15, right: 15),
-          height: MediaQuery.of(context).size.height * 0.10,
-          decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black54,
-              blurRadius: 0.5,
-              offset: Offset(0.50, 0.10),
-            )
-          ]),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Icon(
-                    Icons.lock_outline,
-                    size: 30,
-                    color: Theme.of(context).colorScheme.surface,
-                  )),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.70,
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  'Cambiar contraseña',
-                  style: TextStyle(
-                      color: const Color.fromRGBO(84, 88, 089, 1),
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20),
-                ),
-              ),
-              Icon(
-                Icons.arrow_forward_ios,
-                color: Theme.of(context).colorScheme.surface,
-                size: 28,
-              ),
-            ],
-          )),
-    );
-  }
-
-  Widget CardUser(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-          padding: EdgeInsets.only(left: 15, right: 15),
-          minimumSize: Size(50, 50),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          alignment: Alignment.centerLeft),
-      onPressed: () {
-        con.pageController.jumpToPage(1);
-      },
-      child: Container(
-        margin: EdgeInsets.only(
-          top: 15,
-        ),
-        height: MediaQuery.of(context).size.height * 0.20,
+  Container ChangePassword(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(left: 15, right: 15),
+        height: MediaQuery.of(context).size.height * 0.10,
         decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black54,
             blurRadius: 0.5,
-            offset: Offset(0, 0.50),
+            offset: Offset(0.50, 0.10),
           )
         ]),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
-              child: Container(
-                padding: EdgeInsets.only(left: 20),
-                child: Image(
-                  image: AssetImage(Assets.PROFILE_OUTLINE_1),
-                  width: 80,
-                ),
-              ),
-            ),
             Container(
-              padding: EdgeInsets.only(left: 20),
-              width: MediaQuery.of(context).size.width * 0.58,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Nombre ooooooooooooooooo',
-                    style: TextStyle(
-                        color: const Color.fromRGBO(84, 88, 089, 1),
-                        fontFamily: 'Raleway',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20),
-                    softWrap: true,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    'Correo',
-                    style: TextStyle(
-                        color: const Color.fromRGBO(84, 88, 089, 1),
-                        fontFamily: 'Raleway',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15),
-                    softWrap: true,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    'Numero celular',
-                    style: TextStyle(
-                        color: const Color.fromRGBO(84, 88, 089, 1),
-                        fontFamily: 'Raleway',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15),
-                    softWrap: true,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                padding: EdgeInsets.only(left: 20),
+                child: Icon(
+                  Icons.lock_outline,
+                  size: 30,
+                  color: Theme.of(context).colorScheme.surface,
+                )),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.72,
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                'Cambiar contraseña',
+                style: TextStyle(
+                    color: const Color.fromRGBO(84, 88, 089, 1),
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20),
               ),
             ),
             Icon(
@@ -591,7 +317,81 @@ class _MenuAccountPageState extends State<MenuAccountPage> {
               size: 28,
             ),
           ],
-        ),
+        ));
+  }
+
+  Container CardUser(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 15, left: 15, right: 15),
+      height: MediaQuery.of(context).size.height * 0.20,
+      decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: Colors.black54,
+          blurRadius: 0.5,
+          offset: Offset(0, 0.50),
+        )
+      ]),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(
+            child: Container(
+              padding: EdgeInsets.only(left: 20),
+              child: Image(
+                image: AssetImage(Assets.PROFILE_OUTLINE_1),
+                width: 80,
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 20),
+            width: MediaQuery.of(context).size.width * 0.60,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Nombre ooooooooooooooooo',
+                  style: TextStyle(
+                      color: const Color.fromRGBO(84, 88, 089, 1),
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20),
+                  softWrap: true,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  'Correo',
+                  style: TextStyle(
+                      color: const Color.fromRGBO(84, 88, 089, 1),
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15),
+                  softWrap: true,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  'Numero celular',
+                  style: TextStyle(
+                      color: const Color.fromRGBO(84, 88, 089, 1),
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15),
+                  softWrap: true,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          Icon(
+            Icons.arrow_forward_ios,
+            color: Theme.of(context).colorScheme.surface,
+            size: 28,
+          ),
+        ],
       ),
     );
   }

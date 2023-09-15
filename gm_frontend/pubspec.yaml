@@ -115,6 +115,7 @@ flutter:
     - assets/images/close_rounded_icon.png
     - assets/images/image_outline.png
     - assets/images/close_outline.png
+    - assets/images/delete_outline.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
