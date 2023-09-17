@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gm_frontend/src/models/user.dart';
+import 'package:gm_frontend/src/pages/home/both_payment/both_payment_page.dart';
 import 'package:gm_frontend/src/pages/home/home_page.dart';
 import 'package:gm_frontend/src/pages/home/media/resources_media_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/account/menu_account_page.dart';
@@ -45,7 +46,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/splash',
+      initialRoute: '/home/both_payment',
       //initialRoute: '/home/menu/account',
       debugShowCheckedModeBanner: false,
       getPages: [
@@ -55,6 +56,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/register_car', page: () => RegisterCarPage()),
         GetPage(name: '/on_boarding', page: () => OnBoardingPage()),
         GetPage(name: '/home', page: () => HomePage()),
+        GetPage(name: '/home/both_payment', page: () => BothPaymentPage()),
         GetPage(name: '/home/routes', page: () => HomeRoutesPage()),
         GetPage(name: '/home/media', page: () => ResourcesMediaPage()),
         GetPage(
