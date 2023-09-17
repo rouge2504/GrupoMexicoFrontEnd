@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
+import 'package:gm_frontend/src/pages/home/media/resources_media_controller.dart';
 
 class ResourcesMediaPage extends StatelessWidget {
-  const ResourcesMediaPage({super.key});
+  ResourcesMediaController con = ResourcesMediaController();
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,8 @@ class ResourcesMediaPage extends StatelessWidget {
             color: Theme.of(context).colorScheme.surface,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            //Navigator.pop(context);
+            con.GoToHome();
           },
         )),
         backgroundColor: Colors.white,

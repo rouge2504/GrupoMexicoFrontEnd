@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:gm_frontend/src/models/Car.dart';
 import 'package:gm_frontend/src/models/response_api.dart';
 import 'package:gm_frontend/src/models/user.dart';
+import 'package:gm_frontend/src/providers/cars_provider.dart';
 import 'package:gm_frontend/src/providers/users_provider.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,16 +21,16 @@ import 'package:gm_frontend/src/models/mercado_pago_document_type.dart';
 import 'package:gm_frontend/src/pages/providers/mercado_pago_provider.dart';
 
 class RegisterCarController extends GetxController {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController passwordConfirmController = TextEditingController();
+  TextEditingController aliasController = TextEditingController();
+  TextEditingController numberPlateController = TextEditingController();
+  TextEditingController markController = TextEditingController();
+  TextEditingController modelController = TextEditingController();
+  TextEditingController yearController = TextEditingController();
+  TextEditingController edgeController = TextEditingController();
 
   PageController pageController = PageController();
 
-  UsersProvider usersProvider = UsersProvider();
+  CarsProvider carsProvider = CarsProvider();
 
   var email = ''.obs;
   var name = ''.obs;
@@ -53,38 +55,78 @@ class RegisterCarController extends GetxController {
   ImagePicker picker = ImagePicker();
   File? imageFile;
 
+  User user = GetStorage().read('user') ?? User();
+
   RegisterCarController() {
-    emailController.addListener(() {
+    print(user.id);
+
+    aliasController.addListener(() {
       validForm.value = isValid(
-          emailController.text.trim(),
-          nameController.text.trim(),
-          lastNameController.text.trim(),
-          phoneController.text.trim());
+        aliasController.text.trim(),
+        numberPlateController.text.trim(),
+        markController.text.trim(),
+        modelController.text.trim(),
+        yearController.text.trim(),
+        edgeController.text.trim(),
+      );
     });
-    nameController.addListener(() {
+    numberPlateController.addListener(() {
       validForm.value = isValid(
-          emailController.text.trim(),
-          nameController.text.trim(),
-          lastNameController.text.trim(),
-          phoneController.text.trim());
+        aliasController.text.trim(),
+        numberPlateController.text.trim(),
+        markController.text.trim(),
+        modelController.text.trim(),
+        yearController.text.trim(),
+        edgeController.text.trim(),
+      );
     });
-    phoneController.addListener(() {
+    markController.addListener(() {
       validForm.value = isValid(
-          emailController.text.trim(),
-          nameController.text.trim(),
-          lastNameController.text.trim(),
-          phoneController.text.trim());
+        aliasController.text.trim(),
+        numberPlateController.text.trim(),
+        markController.text.trim(),
+        modelController.text.trim(),
+        yearController.text.trim(),
+        edgeController.text.trim(),
+      );
     });
 
-    passwordController.addListener(() {
-      validFormPassword.value = isValidPassword(passwordController.text.trim(),
-          passwordConfirmController.text.trim());
+    modelController.addListener(() {
+      validForm.value = isValid(
+        aliasController.text.trim(),
+        numberPlateController.text.trim(),
+        markController.text.trim(),
+        modelController.text.trim(),
+        yearController.text.trim(),
+        edgeController.text.trim(),
+      );
     });
 
-    passwordConfirmController.addListener(() {
-      validFormPassword.value = isValidPassword(passwordController.text.trim(),
-          passwordConfirmController.text.trim());
+    yearController.addListener(() {
+      validForm.value = isValid(
+        aliasController.text.trim(),
+        numberPlateController.text.trim(),
+        markController.text.trim(),
+        modelController.text.trim(),
+        yearController.text.trim(),
+        edgeController.text.trim(),
+      );
     });
+
+    edgeController.addListener(() {
+      validForm.value = isValid(
+        aliasController.text.trim(),
+        numberPlateController.text.trim(),
+        markController.text.trim(),
+        modelController.text.trim(),
+        yearController.text.trim(),
+        edgeController.text.trim(),
+      );
+    });
+  }
+
+  void init() async {
+    await GetStorage.init();
   }
 
   Future selectImage(ImageSource imageSource) async {
@@ -132,38 +174,41 @@ class RegisterCarController extends GetxController {
     activePage.value = page;
   }
 
-  void nextButton() {
+  void nextButton(BuildContext context) {
     activePage.value++;
     pageController.nextPage(
         duration: Duration(milliseconds: 250), curve: Curves.bounceInOut);
-
     print('NEXT BUTTON ${activePage.value}');
+    register(context);
   }
 
   void register(BuildContext context) async {
-    String email = emailController.text.trim();
-    String name = nameController.text.trim();
-    String lastName = lastNameController.text.trim();
-    String phone = phoneController.text.trim();
-    String password = passwordController.text.trim();
+    String alias = aliasController.text.trim();
+    String numberPlate = numberPlateController.text.trim();
+    String mark = markController.text.trim();
+    String model = modelController.text.trim();
+    String year = yearController.text.trim();
+    String edges = edgeController.text.trim();
 
-    User user = User(
-        email: email,
-        name: name,
-        lastname: lastName,
-        phone: phone,
-        password: password);
-    if (isValidForm(email, name, lastName, phone)) {
+    Car car = Car(
+        id: user.id,
+        alias: alias,
+        number_plate: numberPlate,
+        mark: mark,
+        model: model,
+        year: year,
+        edge: edges);
+    if (isValidForm(alias, numberPlate, mark, model, year, edges)) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
-      progressDialog.show(max: 100, msg: 'Registrando Datos...');
-      ResponseApi responseApi = await usersProvider.createUser(user);
+      progressDialog.show(max: 100, msg: 'Registrando Datos del Carro...');
+      ResponseApi responseApi = await carsProvider.createCar(car);
       if (responseApi != null) {
         if (responseApi.success!) {
           progressDialog.close();
-          user.id = responseApi.data.toString();
-          GetStorage().write('user', user);
-          Get.snackbar('Login Exitoso', responseApi.message ?? '');
-          goToHomePage();
+          car.id = responseApi.data.toString();
+          //GetStorage().write('car', car);
+          Get.snackbar('Registro Exitoso', responseApi.message ?? '');
+          //goToHomePage();
         } else {
           progressDialog.close();
           Get.snackbar('Algo salio mal', '');
@@ -178,18 +223,33 @@ class RegisterCarController extends GetxController {
     Get.offNamedUntil('/home', (route) => false);
   }
 
-  bool isValidForm(String email, String name, String lastName, String phone) {
-    if (email.isEmpty) {
+  bool isValidForm(String alias, String numberPlate, String mark, String model,
+      String year, String edges) {
+    if (alias.isEmpty) {
       Get.snackbar('Formulario no valido', 'El email no es valido');
       return false;
     }
 
-    if (name.isEmpty) {
+    if (numberPlate.isEmpty) {
       Get.snackbar('Formulario no valido', 'Debes ingresar el nombre');
       return false;
     }
 
-    if (phone.isEmpty) {
+    if (mark.isEmpty) {
+      Get.snackbar('Formulario no valido', 'Debes ingresar el numero');
+      return false;
+    }
+
+    if (model.isEmpty) {
+      Get.snackbar('Formulario no valido', 'Debes ingresar el numero');
+      return false;
+    }
+
+    if (year.isEmpty) {
+      Get.snackbar('Formulario no valido', 'Debes ingresar el numero');
+      return false;
+    }
+    if (edges.isEmpty) {
       Get.snackbar('Formulario no valido', 'Debes ingresar el numero');
       return false;
     }
@@ -197,23 +257,34 @@ class RegisterCarController extends GetxController {
     return true;
   }
 
-  bool isValid(String email, String name, String lastName, String phone) {
-    if (email.isEmpty) {
+  bool isValid(String alias, String numberPlate, String mark, String model,
+      String year, String edges) {
+    if (alias.isEmpty) {
       //Get.snackbar('Formulario no valido', 'El email no es valido');
       return false;
     }
 
-    if (name.isEmpty) {
+    if (numberPlate.isEmpty) {
       //Get.snackbar('Formulario no valido', 'Debes ingresar el nombre');
       return false;
     }
 
-    if (lastName.isEmpty) {
+    if (mark.isEmpty) {
       //Get.snackbar('Formulario no valido', 'Debes ingresar el nombre');
       return false;
     }
 
-    if (phone.isEmpty) {
+    if (model.isEmpty) {
+      //Get.snackbar('Formulario no valido', 'Debes ingresar el numero');
+      return false;
+    }
+
+    if (year.isEmpty) {
+      //Get.snackbar('Formulario no valido', 'Debes ingresar el numero');
+      return false;
+    }
+
+    if (edges.isEmpty) {
       //Get.snackbar('Formulario no valido', 'Debes ingresar el numero');
       return false;
     }

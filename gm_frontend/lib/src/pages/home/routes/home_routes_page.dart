@@ -20,7 +20,8 @@ class HomeRoutesPage extends StatelessWidget {
             color: Theme.of(context).colorScheme.surface,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            //Navigator.pop(context);
+            con.GoToHome();
           },
         )),
         backgroundColor: Colors.white,

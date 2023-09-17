@@ -34,4 +34,8 @@ class MenuAccountController extends GetxController {
 
     print('NEXT BUTTON ${activePage.value}');
   }
+
+  void GoToHome() {
+    Get.toNamed('/home');
+  }
 }

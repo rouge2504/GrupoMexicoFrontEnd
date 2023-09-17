@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gm_frontend/src/models/user.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomeController extends GetxController {
   var indexBottomPage = 0.obs;
-
   HomeController() {
     indexBottomPage.value = 0;
     print("Home Controller active");
@@ -33,6 +34,10 @@ class HomeController extends GetxController {
         break;
     }
     indexBottomPage.value = 0;
+  }
+
+  void goToRegisterCar() {
+    Get.toNamed('/register_car');
   }
 
   Future<void> _showAlertDialog(BuildContext context) async {

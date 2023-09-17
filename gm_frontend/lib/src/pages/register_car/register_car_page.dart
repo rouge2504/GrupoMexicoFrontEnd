@@ -215,15 +215,6 @@ class RegisterCarPage extends StatelessWidget {
     );
   }
 
-  Widget _pageForm2(BuildContext context) {
-    return Column(
-      children: [
-        _boxFormPasword(context),
-        _buttonRegister(context),
-      ],
-    );
-  }
-
   Widget _buttonBack(BuildContext context) {
     return SafeArea(
         child: Container(
@@ -237,29 +228,6 @@ class RegisterCarPage extends StatelessWidget {
         ),
       ),
     ));
-  }
-
-  Widget _boxFormPasword(BuildContext context) {
-    return Container(
-      //margin: EdgeInsets.all(1.0),
-      //padding: EdgeInsets.fromLTRB(0, 0, 0, 210),
-      height: MediaQuery.of(context).size.height * 0.7,
-      decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: Colors.black54,
-          blurRadius: 15,
-          offset: Offset(0, 0.50),
-        )
-      ]),
-      child: Column(
-        children: [
-          _TitlePassword(),
-          _textFielPassword(context),
-          _textFielPasswordConfirm(context),
-          //_buttonRegister(context)
-        ],
-      ),
-    );
   }
 
   Widget _boxForm(BuildContext context) {
@@ -325,7 +293,7 @@ class RegisterCarPage extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: TextField(
-            controller: con.emailController,
+            controller: con.edgeController,
             textAlign: TextAlign.left,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
@@ -352,7 +320,7 @@ class RegisterCarPage extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: TextField(
-            controller: con.emailController,
+            controller: con.yearController,
             textAlign: TextAlign.left,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
@@ -419,7 +387,7 @@ class RegisterCarPage extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: TextField(
-            controller: con.emailController,
+            controller: con.markController,
             textAlign: TextAlign.left,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
@@ -445,7 +413,7 @@ class RegisterCarPage extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
         child: TextField(
-          controller: con.nameController,
+          controller: con.aliasController,
           textAlign: TextAlign.left,
           decoration: InputDecoration(
             hintText: 'Alias',
@@ -469,7 +437,7 @@ class RegisterCarPage extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
         child: TextField(
-          controller: con.lastNameController,
+          controller: con.numberPlateController,
           textAlign: TextAlign.left,
           decoration: InputDecoration(
             hintText: 'Numero de placa',
@@ -478,81 +446,6 @@ class RegisterCarPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _textFielPassword(BuildContext context) {
-    return Obx(() => Container(
-          margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-          decoration: new BoxDecoration(
-            shape: BoxShape.rectangle,
-            border: new Border.all(
-              color: Theme.of(context).colorScheme.surface,
-              width: 1.0,
-            ),
-          ),
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: TextField(
-              controller: con.passwordController,
-              keyboardType: TextInputType.text,
-              obscureText: !con.passwordVisible.value,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                hintText: 'Contraseña',
-                border: InputBorder.none,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    // Based on passwordVisible state choose the icon
-                    con.passwordVisible.value
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                  ),
-                  onPressed: () {
-                    con.passwordVisible.value = !con.passwordVisible.value;
-                  },
-                ),
-              ),
-            ),
-          ),
-        ));
-  }
-
-  Widget _textFielPasswordConfirm(BuildContext context) {
-    return Obx(() => Container(
-          margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-          decoration: new BoxDecoration(
-            shape: BoxShape.rectangle,
-            border: new Border.all(
-              color: Theme.of(context).colorScheme.surface,
-              width: 1.0,
-            ),
-          ),
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: TextField(
-              controller: con.passwordConfirmController,
-              keyboardType: TextInputType.text,
-              obscureText: !con.passwordConfirmVisible.value,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                hintText: 'Confirma contraseña',
-                border: InputBorder.none,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    // Based on passwordVisible state choose the icon
-                    con.passwordConfirmVisible.value
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                  ),
-                  onPressed: () {
-                    con.passwordConfirmVisible.value =
-                        !con.passwordConfirmVisible.value;
-                  },
-                ),
-              ),
-            ),
-          ),
-        ));
   }
 
   Widget _textFieldModel(BuildContext context) {
@@ -569,7 +462,7 @@ class RegisterCarPage extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: TextField(
-            controller: con.phoneController,
+            controller: con.modelController,
             keyboardType: TextInputType.number,
             textAlign: TextAlign.left,
             decoration: InputDecoration(
@@ -587,7 +480,7 @@ class RegisterCarPage extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       child: ElevatedButton(
-          onPressed: con.validForm.value ? () => con.nextButton() : null,
+          onPressed: con.validForm.value ? () => con.nextButton(context) : null,
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),

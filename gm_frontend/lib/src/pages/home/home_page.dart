@@ -137,6 +137,7 @@ class _HomePage extends State<HomePage> {
       child: ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
+            con.goToRegisterCar();
             GetStorage().write(PreferenceApp.POP_UP_HOME, true);
           },
           style: ElevatedButton.styleFrom(

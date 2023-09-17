@@ -9,6 +9,10 @@ class HomeRoutesController extends GetxController {
     print("Routes Controller active");
   }
 
+  void GoToHome() {
+    Get.toNamed('/home');
+  }
+
   void onTap(int index) {
     indexBottomPage.value = index;
     switch (index) {

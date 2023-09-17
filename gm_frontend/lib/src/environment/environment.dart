@@ -1,5 +1,5 @@
 class Environment {
-  static const String API_URL = "http://192.168.0.7:3000/";
+  static const String API_URL = "http://192.168.0.8:3000/";
   static const String API_MERCADO_PAGO = "https://api.mercadopago.com/v1";
   static const String API_URL_OLD = "192.168.0.7:3000";
   static const String ACCESS_TOKEN =

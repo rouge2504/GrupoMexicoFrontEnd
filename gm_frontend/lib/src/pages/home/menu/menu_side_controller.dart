@@ -7,6 +7,9 @@ class MenuSideController extends GetxController {
   MenuSideController() {
     indexBottomPage.value = 4;
   }
+  void GoToHome() {
+    Get.toNamed('/home');
+  }
 
   void GoToAccount() {
     Get.toNamed('/home/menu/account');
