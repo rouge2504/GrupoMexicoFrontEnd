@@ -29,7 +29,7 @@ class BothPaymentPage extends StatelessWidget {
         controller: con.pageController,
         onPageChanged: (index) => con.onPageViewChange,
         children: [
-          _pageForm1(context),
+          _pageForm2(context),
           _pageForm1(context),
         ],
       ),
@@ -41,7 +41,7 @@ class BothPaymentPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         priceContent(context),
-        titleVehicle(),
+        titleCreditCard(),
         Expanded(
           child: ListView(
             children: [
@@ -54,6 +54,153 @@ class BothPaymentPage extends StatelessWidget {
         //_boxForm(context),
         //_buttonNext(context),
       ],
+    );
+  }
+
+  Widget _pageForm2(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        priceContent(context),
+        carChoosed(context),
+        titleVehicle(),
+        Expanded(
+          child: ListView(
+            children: [
+              cardCreditCard(context),
+              cardCreditCard(context),
+              Row(
+                children: [
+                  Checkbox(value: false, onChanged: (bool) {}),
+                  Flexible(
+                    child: Text(
+                      'Mantener esta configuración de pago para todas las casetas de mi viaje actual.',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.surface,
+                          fontSize: 14,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w400),
+                      softWrap: true,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+        ElevatedButton(onPressed: () {}, child: Text('Texto de prueba'))
+        //_boxForm(context),
+        //_buttonNext(context),
+      ],
+    );
+  }
+
+  Container cardCreditCard(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 15, right: 15),
+      width: double.infinity,
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        margin: EdgeInsets.all(5),
+        elevation: 4,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.all(16),
+              child: CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.grey,
+                backgroundImage: AssetImage(Assets.CAR_ICON),
+              ),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    child: Text('Tarjeta terminada en 1234',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.surface,
+                            fontSize: 20,
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w600)),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    child: Text(
+                      'Banco Santander Serfin S.A. Institución De Banca Múltiple',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.surface,
+                          fontSize: 14,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w400),
+                      softWrap: false,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container carChoosed(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 15, right: 15),
+      width: double.infinity,
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        margin: EdgeInsets.all(5),
+        elevation: 4,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.all(16),
+              child: CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.grey,
+                backgroundImage: AssetImage(Assets.CAR_ICON),
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.all(5),
+                  child: Text('{Alias de vehículo}',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.surface,
+                          fontSize: 20,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w600)),
+                ),
+                Container(
+                  margin: EdgeInsets.all(5),
+                  child: Text('{X ejes}',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.surface,
+                          fontSize: 18,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w400)),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -103,6 +250,23 @@ class BothPaymentPage extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text('Selecciona tu vehiculo',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: Color.fromRGBO(55, 55, 55, 1),
+              fontFamily: 'Raleway',
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            )),
+      ),
+    );
+  }
+
+  Container titleCreditCard() {
+    return Container(
+      padding: EdgeInsets.only(top: 15, left: 20, bottom: 25),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text('Selecciona tu medio de pago',
             textAlign: TextAlign.left,
             style: TextStyle(
               color: Color.fromRGBO(55, 55, 55, 1),
