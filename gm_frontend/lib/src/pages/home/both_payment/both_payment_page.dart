@@ -9,31 +9,31 @@ class BothPaymentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            leading: buttonBack(context),
-            title: Text('Pago de caseta',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: 20,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.bold)),
-            backgroundColor: Colors.white,
-            actions: [
-              _counterPage(context),
-            ],
-          ),
-          body: PageView(
-            physics: NeverScrollableScrollPhysics(),
-            controller: con.pageController,
-            onPageChanged: (index) => con.onPageViewChange,
-            children: [
-              _pageForm1(context),
-              _pageForm1(context),
-            ],
-          ),
-        ));
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        leading: buttonBack(context),
+        title: Text('Pago de caseta',
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.surface,
+                fontSize: 20,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.white,
+        actions: [
+          _counterPage(context),
+        ],
+      ),
+      body: PageView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: con.pageController,
+        onPageChanged: (index) => con.onPageViewChange,
+        children: [
+          _pageForm1(context),
+          _pageForm1(context),
+        ],
+      ),
+    );
   }
 
   Widget _pageForm1(BuildContext context) {
@@ -42,9 +42,58 @@ class BothPaymentPage extends StatelessWidget {
       children: [
         priceContent(context),
         titleVehicle(),
-        _boxForm(context),
+        Expanded(
+          child: ListView(
+            children: [
+              CarCard(context),
+              CarCard(context),
+              CarCard(context),
+            ],
+          ),
+        ),
+        //_boxForm(context),
         //_buttonNext(context),
       ],
+    );
+  }
+
+  Card CarCard(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      margin: EdgeInsets.all(15),
+      elevation: 10,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            margin: EdgeInsets.all(16),
+            child: CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.grey,
+              backgroundImage: AssetImage(Assets.CAR_ICON),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.all(8),
+            child: Text('{Alias de vehículo}',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 20,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w600)),
+          ),
+          Container(
+            margin: EdgeInsets.all(8),
+            child: Text('{X ejes}',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 18,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w400)),
+          ),
+        ],
+      ),
     );
   }
 
