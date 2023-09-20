@@ -16,6 +16,11 @@ class MenuSideController extends GetxController {
     print('Oprimeindo');
   }
 
+  void GoToCar() {
+    Get.toNamed('/home/menu/car');
+    print('Oprimeindo');
+  }
+
   void onTap(int index) {
     indexBottomPage.value = index;
     switch (index) {

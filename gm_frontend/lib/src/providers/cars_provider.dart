@@ -10,7 +10,8 @@ class CarsProvider extends GetConnect {
 
   Future<ResponseApi> createCar(Car car) async {
     String url = '${Environment.API_URL}api/car/createCar';
-    User user = GetStorage().read('user') ?? User();
+    User user = User.fromJson(GetStorage().read('user') ?? {});
+    ;
     print('Car JSON ${car.toJson()}');
     Response response = await post(url, car.toJson(),
         headers: {'Content-Type': 'application/json'});

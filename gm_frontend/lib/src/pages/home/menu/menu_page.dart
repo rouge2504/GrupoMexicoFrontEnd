@@ -52,7 +52,8 @@ class MenuPage extends StatelessWidget {
               child: Column(children: [
                 ButtonItem(context, 'Mi perfil', Assets.PROFILE_OUTLINE,
                     con.GoToAccount),
-                ButtonItem(context, 'Mis vehiculos', Assets.CAR_ICON, () => {}),
+                ButtonItem(
+                    context, 'Mis vehiculos', Assets.CAR_ICON, con.GoToCar),
                 ButtonItem(
                     context, 'Medios de Pago', Assets.MONEY_ICON, () => {}),
                 ButtonItem(context, 'Historial de pagos',

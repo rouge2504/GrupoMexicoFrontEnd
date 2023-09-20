@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
 import 'package:get/get.dart';
+import 'package:gm_frontend/src/models/Car.dart';
 import 'package:gm_frontend/src/pages/home/menu/car/menu_car_controller.dart';
 
 class MenuCarPage extends StatefulWidget {
@@ -161,14 +162,14 @@ class _MenuCarPageState extends State<MenuCarPage> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       child: ElevatedButton(
-          onPressed: con.validForm.value ? () => con.nextButton() : null,
+          onPressed: con.validForm.value ? () => con.register(context) : null,
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
             padding: EdgeInsets.symmetric(vertical: 20),
           ),
           child: Text(
-            'Siguiente',
+            'Guardar cambios',
             style: TextStyle(
                 fontSize: 20.0,
                 color: Colors.white,
@@ -179,26 +180,42 @@ class _MenuCarPageState extends State<MenuCarPage> {
   }
 
   Widget CardMain(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 25, left: 20),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text('Puedes agregar hasta 3 vehículos',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.surface,
-                    fontFamily: 'Raleway',
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                  )),
-            ),
+    return Obx(() => Container(
+          child: Column(
+            children: [
+              TitleCarCard(context),
+              ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: con.cars.length,
+                itemBuilder: (_, index) {
+                  return CarCard(context, con.cars[index]);
+                },
+                /*children: [
+            CarCard(context),
+            CarCard(context),
+            CarCard(context),
+          ]*/
+              ),
+              AddNewCar(context),
+            ],
           ),
-          CardCard(context),
-          AddNewCar(context),
-        ],
+        ));
+  }
+
+  Container TitleCarCard(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 25, left: 20),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text('Puedes agregar hasta 3 vehículos',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.surface,
+              fontFamily: 'Raleway',
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            )),
       ),
     );
   }
@@ -283,7 +300,7 @@ class _MenuCarPageState extends State<MenuCarPage> {
                 fontFamily: 'Raleway',
                 fontWeight: FontWeight.w400,
                 fontSize: 20),
-            controller: con.edgesController,
+            controller: con.edgeController,
             keyboardType: TextInputType.number,
             textAlign: TextAlign.left,
             decoration: InputDecoration(
@@ -503,7 +520,7 @@ class _MenuCarPageState extends State<MenuCarPage> {
     );
   }
 
-  Widget CardCard(BuildContext context) {
+  Widget CarCard(BuildContext context, Car car) {
     return TextButton(
       style: TextButton.styleFrom(
           padding: EdgeInsets.only(left: 15, right: 15),
@@ -545,7 +562,7 @@ class _MenuCarPageState extends State<MenuCarPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Coche',
+                    car.alias!,
                     style: TextStyle(
                         color: const Color.fromRGBO(84, 88, 089, 1),
                         fontFamily: 'Raleway',
@@ -559,7 +576,7 @@ class _MenuCarPageState extends State<MenuCarPage> {
                     height: 10,
                   ),
                   Text(
-                    'LWJK100',
+                    car.model!,
                     style: TextStyle(
                         color: const Color.fromRGBO(84, 88, 089, 1),
                         fontFamily: 'Raleway',
@@ -573,7 +590,7 @@ class _MenuCarPageState extends State<MenuCarPage> {
                     height: 10,
                   ),
                   Text(
-                    'Chevrolet',
+                    car.mark!,
                     style: TextStyle(
                         color: const Color.fromRGBO(84, 88, 089, 1),
                         fontFamily: 'Raleway',
