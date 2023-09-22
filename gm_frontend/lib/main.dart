@@ -7,6 +7,7 @@ import 'package:gm_frontend/src/pages/home/media/resources_media_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/account/menu_account_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/car/menu_car_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/notification/menu_notification_page.dart';
+import 'package:gm_frontend/src/pages/home/menu/payment_methods/menu_payment_methods_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/home_routes_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/recent_payments/home_routes_recent_payments_page.dart';
 import 'package:gm_frontend/src/pages/login/login_page.dart';
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/home/menu/car',
+      initialRoute: '/home/menu/payment_methods',
       //initialRoute: '/home/menu/account',
       debugShowCheckedModeBanner: false,
       getPages: [
@@ -65,6 +66,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/home/menu', page: () => MenuPage()),
         GetPage(name: '/home/menu/account', page: () => MenuAccountPage()),
         GetPage(name: '/home/menu/car', page: () => MenuCarPage()),
+        GetPage(
+            name: '/home/menu/payment_methods',
+            page: () => MenuPaymentMethodsPage()),
         GetPage(
             name: '/home/menu/notification',
             page: () => MenuNotificationPage()),

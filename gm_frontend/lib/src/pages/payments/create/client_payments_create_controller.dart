@@ -4,13 +4,17 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:gm_frontend/src/models/costumerMercadoPago.dart';
 import 'package:gm_frontend/src/models/mercado_pago_card_holder.dart';
 import 'package:gm_frontend/src/models/mercado_pago_card_token.dart';
 import 'package:gm_frontend/src/models/mercado_pago_document_type.dart';
+import 'package:gm_frontend/src/models/response_api.dart';
+import 'package:gm_frontend/src/models/user.dart';
 import 'package:gm_frontend/src/pages/providers/mercado_pago_provider.dart';
 
 class ClientPlaymentsCreateController extends GetxController {
   TextEditingController documentNumberController = TextEditingController();
+  User userSession = User.fromJson(GetStorage().read('user') ?? {});
   var cardNumber = ''.obs;
   var expireDate = ''.obs;
   var cardHolderName = ''.obs;
@@ -20,6 +24,17 @@ class ClientPlaymentsCreateController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey();
   MercadoPagoProvider mercadoPagoProvider = MercadoPagoProvider();
   List<MercadoPagoDocumentType> documents = <MercadoPagoDocumentType>[].obs;
+
+  ClientPlaymentsCreateController() {
+    CheckClient();
+  }
+
+  void CheckClient() async {
+    print("Buscando cliente");
+    CostumerMercadoPago costumerMercadoPago =
+        await mercadoPagoProvider.findClient(userSession.email!);
+    print(costumerMercadoPago.results);
+  }
 
   void createCardToken() async {
     String documentNumber = documentNumberController.text;
