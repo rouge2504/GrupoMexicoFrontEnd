@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:gm_frontend/src/models/mercado_pago_card_reference.dart';
 import 'package:path/path.dart';
 import 'package:gm_frontend/src/environment/environment.dart';
 import 'package:gm_frontend/src/models/response_api.dart';
@@ -25,6 +26,16 @@ class UsersProvider extends GetConnect {
     print(response.statusText);
     return response;
   }
+
+  /*Future<ResponseApi> createCard(MercadoPagoCardReference mercadoPagoCardReference) async{
+    String url = '${Environment.API_URL}api/users/create';
+    Response response = await post(url, {
+      'email': email,
+      'password': password,
+    }, headers: {
+      'Content-Type': 'application/json'
+    });
+  }*/
 
   Future<ResponseApi> createUser(User user) async {
     String url = '${Environment.API_URL}api/users/create';
