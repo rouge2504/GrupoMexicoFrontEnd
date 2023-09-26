@@ -98,17 +98,20 @@ class RegisterController extends GetxController {
       ProgressDialog progressDialog = ProgressDialog(context: context);
       progressDialog.show(max: 100, msg: 'Registrando Datos...');
       ResponseApi responseApi = await usersProvider.createUser(user);
-      if (responseApi != null) {
+      if (responseApi.data != null) {
         if (responseApi.success!) {
           progressDialog.close();
           user.id = responseApi.data.toString();
-          GetStorage().write('user', user);
+          GetStorage().write('user', user.toJson());
           Get.snackbar('Login Exitoso', responseApi.message ?? '');
           goToHomePage();
         } else {
           progressDialog.close();
           Get.snackbar('Algo salio mal', '');
         }
+      } else {
+        progressDialog.close();
+        Get.snackbar('Algo salio mal', '');
       }
     } else {
       print('Algo salio terriblemente mal');

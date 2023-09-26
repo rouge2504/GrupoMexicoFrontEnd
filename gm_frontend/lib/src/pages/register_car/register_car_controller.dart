@@ -9,6 +9,7 @@ import 'package:gm_frontend/src/models/response_api.dart';
 import 'package:gm_frontend/src/models/user.dart';
 import 'package:gm_frontend/src/providers/cars_provider.dart';
 import 'package:gm_frontend/src/providers/users_provider.dart';
+import 'package:gm_frontend/src/utils/preferences_app.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -31,6 +32,7 @@ class RegisterCarController extends GetxController {
   PageController pageController = PageController();
 
   CarsProvider carsProvider = CarsProvider();
+  GlobalKey<FormState> formKey = GlobalKey();
 
   var email = ''.obs;
   var name = ''.obs;
@@ -38,12 +40,15 @@ class RegisterCarController extends GetxController {
   var phone = ''.obs;
 
   var validForm = false.obs;
-  var validFormPassword = false.obs;
+  var validFormPassword = true.obs;
 
   var activePage = 0.obs;
 
   var passwordVisible = false.obs;
   var passwordConfirmVisible = false.obs;
+
+  MercadoPagoProvider mercadoPagoProvider = MercadoPagoProvider();
+  String? idCostumer;
 
   TextEditingController documentNumberController = TextEditingController();
   var cardNumber = ''.obs;
@@ -55,7 +60,7 @@ class RegisterCarController extends GetxController {
   ImagePicker picker = ImagePicker();
   File? imageFile;
 
-  User user = GetStorage().read('user') ?? User();
+  User user = User.fromJson(GetStorage().read('user')) ?? User();
 
   RegisterCarController() {
     print(user.id);
@@ -179,10 +184,42 @@ class RegisterCarController extends GetxController {
     pageController.nextPage(
         duration: Duration(milliseconds: 250), curve: Curves.bounceInOut);
     print('NEXT BUTTON ${activePage.value}');
-    register(context);
+    registerCar(context);
   }
 
-  void register(BuildContext context) async {
+  void registerCard(BuildContext context) async {
+    cardNumber.value = cardNumber.value.replaceAll(RegExp(' '), '');
+    List<String> list = expireDate.split('/');
+    int month = int.parse(list[0]);
+    String year = '20${list[1]}';
+    ProgressDialog progressDialog = ProgressDialog(context: context);
+    progressDialog.show(max: 100, msg: 'Registrando Datos de la tarjeta...');
+    ResponseApi responseApi =
+        await mercadoPagoProvider.createCardTokenWithNewID(
+            cardNumber: cardNumber.value,
+            expirationYear: year,
+            expirationMonth: month,
+            cardHolderName: cardHolderName.value,
+            cvv: cvvCode.value,
+            documentId: 'C.C.',
+            documentNumber: '5151515151',
+            userSession: user);
+
+    if (responseApi != null) {
+      if (responseApi.success!) {
+        progressDialog.close();
+        //GetStorage().write('car', car);
+        Get.snackbar('Registro Exitoso', responseApi.message ?? '');
+        GetStorage().write(PreferenceApp.POP_UP_HOME, true);
+        //goToHomePage();
+      } else {
+        progressDialog.close();
+        Get.snackbar('Algo salio mal', '');
+      }
+    }
+  }
+
+  void registerCar(BuildContext context) async {
     String alias = aliasController.text.trim();
     String numberPlate = numberPlateController.text.trim();
     String mark = markController.text.trim();

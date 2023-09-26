@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
 import 'package:get/get.dart';
 import 'package:gm_frontend/src/models/CardModel.dart';
+import 'package:gm_frontend/src/models/mercado_pago_card_reference.dart';
 import 'package:gm_frontend/src/pages/home/menu/payment_methods/menu_payment_methods_controller.dart';
 
 import 'package:flutter_credit_card/credit_card_form.dart';
@@ -43,7 +44,7 @@ class MenuPaymentMethodsPage extends StatelessWidget {
         ],
         backgroundColor: Colors.white,
         title: Text(
-          'Mis vehiculos',
+          'Medios de pago',
           style: TextStyle(
             color: Theme.of(context).colorScheme.surface,
             fontFamily: 'Raleway',
@@ -184,14 +185,15 @@ class MenuPaymentMethodsPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          cardCreditCard(context),
+          //cardCreditCard(context),
           _buttonNext(context),
         ],
       ),
     );
   }
 
-  Container cardCreditCard(BuildContext context) {
+  Container cardCreditCard(
+      BuildContext context, MercadoPagoCardReference mercadoPagoCardReference) {
     return Container(
       margin: EdgeInsets.only(left: 15, right: 15),
       width: double.infinity,
@@ -218,7 +220,8 @@ class MenuPaymentMethodsPage extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.all(5),
-                    child: Text('Tarjeta terminada en 1234',
+                    child: Text(
+                        'Tarjeta terminada en ${mercadoPagoCardReference.lastFourDigits}',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.surface,
                             fontSize: 20,
@@ -228,7 +231,7 @@ class MenuPaymentMethodsPage extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.all(5),
                     child: Text(
-                      'Banco Santander Serfin S.A. Institución De Banca Múltiple',
+                      mercadoPagoCardReference.issuer!.name!,
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.surface,
                           fontSize: 14,
@@ -256,15 +259,12 @@ class MenuPaymentMethodsPage extends StatelessWidget {
               ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
-                itemCount: con.cardsModel.length,
+                itemCount: con.creditCards.length,
                 itemBuilder: (_, index) {
-                  return CarCard(context, con.cardsModel[index]);
+                  con.CheckClient();
+                  print('Index methods: ${index}');
+                  return cardCreditCard(context, con.creditCards[index]);
                 },
-                /*children: [
-            CarCard(context),
-            CarCard(context),
-            CarCard(context),
-          ]*/
               ),
               AddNewCreditCard(context),
             ],

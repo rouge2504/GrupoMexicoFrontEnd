@@ -26,6 +26,8 @@ class MenuPaymentMethodsController extends GetxController {
 
   String? idCostumer;
 
+  List<MercadoPagoCardReference> creditCards = <MercadoPagoCardReference>[].obs;
+
   MenuPaymentMethodsController() {
     CheckClient();
     // GetToken();
@@ -40,15 +42,15 @@ class MenuPaymentMethodsController extends GetxController {
     costumerMercadoPago =
         await mercadoPagoProvider.findClient(userSession.email!);
 
-    print(costumerMercadoPago!.results![0].id);
+    //print('Lenght Tarjetas: ${costumerMercadoPago!.results!.length}');
 
     idCostumer = costumerMercadoPago!.results![0].id;
 
-    List<MercadoPagoCardReference> creditCards = await mercadoPagoProvider
+    creditCards = await mercadoPagoProvider
         .getCards(costumerMercadoPago!.results![0].id!);
 
     if (!creditCards.isEmpty) {
-      print('Credit cards ${creditCards[0]}');
+      print('Credit cards ${creditCards.length}');
     }
 
     if (costumerMercadoPago!.results!.isEmpty) {

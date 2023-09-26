@@ -81,7 +81,7 @@ class MercadoPagoProvider extends GetConnect {
 
     print('RESPONSE: ${response}');
     print('RESPONSE STATUS CODE: ${response.statusCode}');
-    print('RESPONSE Body: ${response.body}');
+    //print('RESPONSE Body: ${response.body}');
 
     if (response.statusCode == 401) {
       Get.snackbar('Petinicion Denegada',
@@ -250,7 +250,7 @@ class MercadoPagoProvider extends GetConnect {
           'Tu usuario no tiene permitido leer esta informacion');
       return CostumerMercadoPago();
     }
-    print("Respuesta de Api FindClient ${response.body}");
+    //print("Respuesta de Api FindClient ${response.body}");
     CostumerMercadoPago res = CostumerMercadoPago.fromJson(response.body);
     return res;
   }
@@ -334,5 +334,101 @@ class MercadoPagoProvider extends GetConnect {
         await saveCardOnMercadoPago(idToken!, res.id!, cardNumber!, cvv!);
 
     return res;
+  }
+
+  Future<ResponseApi> createCardTokenWithNewID(
+      {String? cvv,
+      String? expirationYear,
+      int? expirationMonth,
+      String? cardNumber,
+      String? cardHolderName,
+      String? documentNumber,
+      String? documentId,
+      User? userSession}) async {
+    //Map<String, dynamic> json = GetStorage().read('user');
+    //print(json);
+    // User userSession = User.fromJson(GetStorage().read('user')) ?? User();
+
+    Response responseCreateUser = await post(
+      '${Environment.API_URL}api/payment/createUser',
+      {
+        "email": userSession!.email,
+        "first_name": userSession!.name,
+        "last_name": userSession!.lastname,
+        "phone": {"area_code": "00", "number": userSession!.phone},
+        "identification": {"type": "CPF", "number": "12345678900"},
+        "default_address": "Home",
+        "address": {
+          "id": "123123",
+          "zip_code": "01234567",
+          "street_name": "Rua Exemplo",
+          "street_number": 123,
+          "city": {}
+        },
+        "date_registered": "2021-10-20T11:37:30.000-04:00",
+        "description": "Description del user",
+        "default_card": "None",
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ${Environment.ACCESS_TOKEN}'
+      },
+    );
+    Result? costumerMercadoPago;
+    if (responseCreateUser.body == null) {
+      print("Algo salio terriblemente mal");
+    } else {
+      costumerMercadoPago = Result.fromJson(responseCreateUser.body);
+    }
+    Response responseCardToken =
+        await post('$url/card_tokens?public_key=${Environment.PUBLIC_KEY}', {
+      'security_code': cvv,
+      'expiration_year': expirationYear,
+      'expiration_month': expirationMonth,
+      'card_number': cardNumber,
+      'card_holder': {
+        'name': cardHolderName,
+        'identification': {'number': documentNumber, 'type': documentId}
+      },
+    }, headers: {
+      'Content-Type': 'application/json',
+    }, query: {
+      'public_key': Environment.PUBLIC_KEY
+    });
+
+    print(cardNumber);
+    Response response =
+        await post('$url/card_tokens?public_key=${Environment.PUBLIC_KEY}', {
+      'security_code': cvv,
+      'expiration_year': expirationYear,
+      'expiration_month': expirationMonth,
+      'card_number': cardNumber,
+      'card_holder': {
+        'name': cardHolderName,
+        'identification': {'number': documentNumber, 'type': documentId}
+      },
+    }, headers: {
+      'Content-Type': 'application/json',
+    }, query: {
+      'public_key': Environment.PUBLIC_KEY
+    });
+
+    if (response.statusCode != 201) {
+      Get.snackbar('Error', 'No se pudo validar la tarjeta');
+      print('RESPONSE createCardTokenWithID: ${response}');
+      print(
+          'RESPONSE STATUS CODE createCardTokenWithID: ${response.statusCode}');
+      print('RESPONSE Body createCardTokenWithID: ${response.body}');
+      return ResponseApi();
+    }
+
+    MercadoPagoCardToken mercadoPagoCardToken =
+        MercadoPagoCardToken.fromJson(responseCardToken.body);
+
+    MercadoPagoCardReference mercadoPagoCardReference =
+        await saveCardOnMercadoPago(costumerMercadoPago!.id!,
+            mercadoPagoCardToken.id!, cardNumber!, cvv!);
+    ResponseApi responseApi = ResponseApi.fromJson(response.body);
+    return responseApi;
   }
 }

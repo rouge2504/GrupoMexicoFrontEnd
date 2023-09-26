@@ -191,11 +191,6 @@ class _MenuCarPageState extends State<MenuCarPage> {
                 itemBuilder: (_, index) {
                   return CarCard(context, con.cars[index]);
                 },
-                /*children: [
-            CarCard(context),
-            CarCard(context),
-            CarCard(context),
-          ]*/
               ),
               AddNewCar(context),
             ],

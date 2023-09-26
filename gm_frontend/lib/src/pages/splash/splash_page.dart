@@ -22,6 +22,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     init();
+
     User userSession = User.fromJson(GetStorage().read('user') ?? {});
     print(userSession.id);
     var onBoardingActive =

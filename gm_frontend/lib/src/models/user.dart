@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 import 'package:gm_frontend/src/models/Car.dart';
+import 'package:gm_frontend/src/models/CardModel.dart';
 
 User userFromJson(String str) => User.fromJson(json.decode(str));
 
@@ -19,18 +20,19 @@ class User {
   String? password;
   String? sessionToken;
   List<Car>? cars = [];
+  List<CardModel>? cardModels = [];
 
-  User({
-    this.id,
-    this.email,
-    this.name,
-    this.lastname,
-    this.phone,
-    this.image,
-    this.password,
-    this.sessionToken,
-    this.cars,
-  });
+  User(
+      {this.id,
+      this.email,
+      this.name,
+      this.lastname,
+      this.phone,
+      this.image,
+      this.password,
+      this.sessionToken,
+      this.cars,
+      this.cardModels});
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
@@ -44,6 +46,10 @@ class User {
         cars: json["cars"] == null
             ? []
             : List<Car>.from(json["cars"].map((model) => Car.fromJson(model))),
+        cardModels: json["cars"] == null
+            ? []
+            : List<CardModel>.from(
+                json["cars"].map((model) => CardModel.fromJson(model))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -56,5 +62,6 @@ class User {
         "password": password,
         "session_token": sessionToken,
         "cars": cars,
+        "cardModels": cardModels,
       };
 }

@@ -49,11 +49,11 @@ class RegisterCarPage extends StatelessWidget {
               expiryDate: con.expireDate.value,
               cardHolderName: con.cardHolderName.value,
               cvvCode: con.cvvCode.value,
-              showBackView: con.isCvvFocused.value,
+              showBackView: false,
               cardBgColor: Colors.red,
               labelValidThru: 'VALID\nTHRU',
               obscureCardNumber: true,
-              obscureInitialCardNumber: false,
+              obscureInitialCardNumber: true,
               obscureCardCvv: true,
               height: 175,
               labelCardHolder: 'NOMBRE Y APELLIDO',
@@ -83,7 +83,7 @@ class RegisterCarPage extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
               child: CreditCardForm(
-                formKey: GlobalKey(), // Required
+                formKey: con.formKey, // Required
                 onCreditCardModelChange:
                     con.onCreditCardModelChanged, // Required
                 themeColor: Colors.red,
@@ -123,7 +123,7 @@ class RegisterCarPage extends StatelessWidget {
                   border: OutlineInputBorder(),
                   labelText: 'Titular de la tarjeta',
                 ),
-                cardHolderName: '',
+                cardHolderName: ' ',
                 cardNumber: '',
                 cvvCode: '',
                 expiryDate: '',
@@ -502,8 +502,9 @@ class RegisterCarPage extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       child: ElevatedButton(
-          onPressed:
-              con.validFormPassword.value ? () => con.register(context) : null,
+          onPressed: con.validFormPassword.value
+              ? () => con.registerCard(context)
+              : null,
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
