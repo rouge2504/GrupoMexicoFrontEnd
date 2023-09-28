@@ -240,6 +240,7 @@ class RegisterCarController extends GetxController {
       progressDialog.show(max: 100, msg: 'Registrando Datos del Carro...');
       ResponseApi responseApi = await carsProvider.createCar(car);
       if (responseApi != null) {
+        print('RESPONSE API REGISTER CAR: ${responseApi.data}');
         if (responseApi.success!) {
           progressDialog.close();
           car.id = responseApi.data.toString();

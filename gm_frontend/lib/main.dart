@@ -10,6 +10,7 @@ import 'package:gm_frontend/src/pages/home/menu/notification/menu_notification_p
 import 'package:gm_frontend/src/pages/home/menu/payment_methods/menu_payment_methods_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/home_routes_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/recent_payments/home_routes_recent_payments_page.dart';
+import 'package:gm_frontend/src/pages/init_session/init_session_page.dart';
 import 'package:gm_frontend/src/pages/login/login_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/menu_page.dart';
 import 'package:gm_frontend/src/pages/on_boarding/on_boarding_page.dart';
@@ -54,6 +55,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/splash', page: () => SplashPage()),
         GetPage(name: '/login', page: () => LoginPage()),
         GetPage(name: '/register', page: () => RegisterPage()),
+        GetPage(name: '/init_session', page: () => InitSessionPage()),
         GetPage(name: '/register_car', page: () => RegisterCarPage()),
         GetPage(name: '/on_boarding', page: () => OnBoardingPage()),
         GetPage(name: '/home', page: () => HomePage()),

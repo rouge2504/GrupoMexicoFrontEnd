@@ -374,11 +374,21 @@ class MercadoPagoProvider extends GetConnect {
         //'Authorization': 'Bearer ${Environment.ACCESS_TOKEN}'
       },
     );
-    Result? costumerMercadoPago;
+    Result? costumerMercadoPagoResult;
+    CostumerMercadoPago? costumerMercadoPago;
+    bool? checkNewUser;
     if (responseCreateUser.body == null) {
       print("Algo salio terriblemente mal");
     } else {
-      costumerMercadoPago = Result.fromJson(responseCreateUser.body);
+      ResponseApi responseTemp = ResponseApi.fromJson(responseCreateUser.body);
+      checkNewUser = responseTemp.success!;
+      if (checkNewUser!) {
+        costumerMercadoPagoResult = Result.fromJson(responseCreateUser.body);
+      } else {
+        costumerMercadoPago =
+            CostumerMercadoPago.fromJson(responseCreateUser.body);
+        print('El cliente existe ya');
+      }
     }
     Response responseCardToken =
         await post('$url/card_tokens?public_key=${Environment.PUBLIC_KEY}', {
@@ -426,8 +436,13 @@ class MercadoPagoProvider extends GetConnect {
         MercadoPagoCardToken.fromJson(responseCardToken.body);
 
     MercadoPagoCardReference mercadoPagoCardReference =
-        await saveCardOnMercadoPago(costumerMercadoPago!.id!,
-            mercadoPagoCardToken.id!, cardNumber!, cvv!);
+        await saveCardOnMercadoPago(
+            checkNewUser!
+                ? costumerMercadoPago!.results![0].id!
+                : costumerMercadoPagoResult!.id!,
+            mercadoPagoCardToken.id!,
+            cardNumber!,
+            cvv!);
     ResponseApi responseApi = ResponseApi.fromJson(response.body);
     return responseApi;
   }

@@ -5,4 +5,8 @@ class LoginController extends GetxController {
   void goToRegisterPage() {
     Get.toNamed('/register');
   }
+
+  void goToInitSessionPage() {
+    Get.toNamed('/init_session');
+  }
 }
