@@ -56,6 +56,7 @@ dev_dependencies:
   fluttertoast: ^8.2.2
   onboarding: ^3.1.0
   qr_code_scanner: ^1.0.1
+  dropdown_button2: ^2.3.9
   qr_flutter:
     git:
       url: https://github.com/theyakka/qr.flutter.git
