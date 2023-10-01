@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
+import 'package:gm_frontend/src/models/Car.dart';
 import 'package:gm_frontend/src/pages/home/both_payment/both_payment_controller.dart';
 
 class BothPaymentPage extends StatelessWidget {
@@ -9,31 +10,31 @@ class BothPaymentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: buttonBack(context),
-        title: Text('Pago de caseta',
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.surface,
-                fontSize: 20,
-                fontFamily: 'Raleway',
-                fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
-        actions: [
-          _counterPage(context),
-        ],
-      ),
-      body: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: con.pageController,
-        onPageChanged: (index) => con.onPageViewChange,
-        children: [
-          _pageForm2(context),
-          _pageForm1(context),
-        ],
-      ),
-    );
+    return Obx(() => Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            leading: buttonBack(context),
+            title: Text('Pago de caseta',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 20,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.bold)),
+            backgroundColor: Colors.white,
+            actions: [
+              _counterPage(context),
+            ],
+          ),
+          body: PageView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: con.pageController,
+            onPageChanged: (index) => con.onPageViewChange,
+            children: [
+              _pageForm1(context),
+              _pageForm2(context),
+            ],
+          ),
+        ));
   }
 
   Widget _pageForm1(BuildContext context) {
@@ -43,12 +44,13 @@ class BothPaymentPage extends StatelessWidget {
         priceContent(context),
         titleCreditCard(),
         Expanded(
-          child: ListView(
-            children: [
-              CarCard(context),
-              CarCard(context),
-              CarCard(context),
-            ],
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: con.cars.length,
+            itemBuilder: (_, index) {
+              return CarCard(context, con.cars[index]);
+            },
           ),
         ),
         //_boxForm(context),
@@ -180,7 +182,7 @@ class BothPaymentPage extends StatelessWidget {
               children: [
                 Container(
                   margin: EdgeInsets.all(5),
-                  child: Text('{Alias de vehículo}',
+                  child: Text('${con.carAlias.value}',
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.surface,
                           fontSize: 20,
@@ -189,7 +191,7 @@ class BothPaymentPage extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.all(5),
-                  child: Text('{X ejes}',
+                  child: Text('${con.carEdges.value}',
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.surface,
                           fontSize: 18,
@@ -204,42 +206,49 @@ class BothPaymentPage extends StatelessWidget {
     );
   }
 
-  Card CarCard(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      margin: EdgeInsets.all(15),
-      elevation: 10,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            margin: EdgeInsets.all(16),
-            child: CircleAvatar(
-              radius: 30,
-              backgroundColor: Colors.grey,
-              backgroundImage: AssetImage(Assets.CAR_ICON),
+  Widget CarCard(BuildContext context, Car car) {
+    return GestureDetector(
+      onTap: () {
+        con.carAlias.value = car.alias!;
+        con.carEdges.value = car.edges!;
+        con.nextButton(context);
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        margin: EdgeInsets.all(15),
+        elevation: 10,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              margin: EdgeInsets.all(16),
+              child: CircleAvatar(
+                radius: 30,
+                backgroundColor: Colors.grey,
+                backgroundImage: AssetImage(Assets.CAR_ICON),
+              ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.all(8),
-            child: Text('{Alias de vehículo}',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: 20,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.w600)),
-          ),
-          Container(
-            margin: EdgeInsets.all(8),
-            child: Text('{X ejes}',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: 18,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.w400)),
-          ),
-        ],
+            Container(
+              margin: EdgeInsets.all(8),
+              child: Text('${car.alias}',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.surface,
+                      fontSize: 20,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w600)),
+            ),
+            Container(
+              margin: EdgeInsets.all(8),
+              child: Text('${car.edges}',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.surface,
+                      fontSize: 18,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w400)),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -34,22 +34,23 @@ class User {
       this.cars,
       this.cardModels});
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        email: json["email"],
-        name: json["name"],
-        lastname: json["lastname"],
-        phone: json["phone"],
-        image: json["image"],
-        password: json["password"],
-        sessionToken: json["session_token"],
-        cars: json["cars"] == null
+  factory User.fromJson(Map<String, dynamic> _json) => User(
+        id: _json["id"].toString(),
+        email: _json["email"],
+        name: _json["name"],
+        lastname: _json["lastname"],
+        phone: _json["phone"],
+        image: _json["image"],
+        password: _json["password"],
+        sessionToken: _json["session_token"],
+        cars: _json["cars"] == null
             ? []
-            : List<Car>.from(json["cars"].map((model) => Car.fromJson(model))),
-        cardModels: json["cars"] == null
+            : Car.fromJsonList(json.decode(_json["cars"])),
+        /*: List<Car>.from(json["cars"].map((model) => Car.fromJson(model))),*/
+        cardModels: _json["cards"] == null
             ? []
             : List<CardModel>.from(
-                json["cars"].map((model) => CardModel.fromJson(model))),
+                _json["cards"].map((model) => CardModel.fromJson(model))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -61,7 +62,7 @@ class User {
         "image": image,
         "password": password,
         "session_token": sessionToken,
-        "cars": cars,
+        "cars": Car.toJsonList(cars!).toString(),
         "cardModels": cardModels,
       };
 }

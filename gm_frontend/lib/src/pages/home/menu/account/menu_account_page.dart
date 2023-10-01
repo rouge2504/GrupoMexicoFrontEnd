@@ -343,47 +343,49 @@ class _MenuAccountPageState extends State<MenuAccountPage> {
               ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.only(left: 20),
-            width: MediaQuery.of(context).size.width * 0.60,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Nombre ooooooooooooooooo',
-                  style: TextStyle(
-                      color: const Color.fromRGBO(84, 88, 089, 1),
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20),
-                  softWrap: true,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  'Correo',
-                  style: TextStyle(
-                      color: const Color.fromRGBO(84, 88, 089, 1),
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15),
-                  softWrap: true,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  'Numero celular',
-                  style: TextStyle(
-                      color: const Color.fromRGBO(84, 88, 089, 1),
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15),
-                  softWrap: true,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(left: 20),
+              width: MediaQuery.of(context).size.width * 0.60,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    con.user.name!,
+                    style: TextStyle(
+                        color: const Color.fromRGBO(84, 88, 089, 1),
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20),
+                    softWrap: true,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    con.user.email!,
+                    style: TextStyle(
+                        color: const Color.fromRGBO(84, 88, 089, 1),
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15),
+                    softWrap: true,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    con.user.phone!,
+                    style: TextStyle(
+                        color: const Color.fromRGBO(84, 88, 089, 1),
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15),
+                    softWrap: true,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
           ),
           Icon(

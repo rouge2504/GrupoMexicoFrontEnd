@@ -16,7 +16,7 @@ class Car {
   String? mark;
   String? model;
   String? year;
-  String? edge;
+  String? edges;
 
   Car({
     this.id,
@@ -26,8 +26,35 @@ class Car {
     this.mark,
     this.model,
     this.year,
-    this.edge,
+    this.edges,
   });
+
+  static List<Car> fromJsonList(List<dynamic> jsonList) {
+    List<Car> toList = [];
+
+    jsonList.forEach((item) {
+      Car car = Car.fromJson(item);
+      toList.add(car);
+    });
+    return toList;
+  }
+
+  static String? toJsonList(List<Car> list) {
+    var listMap = list.map((e) {
+      return {
+        "id": e.id,
+        "image": e.image,
+        "alias": e.alias,
+        "numberPlate": e.number_plate,
+        "mark": e.mark,
+        "year": e.year,
+        "edges": e.edges
+      };
+    }).toList();
+
+    String stringCar = json.encode(listMap);
+    return stringCar;
+  }
 
   factory Car.fromJson(Map<String, dynamic> json) => Car(
         id: json["id"],
@@ -37,7 +64,7 @@ class Car {
         mark: json["mark"],
         model: json["model"],
         year: json["year"],
-        edge: json["edge"],
+        edges: json["edges"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -48,6 +75,6 @@ class Car {
         "mark": mark,
         "model": model,
         "year": year,
-        "edge": edge,
+        "edges": edges,
       };
 }

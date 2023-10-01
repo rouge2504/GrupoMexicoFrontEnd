@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:gm_frontend/src/models/response_api.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:gm_frontend/src/models/user.dart';
+import 'package:gm_frontend/src/providers/cars_provider.dart';
 
 import 'package:gm_frontend/src/providers/users_provider.dart';
 
@@ -10,6 +11,7 @@ class InitSessionController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   UsersProvider usersProvider = UsersProvider();
+  CarsProvider carsProvider = CarsProvider();
 
   var validForm = false.obs;
 

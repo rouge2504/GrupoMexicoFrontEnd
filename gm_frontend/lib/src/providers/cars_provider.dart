@@ -45,4 +45,16 @@ class CarsProvider extends GetConnect {
 
     return ResponseApi();
   }
+
+  Future<ResponseApi> getCars(String? id) async {
+    String url = '${Environment.API_URL}api/car/getCars';
+    Response response = await post(url, {
+      'id_user': id,
+    }, headers: {
+      'Content-Type': 'application/json'
+    });
+
+    ResponseApi responseApi = ResponseApi.fromJson(response.body);
+    return responseApi;
+  }
 }

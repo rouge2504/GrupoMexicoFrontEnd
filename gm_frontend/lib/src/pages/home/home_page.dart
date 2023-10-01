@@ -40,62 +40,63 @@ class _HomePage extends State<HomePage> {
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _getCloseButton(context),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                    child: Column(
-                      children: [
-                        Text(
-                          '¡Te damos la bienvenida!',
-                          style: TextStyle(
-                              fontSize: 25.0,
-                              fontFamily: 'Raleway',
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          'Ahora tendrás un viaje más rápido, seguro y asistido. ',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            height: 1.5,
-                            fontFamily: 'Raleway',
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Completa tus datos vehiculares y medios de pago para poder realizar el pago de casetas desde tu celular.',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            height: 1.5,
-                            fontFamily: 'Raleway',
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        _buttonClose(context),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        _buttonRegisterCar(),
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                children: [_getCloseButton(context), popUpWelcome(context)],
               ),
             ),
           ),
         ),
       );
     });
+  }
+
+  Widget popUpWelcome(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+      child: Column(
+        children: [
+          Text(
+            '¡Te damos la bienvenida!',
+            style: TextStyle(
+                fontSize: 25.0,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Text(
+            'Ahora tendrás un viaje más rápido, seguro y asistido. ',
+            style: TextStyle(
+              fontSize: 20.0,
+              height: 1.5,
+              fontFamily: 'Raleway',
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            'Completa tus datos vehiculares y medios de pago para poder realizar el pago de casetas desde tu celular.',
+            style: TextStyle(
+              fontSize: 20.0,
+              height: 1.5,
+              fontFamily: 'Raleway',
+            ),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          _buttonClose(context),
+          SizedBox(
+            height: 10,
+          ),
+          _buttonRegisterCar(),
+          SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    );
   }
 
   void init() async {
@@ -109,6 +110,7 @@ class _HomePage extends State<HomePage> {
       child: ElevatedButton(
           onPressed: () {
             GetStorage().write(PreferenceApp.POP_UP_HOME, true);
+            con.getCars(context);
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.transparent,
@@ -168,6 +170,7 @@ class _HomePage extends State<HomePage> {
             ),
             onTap: () {
               Navigator.pop(context);
+              con.getCars(context);
               GetStorage().write(PreferenceApp.POP_UP_HOME, true);
             },
           ),
@@ -234,7 +237,7 @@ class _HomePage extends State<HomePage> {
               heroTag: 'btn_2',
               backgroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () {
-                // Respond to button press
+                con.goToBothPayment(context);
               },
               child: Container(
                   decoration: BoxDecoration(

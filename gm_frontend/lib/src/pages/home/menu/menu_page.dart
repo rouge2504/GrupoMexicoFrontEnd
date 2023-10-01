@@ -86,7 +86,7 @@ class MenuPage extends StatelessWidget {
               foregroundColor: Colors.black,
               elevation: 0,
             ),
-            onPressed: () {},
+            onPressed: () => con.PopUpWindow(context),
             child: Row(
               children: [
                 ImageIcon(

@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
     init();
 
     User userSession = User.fromJson(GetStorage().read('user') ?? {});
-    print(userSession.id);
+    print('ID session ${userSession.id}');
     var onBoardingActive =
         GetStorage().read(PreferenceApp.ON_BOARDING_ACTIVE) ?? false;
     print('Splahs Onboarding: ${onBoardingActive}');
@@ -34,7 +34,7 @@ class _SplashPageState extends State<SplashPage> {
             context,
             MaterialPageRoute(
                 builder: (context) => onBoardingActive
-                    ? userSession.id != null
+                    ? userSession.id != "null"
                         ? HomePage()
                         : LoginPage()
                     : OnBoardingPage())));

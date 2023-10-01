@@ -234,7 +234,7 @@ class RegisterCarController extends GetxController {
         mark: mark,
         model: model,
         year: year,
-        edge: edges);
+        edges: edges);
     if (isValidForm(alias, numberPlate, mark, model, year, edges)) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
       progressDialog.show(max: 100, msg: 'Registrando Datos del Carro...');

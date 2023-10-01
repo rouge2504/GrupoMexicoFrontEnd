@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:gm_frontend/src/models/mercado_pago_card_reference.dart';
+import 'package:gm_frontend/src/providers/cars_provider.dart';
 import 'package:path/path.dart';
 import 'package:gm_frontend/src/environment/environment.dart';
 import 'package:gm_frontend/src/models/response_api.dart';
@@ -130,6 +131,15 @@ class UsersProvider extends GetConnect {
     }
 
     ResponseApi responseApi = ResponseApi.fromJson(response.body);
+    /*User user = User.fromJson(responseApi.data);
+    CarsProvider carsProvider = CarsProvider();
+    String path = '${Environment.API_URL}api/car/getCars';
+    Response res = await post(path, {
+      'id_user': user.id,
+    }, headers: {
+      'Content-Type': 'application/json'
+    });
+    user.cars = res.body;*/
     return responseApi;
   }
 }
