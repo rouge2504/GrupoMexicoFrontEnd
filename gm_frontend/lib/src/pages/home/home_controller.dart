@@ -2,13 +2,17 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gm_frontend/src/environment/environment.dart';
 import 'package:gm_frontend/src/models/Car.dart';
 import 'package:gm_frontend/src/models/response_api.dart';
 import 'package:gm_frontend/src/models/user.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
+import 'package:url_launcher/url_launcher.dart';
 import 'package:gm_frontend/src/providers/cars_provider.dart';
+
+final Uri _url = Uri.parse('https://flutter.dev');
 
 class HomeController extends GetxController {
   var indexBottomPage = 0.obs;
@@ -46,6 +50,13 @@ class HomeController extends GetxController {
 
   void goToRegisterCar() {
     Get.toNamed('/register_car');
+  }
+
+  void sendWhatsApp(String message) async {
+    Uri uriMessage = Uri.parse(message);
+    launchUrl(Uri.parse('${Environment.EMERGENCY_CHAT}text=${uriMessage}'),
+        mode: LaunchMode.inAppWebView);
+    print("Abriendo Link");
   }
 
   void getCars(BuildContext context) async {

@@ -7,6 +7,7 @@ import 'package:gm_frontend/src/models/mercado_pago_card_holder.dart';
 import 'package:gm_frontend/src/models/mercado_pago_card_reference.dart';
 import 'package:gm_frontend/src/models/mercado_pago_card_token.dart';
 import 'package:gm_frontend/src/models/mercado_pago_credit_cart.dart';
+import 'package:gm_frontend/src/models/mercado_pago_customer.dart';
 import 'package:gm_frontend/src/models/mercado_pago_document_type.dart';
 import 'package:gm_frontend/src/models/mercado_pago_oauth.dart';
 import 'package:gm_frontend/src/models/response_api.dart';
@@ -15,6 +16,8 @@ import 'package:gm_frontend/src/pages/providers/mercado_pago_provider.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'package:sn_progress_dialog/progress_dialog.dart';
+
 class MenuPaymentMethodsController extends GetxController {
   PageController pageController = PageController();
   var validForm = false.obs;
@@ -22,11 +25,13 @@ class MenuPaymentMethodsController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey();
   MercadoPagoProvider mercadoPagoProvider = MercadoPagoProvider();
   User userSession = User.fromJson(GetStorage().read('user') ?? {});
-  CostumerMercadoPago? costumerMercadoPago;
+  MercadoPagoCustomer? costumerMercadoPago;
 
   String? idCostumer;
 
   List<MercadoPagoCardReference> creditCards = <MercadoPagoCardReference>[].obs;
+
+  var cardLength = 0.obs;
 
   MenuPaymentMethodsController() {
     CheckClient();
@@ -39,21 +44,12 @@ class MenuPaymentMethodsController extends GetxController {
 
   void CheckClient() async {
     print("Buscando cliente");
-    costumerMercadoPago =
-        await mercadoPagoProvider.findClient(userSession.email!);
+    CostumerMercadoPago tempCustomer =
+        await mercadoPagoProvider.findClientWithResult(userSession.email!);
 
     //print('Lenght Tarjetas: ${costumerMercadoPago!.results!.length}');
 
-    idCostumer = costumerMercadoPago!.results![0].id;
-
-    creditCards = await mercadoPagoProvider
-        .getCards(costumerMercadoPago!.results![0].id!);
-
-    if (!creditCards.isEmpty) {
-      print('Credit cards ${creditCards.length}');
-    }
-
-    if (costumerMercadoPago!.results!.isEmpty) {
+    if (tempCustomer!.results![0].id == null) {
       print("Cliente no encontrado");
       ResponseApi responseApi = await mercadoPagoProvider.createClient(
           email: userSession.email,
@@ -63,7 +59,29 @@ class MenuPaymentMethodsController extends GetxController {
           number: userSession.phone);
       if (responseApi.success!) {
         print("Cliente Creado");
+        costumerMercadoPago = MercadoPagoCustomer.fromJson(responseApi.data);
+        idCostumer = costumerMercadoPago!.id;
+        creditCards =
+            await mercadoPagoProvider.getCards(costumerMercadoPago!.id!);
+        print('Credit cards ${creditCards.length}');
+        //progressDialog.close();
+
+        return;
       }
+    } else {
+      idCostumer = tempCustomer!.results![0].id;
+      await Future.delayed(Duration(milliseconds: 1500));
+      creditCards = await mercadoPagoProvider.getCards(idCostumer!);
+      print('Credit cards ${creditCards.length}');
+      cardLength.value = creditCards.length;
+      //progressDialog.close();
+
+      print("El cliente ya existe");
+      return;
+    }
+
+    if (!creditCards.isEmpty) {
+      print('Credit cards ${creditCards.length}');
     }
   }
 

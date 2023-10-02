@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
 import 'package:gm_frontend/src/models/Car.dart';
+import 'package:gm_frontend/src/models/CardModel.dart';
+import 'package:gm_frontend/src/models/mercado_pago_card_reference.dart';
 import 'package:gm_frontend/src/pages/home/both_payment/both_payment_controller.dart';
+import 'package:gm_frontend/src/pages/qr/qr_generator/qr_controller.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class BothPaymentPage extends StatelessWidget {
   BothPaymentController con = BothPaymentController();
@@ -65,41 +69,142 @@ class BothPaymentPage extends StatelessWidget {
       children: [
         priceContent(context),
         carChoosed(context),
-        titleVehicle(),
+        titleCard(),
         Expanded(
-          child: ListView(
-            children: [
-              cardCreditCard(context),
-              cardCreditCard(context),
-              Row(
-                children: [
-                  Checkbox(value: false, onChanged: (bool) {}),
-                  Flexible(
-                    child: Text(
-                      'Mantener esta configuración de pago para todas las casetas de mi viaje actual.',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.surface,
-                          fontSize: 14,
-                          fontFamily: 'Raleway',
-                          fontWeight: FontWeight.w400),
-                      softWrap: true,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-                ],
-              ),
-            ],
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: con.cardLength.value,
+            itemBuilder: (_, index) {
+              print('Index methods: ${index}');
+              return cardCreditCard(context, con.creditCards[index]);
+            },
           ),
         ),
-        ElevatedButton(onPressed: () {}, child: Text('Texto de prueba'))
+        Row(
+          children: [
+            Checkbox(value: false, onChanged: (bool) {}),
+            Flexible(
+              child: Text(
+                'Mantener esta configuración de pago para todas las casetas de mi viaje actual.',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 14,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w400),
+                softWrap: true,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            )
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Container(
+              height: MediaQuery.of(context).size.height * 0.08,
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () {
+                    con.PayButton();
+                    showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) {
+                          return ModalBottomSheet(context);
+                        });
+                  },
+                  child: Text('Pagar',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w600)))),
+        )
         //_boxForm(context),
         //_buttonNext(context),
       ],
     );
   }
 
-  Container cardCreditCard(BuildContext context) {
+  SizedBox ModalBottomSheet(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * .85,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 5.0,
+              width: 60.0,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Hoy 01:35 hrs',
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'Raleway',
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Muestra este código en la caseta',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.surface,
+                fontFamily: 'Raleway',
+                fontSize: 18,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(40),
+            child: QrImageView(data: con.payQR.value),
+          ),
+          Text(
+            'Total',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.surface,
+              fontFamily: 'Raleway',
+              fontSize: 18,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'MXN \$180.00',
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'Raleway',
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Text(
+            '{Nombre de caseta}',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.surface,
+              fontFamily: 'Raleway',
+              fontSize: 18,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container cardCreditCard(
+      BuildContext context, MercadoPagoCardReference card) {
     return Container(
       margin: EdgeInsets.only(left: 15, right: 15),
       width: double.infinity,
@@ -126,7 +231,7 @@ class BothPaymentPage extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.all(5),
-                    child: Text('Tarjeta terminada en 1234',
+                    child: Text('Tarjeta terminada en ${card.lastFourDigits}',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.surface,
                             fontSize: 20,
@@ -211,7 +316,7 @@ class BothPaymentPage extends StatelessWidget {
       onTap: () {
         con.carAlias.value = car.alias!;
         con.carEdges.value = car.edges!;
-        con.nextButton(context);
+        con.nextPagePay(context);
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -249,6 +354,23 @@ class BothPaymentPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Container titleCard() {
+    return Container(
+      padding: EdgeInsets.only(top: 15, left: 20, bottom: 25),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text('Selecciona tu tarjeta',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: Color.fromRGBO(55, 55, 55, 1),
+              fontFamily: 'Raleway',
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            )),
       ),
     );
   }
@@ -372,7 +494,7 @@ class BothPaymentPage extends StatelessWidget {
 
       child: Column(
         children: [
-          Text('Texto de prueba')
+          Text('Pagar')
 
           //_buttonRegister(context)
         ],

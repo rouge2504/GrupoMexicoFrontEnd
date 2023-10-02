@@ -6,6 +6,7 @@ import 'package:gm_frontend/src/utils/preferences_app.dart';
 import 'package:gm_frontend/src/utils/state_colors.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -367,7 +368,9 @@ class _HomePage extends State<HomePage> {
       width: MediaQuery.of(context).size.width * 0.44,
       height: MediaQuery.of(context).size.height * 0.25,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          con.sendWhatsApp('¡Necesito ayuda por favor!');
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
@@ -410,7 +413,9 @@ class _HomePage extends State<HomePage> {
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.25,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          con.sendWhatsApp('¡Ayuda por favor, me quede sin frenos');
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(

@@ -23,6 +23,11 @@ class MenuSideController extends GetxController {
     print('Oprimeindo');
   }
 
+  void GoToPaymentMethods() {
+    Get.toNamed('/home/menu/payment_methods');
+    print('Oprimeindo');
+  }
+
   void onTap(int index) {
     indexBottomPage.value = index;
     switch (index) {

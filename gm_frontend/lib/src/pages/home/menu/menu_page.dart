@@ -54,8 +54,8 @@ class MenuPage extends StatelessWidget {
                     con.GoToAccount),
                 ButtonItem(
                     context, 'Mis vehiculos', Assets.CAR_ICON, con.GoToCar),
-                ButtonItem(
-                    context, 'Medios de Pago', Assets.MONEY_ICON, () => {}),
+                ButtonItem(context, 'Medios de Pago', Assets.MONEY_ICON,
+                    con.GoToPaymentMethods),
                 ButtonItem(context, 'Historial de pagos',
                     Assets.MONEY_HISTORY_ICON, () => {}),
                 ButtonItem(context, 'Notificaciones', Assets.NOTIFICATION_ICON,

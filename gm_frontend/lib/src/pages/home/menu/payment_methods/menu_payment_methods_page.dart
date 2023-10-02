@@ -255,13 +255,12 @@ class MenuPaymentMethodsPage extends StatelessWidget {
     return Obx(() => Container(
           child: Column(
             children: [
-              TitleCarCard(context),
+              TitleCardCard(context),
               ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
-                itemCount: con.creditCards.length,
+                itemCount: con.cardLength.value,
                 itemBuilder: (_, index) {
-                  con.CheckClient();
                   print('Index methods: ${index}');
                   return cardCreditCard(context, con.creditCards[index]);
                 },
@@ -291,13 +290,15 @@ class MenuPaymentMethodsPage extends StatelessWidget {
               Icons.add_rounded,
               color: Theme.of(context).colorScheme.primary,
             ),
-            Text(
-              'Agregar nuevo metodo de pago',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20),
+            Expanded(
+              child: Text(
+                'Agregar nuevo metodo de pago',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18),
+              ),
             ),
           ],
         ),
@@ -305,7 +306,7 @@ class MenuPaymentMethodsPage extends StatelessWidget {
     );
   }
 
-  Container TitleCarCard(BuildContext context) {
+  Widget TitleCardCard(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 25, left: 20),
       child: Align(

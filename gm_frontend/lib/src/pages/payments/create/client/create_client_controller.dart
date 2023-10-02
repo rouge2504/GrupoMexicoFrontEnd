@@ -27,8 +27,8 @@ class CreateClientController extends GetxController {
 
   void findClient() async {
     //Response response = await mercadoPagoProvider.findClient(emailController.text);
-    CostumerMercadoPago costumerMercadoPago =
+    MercadoPagoCustomer costumerMercadoPago =
         await mercadoPagoProvider.findClient(emailController.text);
-    print('Response Api!!!: ${costumerMercadoPago.results![0].id}');
+    print('Response Api!!!: ${costumerMercadoPago.id}');
   }
 }

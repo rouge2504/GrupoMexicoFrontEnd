@@ -97,13 +97,11 @@ class MercadoPagoProvider extends GetConnect {
 
     List<MercadoPagoCardReference> data =
         MercadoPagoCardReference.fromJsonList(response.body);
-
-    print('Data UserID GET CARDS ${data[0].userId}');
-
     if (data.isEmpty) {
       print('No esta lleno');
       return [];
     }
+    print('Data UserID GET CARDS ${data[0].userId}');
 
     return data;
   }
@@ -236,7 +234,31 @@ class MercadoPagoProvider extends GetConnect {
     return ResponseApi();
   }
 
-  Future<CostumerMercadoPago> findClient(String email) async {
+  Future<MercadoPagoCustomer> findClient(String email) async {
+    Response response =
+        await get('$url/customers/search?email=${email}', headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${Environment.ACCESS_TOKEN}',
+    }); //ESPERA HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
+
+    print(
+        "Esta es la respuesta para encontrar cliente: ${response.statusCode}");
+    if (response.statusCode == 401) {
+      Get.snackbar('Peticion denegada',
+          'Tu usuario no tiene permitido leer esta informacion');
+      return MercadoPagoCustomer();
+    }
+    print("Respuesta de Api FindClient ${response.body}");
+    ResponseApi responseApi = ResponseApi.fromJson(response.body);
+    print('Respuesta de api buscando cliente: ${responseApi.success}');
+    if (responseApi == null) {
+      return MercadoPagoCustomer();
+    }
+    MercadoPagoCustomer res = MercadoPagoCustomer.fromJson(response.body);
+    return res;
+  }
+
+  Future<CostumerMercadoPago> findClientWithResult(String email) async {
     Response response =
         await get('$url/customers/search?email=${email}', headers: {
       'Content-Type': 'application/json',
@@ -250,7 +272,12 @@ class MercadoPagoProvider extends GetConnect {
           'Tu usuario no tiene permitido leer esta informacion');
       return CostumerMercadoPago();
     }
-    //print("Respuesta de Api FindClient ${response.body}");
+    print("Respuesta de Api FindClient ${response.body}");
+    ResponseApi responseApi = ResponseApi.fromJson(response.body);
+    print('Respuesta de api buscando cliente: ${responseApi.success}');
+    if (responseApi == null) {
+      return CostumerMercadoPago();
+    }
     CostumerMercadoPago res = CostumerMercadoPago.fromJson(response.body);
     return res;
   }

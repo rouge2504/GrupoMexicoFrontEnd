@@ -33,7 +33,7 @@ class MenuCarController extends GetxController {
 
   MenuCarController() {
     for (var i = 0; i < userSession.cars!.length; i++) {
-      print('Car CAR CONTROLLER: ${userSession.cars![i].alias}');
+      print('Car CAR CONTROLLER: ${userSession.cars![i].model}');
       cars.add(userSession.cars![i]);
     }
 

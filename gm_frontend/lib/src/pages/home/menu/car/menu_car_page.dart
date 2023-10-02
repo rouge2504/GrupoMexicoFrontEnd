@@ -571,7 +571,7 @@ class _MenuCarPageState extends State<MenuCarPage> {
                     height: 10,
                   ),
                   Text(
-                    car.model!,
+                    car.mark!,
                     style: TextStyle(
                         color: const Color.fromRGBO(84, 88, 089, 1),
                         fontFamily: 'Raleway',

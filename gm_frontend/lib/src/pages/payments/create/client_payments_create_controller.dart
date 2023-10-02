@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:gm_frontend/src/models/costumerMercadoPago.dart';
 import 'package:gm_frontend/src/models/mercado_pago_card_holder.dart';
 import 'package:gm_frontend/src/models/mercado_pago_card_token.dart';
+import 'package:gm_frontend/src/models/mercado_pago_customer.dart';
 import 'package:gm_frontend/src/models/mercado_pago_document_type.dart';
 import 'package:gm_frontend/src/models/response_api.dart';
 import 'package:gm_frontend/src/models/user.dart';
@@ -31,9 +32,9 @@ class ClientPlaymentsCreateController extends GetxController {
 
   void CheckClient() async {
     print("Buscando cliente");
-    CostumerMercadoPago costumerMercadoPago =
+    MercadoPagoCustomer costumerMercadoPago =
         await mercadoPagoProvider.findClient(userSession.email!);
-    print(costumerMercadoPago.results);
+    print(costumerMercadoPago.id);
   }
 
   void createCardToken() async {
