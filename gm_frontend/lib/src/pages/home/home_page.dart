@@ -369,7 +369,7 @@ class _HomePage extends State<HomePage> {
       height: MediaQuery.of(context).size.height * 0.25,
       child: ElevatedButton(
         onPressed: () {
-          con.sendWhatsApp('¡Necesito ayuda por favor!');
+          con.sendWhatsApp(context, '¡Necesito ayuda por favor!');
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
@@ -414,7 +414,7 @@ class _HomePage extends State<HomePage> {
       height: MediaQuery.of(context).size.height * 0.25,
       child: ElevatedButton(
         onPressed: () {
-          con.sendWhatsApp('¡Ayuda por favor, me quede sin frenos');
+          con.sendWhatsApp(context, '¡Ayuda por favor, me quede sin frenos');
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,

@@ -59,9 +59,9 @@ class MenuPage extends StatelessWidget {
                 ButtonItem(context, 'Historial de pagos',
                     Assets.MONEY_HISTORY_ICON, () => {}),
                 ButtonItem(context, 'Notificaciones', Assets.NOTIFICATION_ICON,
-                    () => {}),
-                ButtonItem(
-                    context, 'Sugerencias', Assets.SUGGESTION_ICON, () => {}),
+                    con.GoToNotification),
+                ButtonItem(context, 'Sugerencias', Assets.SUGGESTION_ICON,
+                    con.GoToSuggestion),
                 ButtonItem(context, 'Preguntas frecuentes', Assets.HELP_ICON,
                     () => {}),
               ]),
@@ -118,7 +118,7 @@ class MenuPage extends StatelessWidget {
               foregroundColor: Colors.black,
               elevation: 0,
             ),
-            onPressed: () {},
+            onPressed: con.GoToAbout,
             child: Row(
               children: [
                 SizedBox(

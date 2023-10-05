@@ -4,6 +4,7 @@ import 'package:gm_frontend/src/models/user.dart';
 import 'package:gm_frontend/src/pages/home/both_payment/both_payment_page.dart';
 import 'package:gm_frontend/src/pages/home/home_page.dart';
 import 'package:gm_frontend/src/pages/home/media/resources_media_page.dart';
+import 'package:gm_frontend/src/pages/home/menu/about/menu_about_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/account/menu_account_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/car/menu_car_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/notification/menu_notification_page.dart';
@@ -11,6 +12,7 @@ import 'package:gm_frontend/src/pages/home/menu/payment_methods/menu_payment_met
 import 'package:gm_frontend/src/pages/home/menu/suggestion/menu_suggestion_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/home_routes_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/recent_payments/home_routes_recent_payments_page.dart';
+import 'package:gm_frontend/src/pages/home/routes/tollboths/home_routes_tollboths_pages.dart';
 import 'package:gm_frontend/src/pages/init_session/init_session_page.dart';
 import 'package:gm_frontend/src/pages/login/login_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/menu_page.dart';
@@ -49,7 +51,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/splash',
+      initialRoute: '/home/routes/tollboths',
       //initialRoute: '/home/menu/account',
       debugShowCheckedModeBanner: false,
       getPages: [
@@ -66,6 +68,8 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/home/routes/recent_payments',
             page: () => HomeRoutesRecentPaymentsPage()),
+        GetPage(
+            name: '/home/routes/tollboths', page: () => HomeRoutesTollboths()),
         GetPage(name: '/home/menu', page: () => MenuPage()),
         GetPage(name: '/home/menu/account', page: () => MenuAccountPage()),
         GetPage(name: '/home/menu/car', page: () => MenuCarPage()),
@@ -77,6 +81,7 @@ class _MyAppState extends State<MyApp> {
             page: () => MenuNotificationPage()),
         GetPage(
             name: '/home/menu/suggestion', page: () => MenuSuggestionPage()),
+        GetPage(name: '/home/menu/about', page: () => MenuAboutPage()),
         GetPage(
             name: '/payments/create', page: () => ClientPaymentsCreatePage()),
         GetPage(

@@ -11,6 +11,7 @@ import 'package:sn_progress_dialog/progress_dialog.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:gm_frontend/src/providers/cars_provider.dart';
+import 'package:geolocator/geolocator.dart';
 
 final Uri _url = Uri.parse('https://flutter.dev');
 
@@ -20,6 +21,16 @@ class HomeController extends GetxController {
   HomeController() {
     indexBottomPage.value = 0;
     print("Home Controller active");
+  }
+
+  Future<Position> getUserCurrentLocation() async {
+    await Geolocator.requestPermission()
+        .then((value) {})
+        .onError((error, stackTrace) async {
+      await Geolocator.requestPermission();
+      print("ERROR" + error.toString());
+    });
+    return await Geolocator.getCurrentPosition();
   }
 
   void onTap(int index) {
@@ -52,9 +63,20 @@ class HomeController extends GetxController {
     Get.toNamed('/register_car');
   }
 
-  void sendWhatsApp(String message) async {
+  void sendWhatsApp(BuildContext context, String message) async {
+    ProgressDialog progressDialog = ProgressDialog(context: context);
+    progressDialog.show(max: 100, msg: 'Creando enlace...');
+
+    Position pos = await getUserCurrentLocation();
+    await Future.delayed(Duration(milliseconds: 500));
+    String mapsMessage =
+        "https://maps.google.com/?q=${pos.latitude},${pos.longitude}";
+    print("Lat: ${pos.latitude}, Lon: ${pos.longitude}");
     Uri uriMessage = Uri.parse(message);
-    launchUrl(Uri.parse('${Environment.EMERGENCY_CHAT}text=${uriMessage}'),
+    progressDialog.close();
+    launchUrl(
+        Uri.parse(
+            '${Environment.EMERGENCY_CHAT}text=${uriMessage}\n${mapsMessage}'),
         mode: LaunchMode.inAppWebView);
     print("Abriendo Link");
   }

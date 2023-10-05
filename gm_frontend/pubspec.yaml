@@ -59,6 +59,10 @@ dev_dependencies:
   qr_code_scanner: ^1.0.1
   dropdown_button2: ^2.3.9
   url_launcher: ^6.1.14
+  google_maps_flutter: ^2.5.0
+  geolocator: ^10.1.0
+  location: ^5.0.3
+  geocoding: ^2.1.0
   qr_flutter:
     git:
       url: https://github.com/theyakka/qr.flutter.git
@@ -119,6 +123,10 @@ flutter:
     - assets/images/image_outline.png
     - assets/images/close_outline.png
     - assets/images/delete_outline.png
+    - assets/images/my_pin.png
+    - assets/images/tooltooth.png
+    - assets/images/gas_station.png
+    - assets/images/service_station.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

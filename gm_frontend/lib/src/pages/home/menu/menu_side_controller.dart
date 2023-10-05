@@ -28,6 +28,21 @@ class MenuSideController extends GetxController {
     print('Oprimeindo');
   }
 
+  void GoToAbout() {
+    Get.toNamed('/home/menu/about');
+    print('Oprimeindo');
+  }
+
+  void GoToNotification() {
+    Get.toNamed('/home/menu/notification');
+    print('Oprimeindo');
+  }
+
+  void GoToSuggestion() {
+    Get.toNamed('/home/menu/suggestion');
+    print('Oprimeindo');
+  }
+
   void onTap(int index) {
     indexBottomPage.value = index;
     switch (index) {

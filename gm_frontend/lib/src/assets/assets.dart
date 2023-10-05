@@ -47,4 +47,8 @@ class Assets {
   static const String DELETE_OUTLINE = "assets/images/delete_outline.png";
   static const String CLOSE_ROUNDED_ICON =
       "assets/images/close_rounded_icon.png";
+  static const String MY_PIN = "assets/images/my_pin.png";
+  static const String TOOLTOOTH = "assets/images/tooltooth.png";
+  static const String GAS_STATION = "assets/images/gas_station.png";
+  static const String SERVICE_STATION = "ssets/images/service_station.png";
 }
