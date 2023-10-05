@@ -9,6 +9,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 import 'package:geocoding/geocoding.dart';
 
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
+import 'package:flutter/services.dart';
+import 'dart:math';
+
 class HomeRoutesTollbothsController extends GetxController {
   CameraPosition initialPosition =
       CameraPosition(target: LatLng(19.3691648, -99.1657984), zoom: 18);
@@ -22,11 +28,34 @@ class HomeRoutesTollbothsController extends GetxController {
   BitmapDescriptor? myMarker;
   BitmapDescriptor? gasMarker;
 
+  List<BitmapDescriptor> gasStations = [];
   StreamSubscription? positionSuscribe;
+
+  List<LatLng> saveMarkers = <LatLng>[
+    LatLng(19.4670, -99.1801),
+    LatLng(19.4687, -99.1805),
+    LatLng(19.4651, -99.1771),
+  ].obs;
 
   HomeRoutesTollbothsController() {
     checkGPS();
     //checkPos();
+  }
+
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
+  }
+
+  Future<BitmapDescriptor> getBitmapDescriptorFromAssetBytes(
+      String path, int width) async {
+    final Uint8List imageData = await getBytesFromAsset(path, width);
+    return BitmapDescriptor.fromBytes(imageData);
   }
 
   Future<BitmapDescriptor> createMarkerFromAssets(String path) async {
@@ -35,6 +64,14 @@ class HomeRoutesTollbothsController extends GetxController {
         await BitmapDescriptor.fromAssetImage(configuration, path);
 
     return descriptor;
+  }
+
+  double calculateDistance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;
+    var a = 0.5 -
+        cos((lat2 - lat1) * p) / 2 +
+        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
+    return 12742 * asin(sqrt(a));
   }
 
   void addMarker(String markerId, double lat, double lon, String title,
@@ -60,6 +97,12 @@ class HomeRoutesTollbothsController extends GetxController {
     myMarker = await createMarkerFromAssets(Assets.MY_PIN);
     gasMarker = await createMarkerFromAssets(Assets.GAS_STATION);
 
+    for (int i = 0; i < 3; i++) {
+      BitmapDescriptor temp = await createMarkerFromAssets(Assets.GAS_STATION);
+      await Future.delayed(Duration(milliseconds: 1500));
+      gasStations.add(temp);
+    }
+
     bool isLocationEnabled = await Geolocator.isLocationServiceEnabled();
     if (isLocationEnabled) {
       updateLocation();
@@ -81,8 +124,13 @@ class HomeRoutesTollbothsController extends GetxController {
       addMarker('My Pin', position!.latitude ?? 19.3691648,
           position!.longitude ?? -99.1657984, 'Tu posicion', '', myMarker!);
 
-      addMarker('Gas Station', 19.4635859, -99.178654, 'Gas posicion', '',
-          gasMarker!);
+      for (int i = 0; i < saveMarkers.length; i++) {
+        addMarker('Gas Station ${i}', saveMarkers[i].latitude,
+            saveMarkers[i].longitude, 'Gas posicion', '', gasStations[i]);
+
+        print(calculateDistance(position!.latitude, position!.longitude,
+            saveMarkers[i].latitude, saveMarkers[i].longitude));
+      }
 
       LocationSettings locationSettings =
           LocationSettings(accuracy: LocationAccuracy.best, distanceFilter: 1);

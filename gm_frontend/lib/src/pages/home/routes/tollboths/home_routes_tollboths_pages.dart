@@ -46,24 +46,114 @@ class HomeRoutesTollboths extends StatelessWidget {
               ),
             ),
           ),
-          body: Stack(children: [
-            GoogleMap(
-              initialCameraPosition: con.initialPosition,
-              mapType: MapType.normal,
-              onMapCreated: con.onMapCreate,
-              myLocationButtonEnabled: false,
-              myLocationEnabled: false,
-              markers: Set<Marker>.of(con.markers.values),
-              /*onCameraMove: (position) {
-                con.initialPosition = position;
-              },
-              onCameraIdle: () async {
-                await con.setLocationDraggableInfo();
-              },*/
+          body: Column(mainAxisSize: MainAxisSize.max, children: [
+            SizedBox(
+              width: MediaQuery.of(context)
+                  .size
+                  .width, // or use fixed size like 200
+              height: MediaQuery.of(context).size.height * 0.33,
+              child: Container(
+                height: 1000,
+                child: GoogleMap(
+                  initialCameraPosition: con.initialPosition,
+                  mapType: MapType.normal,
+                  onMapCreated: con.onMapCreate,
+                  myLocationButtonEnabled: false,
+                  myLocationEnabled: false,
+                  markers: Set<Marker>.of(con.markers.values),
+                  /*onCameraMove: (position) {
+                    con.initialPosition = position;
+                  },
+                  onCameraIdle: () async {
+                    await con.setLocationDraggableInfo();
+                  },*/
+                ),
+              ),
             ),
-            //iconLocator(),
+            Expanded(
+              child: ListView(shrinkWrap: true, children: [
+                CardItem(context),
+                CardItem(context),
+                CardItem(context),
+                CardItem(context),
+                CardItem(context),
+                CardItem(context),
+                CardItem(context),
+                CardItem(context),
+                CardItem(context),
+                CardItem(context),
+              ]),
+            ),
           ]),
         ));
+  }
+
+  Widget CardItem(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          elevation: 0,
+        ),
+        onPressed: () {},
+        child: Container(
+            width: double.infinity,
+            height: 100,
+            child: Card(
+              elevation: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(top: 8, left: 30),
+                      child: Text(
+                        'XX:XX {am} hrs',
+                        style: TextStyle(color: Colors.black),
+                        textAlign: TextAlign.left,
+                      )),
+                  ListTile(
+                      contentPadding: EdgeInsets.fromLTRB(15, 0, 25, 10),
+                      title: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 12,
+                            child: Text(
+                              '{Nombre de caseta}',
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.surface,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                              softWrap: true,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Spacer(flex: 1),
+                          Text(
+                            '{X.XX}',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.surface,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        ],
+                      ),
+                      //subtitle: Text('Burns'),
+                      leading: ImageIcon(
+                        AssetImage(Assets.QR_ICON_2),
+                        size: 70,
+                        color: Colors.black,
+                      )),
+                ],
+              ),
+            )),
+      ),
+    );
   }
 
   Widget iconLocator() {
