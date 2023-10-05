@@ -103,55 +103,85 @@ class HomeRoutesTollboths extends StatelessWidget {
             width: double.infinity,
             height: 100,
             child: Card(
-              elevation: 1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(top: 8, left: 30),
-                      child: Text(
-                        'XX:XX {am} hrs',
-                        style: TextStyle(color: Colors.black),
-                        textAlign: TextAlign.left,
-                      )),
-                  ListTile(
-                      contentPadding: EdgeInsets.fromLTRB(15, 0, 25, 10),
-                      title: Row(
+                elevation: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: ImageIcon(
+                        AssetImage(Assets.TOOLTOOTH_ICON),
+                        size: 30,
+                        color: Color.fromRGBO(115, 119, 121, 1),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          Expanded(
-                            flex: 12,
-                            child: Text(
-                              '{Nombre de caseta}',
-                              style: TextStyle(
-                                  color: Theme.of(context).colorScheme.surface,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                              softWrap: true,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                          Text(
+                            '{Nombre de caseta}',
+                            style: TextStyle(
+                              color: const Color.fromRGBO(84, 88, 89, 1),
+                              fontFamily: 'Raleway',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Spacer(flex: 1),
                           Text(
-                            '{X.XX}',
+                            '{Dirección de caseta}',
                             style: TextStyle(
-                                color: Theme.of(context).colorScheme.surface,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                              color: const Color.fromRGBO(84, 88, 89, 1),
+                              fontFamily: 'Raleway',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            'MXN \$ {X.XX} - MXN \$ {X.XX}',
+                            style: TextStyle(
+                              color: const Color.fromRGBO(84, 88, 89, 1),
+                              fontFamily: 'Raleway',
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ],
                       ),
-                      //subtitle: Text('Burns'),
-                      leading: ImageIcon(
-                        AssetImage(Assets.QR_ICON_2),
-                        size: 70,
-                        color: Colors.black,
-                      )),
-                ],
-              ),
-            )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '{XXX}',
+                            style: TextStyle(
+                              color: const Color.fromRGBO(84, 88, 89, 1),
+                              fontFamily: 'Raleway',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            '{km}',
+                            style: TextStyle(
+                              color: const Color.fromRGBO(84, 88, 89, 1),
+                              fontFamily: 'Raleway',
+                              fontSize: 11,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ))),
       ),
     );
   }

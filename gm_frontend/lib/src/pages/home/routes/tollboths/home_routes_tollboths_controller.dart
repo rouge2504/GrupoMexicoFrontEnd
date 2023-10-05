@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
+import 'package:gm_frontend/src/constants/app_constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 import 'package:geocoding/geocoding.dart';
@@ -125,11 +126,13 @@ class HomeRoutesTollbothsController extends GetxController {
           position!.longitude ?? -99.1657984, 'Tu posicion', '', myMarker!);
 
       for (int i = 0; i < saveMarkers.length; i++) {
-        addMarker('Gas Station ${i}', saveMarkers[i].latitude,
-            saveMarkers[i].longitude, 'Gas posicion', '', gasStations[i]);
-
-        print(calculateDistance(position!.latitude, position!.longitude,
-            saveMarkers[i].latitude, saveMarkers[i].longitude));
+        double dist = calculateDistance(position!.latitude, position!.longitude,
+            saveMarkers[i].latitude, saveMarkers[i].longitude);
+        print('Dist ${dist}');
+        if (dist < AppConstants.DIST_BETWEEN_PIN) {
+          addMarker('Gas Station ${i}', saveMarkers[i].latitude,
+              saveMarkers[i].longitude, 'Gas posicion', '', gasStations[i]);
+        }
       }
 
       LocationSettings locationSettings =
