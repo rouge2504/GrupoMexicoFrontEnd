@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:gm_frontend/src/assets/assets.dart';
+import 'package:gm_frontend/src/models/TollbothModel.dart';
 import 'package:gm_frontend/src/pages/home/routes/tollboths/home_routes_tollboths_controller.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -71,24 +72,20 @@ class HomeRoutesTollboths extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView(shrinkWrap: true, children: [
-                CardItem(context),
-                CardItem(context),
-                CardItem(context),
-                CardItem(context),
-                CardItem(context),
-                CardItem(context),
-                CardItem(context),
-                CardItem(context),
-                CardItem(context),
-                CardItem(context),
-              ]),
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: con.tollbothsList.length,
+                itemBuilder: (_, index) {
+                  return CardItem(context, con.tollbothsList[index]);
+                },
+              ),
             ),
           ]),
         ));
   }
 
-  Widget CardItem(BuildContext context) {
+  Widget CardItem(BuildContext context, TollbothModel tollboth) {
     return Container(
       width: double.infinity,
       child: ElevatedButton(
@@ -120,10 +117,10 @@ class HomeRoutesTollboths extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
+                        //mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            '{Nombre de caseta}',
+                            tollboth.name ?? '',
                             style: TextStyle(
                               color: const Color.fromRGBO(84, 88, 89, 1),
                               fontFamily: 'Raleway',
@@ -131,13 +128,18 @@ class HomeRoutesTollboths extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Text(
-                            '{Dirección de caseta}',
-                            style: TextStyle(
-                              color: const Color.fromRGBO(84, 88, 89, 1),
-                              fontFamily: 'Raleway',
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
+                          Container(
+                            width: 200,
+                            child: Text(
+                              tollboth.adress ?? '',
+                              style: TextStyle(
+                                color: const Color.fromRGBO(84, 88, 89, 1),
+                                fontFamily: 'Raleway',
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              softWrap: false,
+                              maxLines: 2,
                             ),
                           ),
                           Text(
@@ -160,7 +162,7 @@ class HomeRoutesTollboths extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            '{XXX}',
+                            '\$${tollboth.cost}' ?? '',
                             style: TextStyle(
                               color: const Color.fromRGBO(84, 88, 89, 1),
                               fontFamily: 'Raleway',

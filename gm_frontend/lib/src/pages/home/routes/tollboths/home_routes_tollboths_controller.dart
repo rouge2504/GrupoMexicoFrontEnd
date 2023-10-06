@@ -6,9 +6,13 @@ import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:gm_frontend/src/assets/assets.dart';
 import 'package:gm_frontend/src/constants/app_constants.dart';
+import 'package:gm_frontend/src/models/TollbothModel.dart';
+import 'package:gm_frontend/src/models/response_api.dart';
+import 'package:gm_frontend/src/providers/route_services_provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 import 'package:geocoding/geocoding.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -32,15 +36,23 @@ class HomeRoutesTollbothsController extends GetxController {
   List<BitmapDescriptor> gasStations = [];
   StreamSubscription? positionSuscribe;
 
-  List<LatLng> saveMarkers = <LatLng>[
-    LatLng(19.4670, -99.1801),
-    LatLng(19.4687, -99.1805),
-    LatLng(19.4651, -99.1771),
-  ].obs;
+  List<TollbothModel> tollbothsList = <TollbothModel>[].obs;
+
+  List<LatLng> saveMarkers = <LatLng>[].obs;
 
   HomeRoutesTollbothsController() {
     checkGPS();
+    GetToolboths();
     //checkPos();
+  }
+
+  void GetToolboths() async {
+    RouteServicesProvider routeServicesProvider = RouteServicesProvider();
+    ResponseApi responseApi = await routeServicesProvider.getToolboths();
+    print('Response Api data: ${responseApi.data}');
+    if (responseApi.success!) {
+      tollbothsList = TollbothModel.fromJsonList(responseApi.data);
+    }
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -72,7 +84,10 @@ class HomeRoutesTollbothsController extends GetxController {
     var a = 0.5 -
         cos((lat2 - lat1) * p) / 2 +
         cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
-    return 12742 * asin(sqrt(a));
+
+    double dist = 12742 * asin(sqrt(a));
+    //dist /= 10000;
+    return dist;
   }
 
   void addMarker(String markerId, double lat, double lon, String title,
@@ -96,11 +111,11 @@ class HomeRoutesTollbothsController extends GetxController {
 
   void checkGPS() async {
     myMarker = await createMarkerFromAssets(Assets.MY_PIN);
-    gasMarker = await createMarkerFromAssets(Assets.GAS_STATION);
+    await Future.delayed(Duration(milliseconds: 500));
 
-    for (int i = 0; i < 3; i++) {
-      BitmapDescriptor temp = await createMarkerFromAssets(Assets.GAS_STATION);
-      await Future.delayed(Duration(milliseconds: 1500));
+    for (int i = 0; i < tollbothsList.length; i++) {
+      BitmapDescriptor temp = await createMarkerFromAssets(Assets.TOOLTOOTH);
+      await Future.delayed(Duration(milliseconds: 500));
       gasStations.add(temp);
     }
 
@@ -125,13 +140,23 @@ class HomeRoutesTollbothsController extends GetxController {
       addMarker('My Pin', position!.latitude ?? 19.3691648,
           position!.longitude ?? -99.1657984, 'Tu posicion', '', myMarker!);
 
-      for (int i = 0; i < saveMarkers.length; i++) {
-        double dist = calculateDistance(position!.latitude, position!.longitude,
-            saveMarkers[i].latitude, saveMarkers[i].longitude);
+      for (int i = 0; i < tollbothsList.length; i++) {
+        String tempLat = tollbothsList[i].lat!;
+        String tempLon = tollbothsList[i].lon!;
+        double lat = double.parse(
+            tempLat.contains('-') ? tempLat.replaceAll('-', '') : tempLat);
+        double lon = double.parse(
+            tempLon.contains('-') ? tempLon.replaceAll('-', '') : tempLon);
+        lat *= tollbothsList[i].lat!.contains('-') ? -1 : 1;
+        lon *= tollbothsList[i].lon!.contains('-') ? -1 : 1;
+        double dist = calculateDistance(
+            position!.latitude, position!.longitude, lat, lon);
+
+        //saveMarkers[i] = LatLng(double.parse(tollbothsList[i].lat!), double.parse(tollbothsList[i].lon!));
         print('Dist ${dist}');
         if (dist < AppConstants.DIST_BETWEEN_PIN) {
-          addMarker('Gas Station ${i}', saveMarkers[i].latitude,
-              saveMarkers[i].longitude, 'Gas posicion', '', gasStations[i]);
+          addMarker(tollbothsList[i].name!, lat, lon, 'Gas posicion', '',
+              gasStations[i]);
         }
       }
 
