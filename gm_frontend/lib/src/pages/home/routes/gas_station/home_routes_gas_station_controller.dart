@@ -20,7 +20,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 import 'dart:math';
 
-class HomeRoutesTollbothsController extends GetxController {
+class HomeRoutesGasStationController extends GetxController {
   CameraPosition initialPosition =
       CameraPosition(target: LatLng(19.3691648, -99.1657984), zoom: 18);
 

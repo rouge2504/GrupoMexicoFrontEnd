@@ -10,8 +10,11 @@ import 'package:gm_frontend/src/pages/home/menu/car/menu_car_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/notification/menu_notification_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/payment_methods/menu_payment_methods_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/suggestion/menu_suggestion_page.dart';
+import 'package:gm_frontend/src/pages/home/routes/gas_station/home_routes_gas_station_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/home_routes_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/recent_payments/home_routes_recent_payments_page.dart';
+import 'package:gm_frontend/src/pages/home/routes/services_area/home_routes_services_area_controller.dart';
+import 'package:gm_frontend/src/pages/home/routes/services_area/home_routes_services_area_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/tollboths/home_routes_tollboths_pages.dart';
 import 'package:gm_frontend/src/pages/init_session/init_session_page.dart';
 import 'package:gm_frontend/src/pages/login/login_page.dart';
@@ -51,7 +54,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/home/routes/tollboths',
+      initialRoute: '/home/routes/services_area',
       //initialRoute: '/home/menu/account',
       debugShowCheckedModeBanner: false,
       getPages: [
@@ -70,6 +73,12 @@ class _MyAppState extends State<MyApp> {
             page: () => HomeRoutesRecentPaymentsPage()),
         GetPage(
             name: '/home/routes/tollboths', page: () => HomeRoutesTollboths()),
+        GetPage(
+            name: '/home/routes/gas_station',
+            page: () => HomeRoutesGasStationPage()),
+        GetPage(
+            name: '/home/routes/services_area',
+            page: () => HomeRoutesServicesAreaPage()),
         GetPage(name: '/home/menu', page: () => MenuPage()),
         GetPage(name: '/home/menu/account', page: () => MenuAccountPage()),
         GetPage(name: '/home/menu/car', page: () => MenuCarPage()),
