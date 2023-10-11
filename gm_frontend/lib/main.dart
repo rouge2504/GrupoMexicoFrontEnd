@@ -10,6 +10,7 @@ import 'package:gm_frontend/src/pages/home/menu/car/menu_car_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/notification/menu_notification_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/payment_methods/menu_payment_methods_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/suggestion/menu_suggestion_page.dart';
+import 'package:gm_frontend/src/pages/home/radio/home_media_radio_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/gas_station/home_routes_gas_station_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/home_routes_page.dart';
 import 'package:gm_frontend/src/pages/home/routes/recent_payments/home_routes_recent_payments_page.dart';
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/splash',
+      initialRoute: '/home/radio',
       //initialRoute: '/home/menu/account',
       debugShowCheckedModeBanner: false,
       getPages: [
@@ -68,6 +69,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/home/both_payment', page: () => BothPaymentPage()),
         GetPage(name: '/home/routes', page: () => HomeRoutesPage()),
         GetPage(name: '/home/media', page: () => ResourcesMediaPage()),
+        GetPage(name: '/home/radio', page: () => HomeMediaRadioPage()),
         GetPage(
             name: '/home/routes/recent_payments',
             page: () => HomeRoutesRecentPaymentsPage()),
