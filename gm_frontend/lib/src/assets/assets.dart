@@ -51,4 +51,7 @@ class Assets {
   static const String TOOLTOOTH = "assets/images/tooltooth.png";
   static const String GAS_STATION = "assets/images/gas_station.png";
   static const String SERVICE_STATION = "ssets/images/service_station.png";
+  static const String ALFA_RADIO = "assets/images/alfa_radio.png";
+  static const String MIX_RADIO = "assets/images/radio_mix.png";
+  static const String UNIVERSAL_RADIO = "assets/images/universal_radio.png";
 }

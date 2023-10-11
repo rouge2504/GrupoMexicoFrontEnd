@@ -127,6 +127,9 @@ flutter:
     - assets/images/tooltooth.png
     - assets/images/gas_station.png
     - assets/images/service_station.png
+    - assets/images/alfa_radio.png
+    - assets/images/radio_mix.png
+    - assets/images/universal_radio.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
