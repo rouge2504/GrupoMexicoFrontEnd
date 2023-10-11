@@ -13,6 +13,19 @@ class HomeRoutesController extends GetxController {
     Get.toNamed('/home');
   }
 
+  void GoToGasStation() {
+    Get.toNamed('/home/routes/gas_station');
+  }
+
+  void GoToTollboths() {
+    Get.toNamed('/home/routes/tollboths');
+    print('Go to tollboths');
+  }
+
+  void GoToServicesArea() {
+    Get.toNamed('/home/routes/services_area');
+  }
+
   void onTap(int index) {
     indexBottomPage.value = index;
     switch (index) {

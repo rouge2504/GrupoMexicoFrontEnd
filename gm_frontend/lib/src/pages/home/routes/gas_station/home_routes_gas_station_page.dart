@@ -39,7 +39,7 @@ class HomeRoutesGasStationPage extends StatelessWidget {
             ],
             backgroundColor: Colors.white,
             title: Text(
-              'Gasolinerass',
+              'Gasolineras',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.surface,
                 fontFamily: 'Raleway',
@@ -73,29 +73,15 @@ class HomeRoutesGasStationPage extends StatelessWidget {
               ),
             ),
             Expanded(
-                child: ListView(
-              children: [
-                CardItem(
-                    context,
-                    new TollbothModel(
-                        adress: "",
-                        name: "",
-                        lat: "",
-                        lon: "",
-                        distance: "",
-                        cost: ""))
-              ],
-            )
-                /*
-              ListView.builder(
+              child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
-                itemCount: con.tollbothsList.length,
+                itemCount: con.gasStationList.length,
                 itemBuilder: (_, index) {
-                  return CardItem(context, con.tollbothsList[index]);
+                  return CardItem(context, con.gasStationList[index]);
                 },
-              ),*/
-                ),
+              ),
+            ),
           ]),
         ));
   }

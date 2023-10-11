@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/home/routes/services_area',
+      initialRoute: '/splash',
       //initialRoute: '/home/menu/account',
       debugShowCheckedModeBanner: false,
       getPages: [

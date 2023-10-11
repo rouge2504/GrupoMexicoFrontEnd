@@ -62,10 +62,11 @@ class HomeRoutesPage extends StatelessWidget {
                   ),
                 ),
                 ButtonItem(context, 'Casetas de cobro', Assets.TOOLTOOTH_ICON,
-                    () => {}),
-                ButtonItem(context, 'Gasolineras', Assets.GAS_ICON, () => {}),
+                    con.GoToTollboths),
+                ButtonItem(context, 'Gasolineras', Assets.GAS_ICON,
+                    con.GoToGasStation),
                 ButtonItem(context, 'Áreas de servicio',
-                    Assets.SERVICE_STATION_ICON, () => {}),
+                    Assets.SERVICE_STATION_ICON, con.GoToServicesArea),
                 ButtonItem(context, 'Eventos', Assets.EVENT_OUTLINE, () => {}),
               ]),
             ),
@@ -86,7 +87,9 @@ class HomeRoutesPage extends StatelessWidget {
           foregroundColor: Colors.black,
           elevation: 0,
         ),
-        onPressed: () => function,
+        onPressed: () {
+          function();
+        },
         child: Row(
           children: [
             ImageIcon(

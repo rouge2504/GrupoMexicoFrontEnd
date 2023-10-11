@@ -182,32 +182,34 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatinActionButton(context),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: NavBarNavigatorBottom(context), //BottomBar(context),
-      appBar: AppBarHome(context),
-      body: Column(
-        children: [
-          Banner(context),
-          ButtonPanic(context),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+    return Obx(() => Scaffold(
+          floatingActionButton: FloatinActionButton(context),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar:
+              NavBarNavigatorBottom(context), //BottomBar(context),
+          appBar: AppBarHome(context),
+          body: Column(
             children: [
-              SosButton(context),
+              Banner(context),
+              ButtonPanic(context),
               SizedBox(
-                width: 18,
+                height: 10,
               ),
-              CautionButton(context),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SosButton(context),
+                  SizedBox(
+                    width: 18,
+                  ),
+                  CautionButton(context),
+                ],
+              )
             ],
-          )
-        ],
-      ),
-    );
+          ),
+        ));
   }
 
   Widget FloatinActionButton(BuildContext context) {
@@ -574,7 +576,9 @@ class _HomePage extends State<HomePage> {
             ),
           ),
           Text(
-            'Toluca, Atlacomulco, km 31',
+            con.currentAddress.value == ""
+                ? "Cargando..."
+                : con.currentAddress.value,
             textAlign: TextAlign.left,
             style: TextStyle(
               color: Colors.black,

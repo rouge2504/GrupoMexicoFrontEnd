@@ -5,10 +5,13 @@ import 'package:gm_frontend/src/models/response_api.dart';
 class RouteServicesProvider extends GetConnect {
   String url = Environment.API_URL + 'api/roadServices';
 
-  Future<ResponseApi> getToolboths() async {
+  Future<ResponseApi> getToolboths(int id_services) async {
     String _url = '${url}/getTollboths';
-    Response response =
-        await get(_url, headers: {'Content-Type': 'application/json'});
+    Response response = await post(_url, {
+      'id_services': id_services,
+    }, headers: {
+      'Content-Type': 'application/json'
+    });
     if (response.body == null) {
       print("Todo se fue a la chingada con el carro");
       return ResponseApi();

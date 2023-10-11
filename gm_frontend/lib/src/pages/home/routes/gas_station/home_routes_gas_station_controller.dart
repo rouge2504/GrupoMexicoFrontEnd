@@ -36,11 +36,11 @@ class HomeRoutesGasStationController extends GetxController {
   List<BitmapDescriptor> gasStations = [];
   StreamSubscription? positionSuscribe;
 
-  List<TollbothModel> tollbothsList = <TollbothModel>[].obs;
+  List<TollbothModel> gasStationList = <TollbothModel>[].obs;
 
   List<LatLng> saveMarkers = <LatLng>[].obs;
 
-  HomeRoutesTollbothsController() {
+  HomeRoutesGasStationController() {
     checkGPS();
     GetToolboths();
     //checkPos();
@@ -48,10 +48,10 @@ class HomeRoutesGasStationController extends GetxController {
 
   void GetToolboths() async {
     RouteServicesProvider routeServicesProvider = RouteServicesProvider();
-    ResponseApi responseApi = await routeServicesProvider.getToolboths();
+    ResponseApi responseApi = await routeServicesProvider.getToolboths(2);
     print('Response Api data: ${responseApi.data}');
     if (responseApi.success!) {
-      tollbothsList = TollbothModel.fromJsonList(responseApi.data);
+      gasStationList = TollbothModel.fromJsonList(responseApi.data);
     }
   }
 
@@ -102,8 +102,8 @@ class HomeRoutesGasStationController extends GetxController {
     myMarker = await createMarkerFromAssets(Assets.MY_PIN);
     await Future.delayed(Duration(milliseconds: 500));
 
-    for (int i = 0; i < tollbothsList.length; i++) {
-      BitmapDescriptor temp = await createMarkerFromAssets(Assets.TOOLTOOTH);
+    for (int i = 0; i < gasStationList.length; i++) {
+      BitmapDescriptor temp = await createMarkerFromAssets(Assets.GAS_STATION);
       await Future.delayed(Duration(milliseconds: 500));
       gasStations.add(temp);
     }
@@ -128,27 +128,26 @@ class HomeRoutesGasStationController extends GetxController {
 
       addMarker('My Pin', position!.latitude ?? 19.3691648,
           position!.longitude ?? -99.1657984, 'Tu posicion', '', myMarker!);
+      List<int> popUpList = [];
 
-      for (int i = 0; i < tollbothsList.length; i++) {
-        double lat = AppConstants.coordToDouble(tollbothsList[i].lat!);
-        double lon = AppConstants.coordToDouble(tollbothsList[i].lon!);
-        /*String tempLat = tollbothsList[i].lat!;
-        String tempLon = tollbothsList[i].lon!;
-        double lat = double.parse(
-            tempLat.contains('-') ? tempLat.replaceAll('-', '') : tempLat);
-        double lon = double.parse(
-            tempLon.contains('-') ? tempLon.replaceAll('-', '') : tempLon);
-        lat *= tollbothsList[i].lat!.contains('-') ? -1 : 1;
-        lon *= tollbothsList[i].lon!.contains('-') ? -1 : 1;*/
+      for (int i = 0; i < gasStationList.length; i++) {
+        double lat = AppConstants.coordToDouble(gasStationList[i].lat!);
+        double lon = AppConstants.coordToDouble(gasStationList[i].lon!);
+
         double dist = AppConstants.calculateDistance(
             position!.latitude, position!.longitude, lat, lon);
 
-        //saveMarkers[i] = LatLng(double.parse(tollbothsList[i].lat!), double.parse(tollbothsList[i].lon!));
         print('Dist ${dist}');
         if (dist < AppConstants.DIST_BETWEEN_PIN) {
-          addMarker(tollbothsList[i].name!, lat, lon, 'Gas posicion', '',
+          addMarker(gasStationList[i].name!, lat, lon, 'Gas posicion', '',
               gasStations[i]);
+        } else {
+          popUpList.add(i);
         }
+      }
+
+      for (var element in popUpList) {
+        gasStationList.removeAt(element);
       }
 
       LocationSettings locationSettings =

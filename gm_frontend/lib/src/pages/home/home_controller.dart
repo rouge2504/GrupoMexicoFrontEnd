@@ -14,17 +14,20 @@ import 'package:sn_progress_dialog/progress_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:gm_frontend/src/providers/cars_provider.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 
 final Uri _url = Uri.parse('https://flutter.dev');
 
 class HomeController extends GetxController {
   var indexBottomPage = 0.obs;
+  var currentAddress = "".obs;
   CarsProvider carsProvider = CarsProvider();
   AccidentProvider accidentProvider = AccidentProvider();
   User? user = User.fromJson(GetStorage().read('user'));
   HomeController() {
     indexBottomPage.value = 0;
     print("Home Controller active");
+    getUserCurrentLocation();
   }
 
   Future<Position> getUserCurrentLocation() async {
@@ -34,7 +37,9 @@ class HomeController extends GetxController {
       await Geolocator.requestPermission();
       print("ERROR" + error.toString());
     });
-    return await Geolocator.getCurrentPosition();
+    Position position = await Geolocator.getCurrentPosition();
+    getAddressFromLatLng(position);
+    return position;
   }
 
   void onTap(int index) {
@@ -94,6 +99,18 @@ class HomeController extends GetxController {
             '${Environment.EMERGENCY_CHAT}text=${uriMessage}\n${mapsMessage}'),
         mode: LaunchMode.inAppWebView);
     print("Abriendo Link");
+  }
+
+  Future<void> getAddressFromLatLng(Position position) async {
+    await placemarkFromCoordinates(position.latitude, position.longitude)
+        .then((List<Placemark> placemarks) {
+      Placemark place = placemarks[0];
+      currentAddress.value = '${place.locality}, ${place.street} ';
+
+      print("Place:  ${currentAddress.value}");
+    }).catchError((e) {
+      debugPrint(e);
+    });
   }
 
   void getCars(BuildContext context) async {
