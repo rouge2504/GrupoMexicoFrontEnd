@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -16,10 +17,14 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:gm_frontend/src/providers/cars_provider.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:location/location.dart' as location;
 
 final Uri _url = Uri.parse('https://flutter.dev');
 
 class HomeController extends GetxController {
+  Position? position;
+  StreamSubscription? positionSuscribe;
+
   var indexBottomPage = 0.obs;
   var currentAddress = "".obs;
   LocalNotificationProvider localNotificationProvider =
@@ -31,6 +36,50 @@ class HomeController extends GetxController {
     indexBottomPage.value = 0;
     print("Home Controller active");
     getUserCurrentLocation();
+    checkGPS();
+  }
+
+  void checkGPS() async {
+    await Future.delayed(Duration(milliseconds: 500));
+/*
+    for (int i = 0; i < gasStationList.length; i++) {
+      BitmapDescriptor temp = await createMarkerFromAssets(Assets.GAS_STATION);
+      await Future.delayed(Duration(milliseconds: 500));
+      gasStations.add(temp);
+    }*/
+
+    bool isLocationEnabled = await Geolocator.isLocationServiceEnabled();
+    if (isLocationEnabled) {
+      updateLocation();
+    } else {
+      bool locationGPS = await location.Location().requestService();
+      if (locationGPS) {
+        updateLocation();
+      }
+    }
+  }
+
+  void updateLocation() async {
+    try {
+      await getUserCurrentLocation();
+      position = await Geolocator.getLastKnownPosition();
+      List<int> popUpList = [];
+
+      LocationSettings locationSettings =
+          LocationSettings(accuracy: LocationAccuracy.best, distanceFilter: 1);
+
+      positionSuscribe =
+          Geolocator.getPositionStream(locationSettings: locationSettings)
+              .listen((Position pos) {
+        position:
+        pos;
+        getAddressFromLatLng(pos);
+
+        position = pos;
+      });
+    } catch (e) {
+      print('Error: ${e}');
+    }
   }
 
   Future<Position> getUserCurrentLocation() async {
