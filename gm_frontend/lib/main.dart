@@ -1,7 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gm_frontend/src/models/user.dart';
 import 'package:gm_frontend/src/pages/home/both_payment/both_payment_page.dart';
+import 'package:gm_frontend/src/pages/home/events/home_events_page.dart';
 import 'package:gm_frontend/src/pages/home/home_page.dart';
 import 'package:gm_frontend/src/pages/home/media/resources_media_page.dart';
 import 'package:gm_frontend/src/pages/home/menu/about/menu_about_page.dart';
@@ -32,10 +35,31 @@ import 'package:gm_frontend/src/pages/register/register_page.dart';
 import 'package:gm_frontend/src/pages/register_car/register_car_page.dart';
 import 'package:gm_frontend/src/pages/splash/splash_page.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:gm_frontend/src/providers/local_notification_provider.dart';
+import 'package:gm_frontend/src/providers/push_notification_provider.dart';
+import 'package:gm_frontend/src/utils/firebase_config.dart';
 
 User userSession = User.fromJson(GetStorage().read('user') ?? {});
+PushNotificationsProvider pushNotificationsProvider =
+    PushNotificationsProvider();
+
+LocalNotificationProvider localNotificationProvider =
+    LocalNotificationProvider();
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: FirebaseConfig.currentPlatform);
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  print('Recibiendo notificacion en segundo plano ${message.messageId}');
+}
+
 void main() async {
   await GetStorage.init();
+  WidgetsFlutterBinding.ensureInitialized();
+  await localNotificationProvider.initNotification();
+  await Firebase.initializeApp(options: FirebaseConfig.currentPlatform);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  pushNotificationsProvider.initPushNotifications();
   runApp(const MyApp());
 }
 
@@ -49,13 +73,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
+    pushNotificationsProvider.onMessageListener();
   }
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grupo Mexico',
-      initialRoute: '/home/radio',
+      initialRoute: '/splash',
       //initialRoute: '/home/menu/account',
       debugShowCheckedModeBanner: false,
       getPages: [
@@ -66,6 +91,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/register_car', page: () => RegisterCarPage()),
         GetPage(name: '/on_boarding', page: () => OnBoardingPage()),
         GetPage(name: '/home', page: () => HomePage()),
+        GetPage(name: '/home/event', page: () => HomeEventPage()),
         GetPage(name: '/home/both_payment', page: () => BothPaymentPage()),
         GetPage(name: '/home/routes', page: () => HomeRoutesPage()),
         GetPage(name: '/home/media', page: () => ResourcesMediaPage()),

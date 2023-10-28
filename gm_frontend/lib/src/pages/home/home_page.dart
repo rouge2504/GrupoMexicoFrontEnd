@@ -240,7 +240,8 @@ class _HomePage extends State<HomePage> {
               heroTag: 'btn_2',
               backgroundColor: Theme.of(context).colorScheme.primary,
               onPressed: () {
-                con.goToBothPayment(context);
+                //con.goToBothPayment(context);
+                con.SendMessage();
               },
               child: Container(
                   decoration: BoxDecoration(
@@ -467,7 +468,9 @@ class _HomePage extends State<HomePage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed('/home/event');
+            },
             child: Row(
               children: [
                 EventIcon(context),

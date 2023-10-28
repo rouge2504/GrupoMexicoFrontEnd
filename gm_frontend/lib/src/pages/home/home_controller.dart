@@ -9,6 +9,7 @@ import 'package:gm_frontend/src/models/response_api.dart';
 import 'package:gm_frontend/src/models/user.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:gm_frontend/src/providers/accident_provider.dart';
+import 'package:gm_frontend/src/providers/local_notification_provider.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -21,6 +22,8 @@ final Uri _url = Uri.parse('https://flutter.dev');
 class HomeController extends GetxController {
   var indexBottomPage = 0.obs;
   var currentAddress = "".obs;
+  LocalNotificationProvider localNotificationProvider =
+      LocalNotificationProvider();
   CarsProvider carsProvider = CarsProvider();
   AccidentProvider accidentProvider = AccidentProvider();
   User? user = User.fromJson(GetStorage().read('user'));
@@ -57,7 +60,7 @@ class HomeController extends GetxController {
         print('Ups');
         break;
       case 3:
-        Get.toNamed('/home/media');
+        Get.toNamed('/home/radio');
         print('Media');
         break;
       case 4:
@@ -127,6 +130,10 @@ class HomeController extends GetxController {
       print('GET CAR:  ${user.toJson()}');
       GetStorage().write('user', user.toJson());
     }
+  }
+
+  void SendMessage() {
+    localNotificationProvider.showLocalNotification('Prueba', 'Body prueba');
   }
 
   void goToBothPayment(BuildContext context) async {

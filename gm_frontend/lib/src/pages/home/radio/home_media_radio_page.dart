@@ -20,7 +20,7 @@ class HomeMediaRadioPage extends StatelessWidget {
             color: Theme.of(context).colorScheme.surface,
           ),
           onPressed: () {
-            //Navigator.pop(context);
+            Navigator.pop(context);
             //con.GoToHome();
           },
         )),
@@ -40,10 +40,11 @@ class HomeMediaRadioPage extends StatelessWidget {
           Expanded(
             child: ListView(shrinkWrap: true, children: [
               ButtonItem(
-                  context, 'Alfa Radio', Assets.ALFA_RADIO, con.GoToRadio),
-              ButtonItem(context, 'Mix Radio', Assets.MIX_RADIO, () => {}),
+                  context, 'Alfa Radio', Assets.ALFA_RADIO, con.GoToRadioAlfa),
               ButtonItem(
-                  context, 'Universal Radio', Assets.UNIVERSAL_RADIO, () => {}),
+                  context, 'Mix Radio', Assets.MIX_RADIO, con.GoToRadioMix),
+              ButtonItem(context, 'Universal Radio', Assets.UNIVERSAL_RADIO,
+                  con.GoToRadioUniversal),
             ]),
           ),
         ],
@@ -61,7 +62,7 @@ class HomeMediaRadioPage extends StatelessWidget {
           shadowColor: Colors.transparent,
           elevation: 0,
         ),
-        onPressed: () => function,
+        onPressed: () => {function()},
         child: Row(
           children: [
             Image(

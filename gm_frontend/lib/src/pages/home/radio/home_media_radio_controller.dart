@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gm_frontend/src/environment/environment.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeRoutesRadioController extends GetxController {
@@ -10,8 +11,18 @@ class HomeRoutesRadioController extends GetxController {
     print("Routes Controller active");
   }
 
-  void GoToRadio() {
-    launchUrl(Uri.parse('https://alfaenlinea.com/'));
+  void GoToRadioAlfa() {
+    launchUrl(Uri.parse(Environment.ALFA_RADIO));
+    print("Oprimiendo");
+  }
+
+  void GoToRadioMix() {
+    launchUrl(Uri.parse(Environment.MIX_RADIO));
+    print("Oprimiendo");
+  }
+
+  void GoToRadioUniversal() {
+    launchUrl(Uri.parse(Environment.UNIVERSAL_RADIO));
     print("Oprimiendo");
   }
 
@@ -34,7 +45,7 @@ class HomeRoutesRadioController extends GetxController {
         print('Ups');
         break;
       case 3:
-        Get.toNamed('/home/media');
+        Get.toNamed('/home/radio');
         print('Media');
         break;
       case 4:

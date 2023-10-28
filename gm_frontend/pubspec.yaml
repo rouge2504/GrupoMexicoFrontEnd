@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.2.1
   geolocator: ^10.1.0
+  firebase_core: ^2.20.0
+  firebase_messaging: ^14.7.2
+  flutter_local_notifications: ^16.1.0
 
 dev_dependencies:
   flutter_test:
@@ -130,6 +133,7 @@ flutter:
     - assets/images/alfa_radio.png
     - assets/images/radio_mix.png
     - assets/images/universal_radio.png
+    - assets/images/background_test_2.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -7,4 +7,8 @@ class Environment {
   static const String PUBLIC_KEY = 'TEST-f4e7b224-75e9-4cfe-a0d5-f89319ee809f';
   static Uri EMERGENCY_CHAT = Uri.parse('https://wa.me/5531169270?');
   static const String API_KEY_MAPS = 'AIzaSyDQaCXOx6MbB6SiW9cyEL-dNuCX5lowi0U';
+  static const String UNIVERSAL_RADIO = 'https://universal881.com/';
+  static const String MIX_RADIO =
+      'https://www.iheart.com/live/mix-1065-cdmx-6533/';
+  static const String ALFA_RADIO = 'https://alfaenlinea.com/';
 }

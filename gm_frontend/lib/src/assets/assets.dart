@@ -54,4 +54,5 @@ class Assets {
   static const String ALFA_RADIO = "assets/images/alfa_radio.png";
   static const String MIX_RADIO = "assets/images/radio_mix.png";
   static const String UNIVERSAL_RADIO = "assets/images/universal_radio.png";
+  static const String BACKGROUND_TEST_2 = "assets/images/background_test_2.png";
 }

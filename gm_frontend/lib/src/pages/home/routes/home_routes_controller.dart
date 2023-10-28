@@ -41,7 +41,7 @@ class HomeRoutesController extends GetxController {
         print('Ups');
         break;
       case 3:
-        Get.toNamed('/home/media');
+        Get.toNamed('/home/radio');
         print('Media');
         break;
       case 4:
