@@ -50,8 +50,10 @@ class HomeRoutesTollbothsController extends GetxController {
     RouteServicesProvider routeServicesProvider = RouteServicesProvider();
     ResponseApi responseApi = await routeServicesProvider.getToolboths(1);
     print('Response Api data: ${responseApi.data}');
-    if (responseApi.success!) {
-      tollbothsList = TollbothModel.fromJsonList(responseApi.data);
+    if (responseApi.data != null) {
+      if (responseApi.success!) {
+        tollbothsList = TollbothModel.fromJsonList(responseApi.data);
+      }
     }
   }
 

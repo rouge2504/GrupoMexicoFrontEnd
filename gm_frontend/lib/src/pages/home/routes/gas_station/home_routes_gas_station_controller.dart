@@ -50,7 +50,7 @@ class HomeRoutesGasStationController extends GetxController {
     RouteServicesProvider routeServicesProvider = RouteServicesProvider();
     ResponseApi responseApi = await routeServicesProvider.getToolboths(2);
     print('Response Api data: ${responseApi.data}');
-    if (responseApi.success!) {
+    if (responseApi.data != null) if (responseApi.success!) {
       gasStationList = TollbothModel.fromJsonList(responseApi.data);
     }
   }
