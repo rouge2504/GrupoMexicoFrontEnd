@@ -249,6 +249,11 @@ class HomeController extends GetxController {
     localNotificationProvider.showLocalNotification(title, body);
   }
 
+  void goToOnConstruction() {
+    Get.toNamed('/on_construction_page');
+    print('Aprentando construction');
+  }
+
   void goToBothPayment(BuildContext context) async {
     ResponseApi responseApi = await carsProvider.getCars(user!.id!);
     ProgressDialog progressDialog = ProgressDialog(context: context);
