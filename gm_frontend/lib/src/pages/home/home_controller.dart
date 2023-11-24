@@ -218,7 +218,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> getAddressFromLatLng(Position position) async {
-    /*  await placemarkFromCoordinates(position.latitude, position.longitude)
+    await placemarkFromCoordinates(position.latitude, position.longitude)
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
       currentAddress.value = '${place.locality}, ${place.street} ';
@@ -226,7 +226,7 @@ class HomeController extends GetxController {
       print("Place:  ${currentAddress.value}");
     }).catchError((e) {
       debugPrint(e);
-    });*/
+    });
   }
 
   void getCars(BuildContext context) async {

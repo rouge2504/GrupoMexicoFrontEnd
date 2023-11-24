@@ -131,15 +131,6 @@ class UsersProvider extends GetConnect {
     }
 
     ResponseApi responseApi = ResponseApi.fromJson(response.body);
-    /*User user = User.fromJson(responseApi.data);
-    CarsProvider carsProvider = CarsProvider();
-    String path = '${Environment.API_URL}api/car/getCars';
-    Response res = await post(path, {
-      'id_user': user.id,
-    }, headers: {
-      'Content-Type': 'application/json'
-    });
-    user.cars = res.body;*/
     return responseApi;
   }
 }
