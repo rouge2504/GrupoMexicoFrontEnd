@@ -40,6 +40,7 @@ class UsersProvider extends GetConnect {
 
   Future<ResponseApi> createUser(User user) async {
     String url = '${Environment.API_URL}api/users/create';
+    String json = user.toJson().toString();
     Response response = await post(url, user.toJson(),
         headers: {'Content-Type': 'application/json'});
     print(response.status);
