@@ -330,7 +330,9 @@ class _HomePage extends State<HomePage> {
       width: MediaQuery.of(context).size.width * 0.44,
       height: MediaQuery.of(context).size.height * 0.25,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          con.sendWhatsApp(context, '¡Quiero reportar un incidente!');
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(

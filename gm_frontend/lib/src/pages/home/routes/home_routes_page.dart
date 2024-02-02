@@ -67,7 +67,7 @@ class HomeRoutesPage extends StatelessWidget {
                     con.GoToGasStation),
                 ButtonItem(context, 'Áreas de servicio',
                     Assets.SERVICE_STATION_ICON, con.GoToServicesArea),
-                ButtonItem(context, 'Eventos', Assets.EVENT_OUTLINE, () => {}),
+                // ButtonItem(context, 'Eventos', Assets.EVENT_OUTLINE, () => {}),
               ]),
             ),
           ),

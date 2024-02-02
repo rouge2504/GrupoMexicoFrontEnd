@@ -36,7 +36,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
             <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyDQaCXOx6MbB6SiW9cyEL-dNuCX5lowi0U"/>
+               android:value="AIzaSyCsqZdaMbk3Azx2C96K_RzBJgkqW35jrck"/>
     </application>
     <!-- Provide required visibility configuration for API level 30 and above -->
 <queries>

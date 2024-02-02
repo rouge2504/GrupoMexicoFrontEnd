@@ -105,7 +105,7 @@ class HomeController extends GetxController {
             lastSpeed = -1;
           }
         }
-        print('Speed ${pos.speed.toStringAsPrecision(2)}');
+        print('Speed: ${pos.speed.toStringAsPrecision(2)}');
         print('Last Speed ${lastSpeed.toStringAsPrecision(2)}');
         getAddressFromLatLng(pos);
 
@@ -199,12 +199,10 @@ class HomeController extends GetxController {
         user!.lastname!,
         user!.email!,
         user!.phone!,
-        user!.cars![0].model == null ? '' : user!.cars![0].model!,
+        user!.cars!.isEmpty ? '' : user!.cars![0].model!,
         pos.latitude,
         pos.longitude,
-        user!.cars![0].number_plate == null
-            ? ''
-            : user!.cars![0].number_plate!);
+        user!.cars!.isEmpty ? '' : user!.cars![0].number_plate);
     String mapsMessage =
         "https://maps.google.com/?q=${pos.latitude},${pos.longitude}";
     print("Lat: ${pos.latitude}, Lon: ${pos.longitude}");

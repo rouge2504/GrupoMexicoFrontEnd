@@ -27,7 +27,7 @@ class CardProvider extends GetConnect {
     });
 
     if (response.body == null) {
-      print("Todo se fue a la chingada con el carro");
+      print("Todo se fue a la chingada con el carro Card Provider");
       return ResponseApi();
     }
     print('Response Body Card: ${response.body}');
