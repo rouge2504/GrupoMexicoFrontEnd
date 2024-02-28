@@ -142,7 +142,7 @@ class InitSessionPage extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       child: ElevatedButton(
-          onPressed: con.validForm.value ? () => con.Login() : null,
+          onPressed: /*con.validForm.value ?*/ () => con.Login() /*: null*/,
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
