@@ -34,7 +34,7 @@ class HomeController extends GetxController {
       LocalNotificationProvider();
   CarsProvider carsProvider = CarsProvider();
   AccidentProvider accidentProvider = AccidentProvider();
-  User? user = User.fromJson(GetStorage().read('user'));
+  User? user = User.fromJson(GetStorage().read('userP'));
   List<TollbothModel> tollbothsList = <TollbothModel>[];
   double lastSpeed = -1;
 
