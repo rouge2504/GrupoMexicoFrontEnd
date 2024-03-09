@@ -34,7 +34,7 @@ class HomeController extends GetxController {
       LocalNotificationProvider();
   CarsProvider carsProvider = CarsProvider();
   AccidentProvider accidentProvider = AccidentProvider();
-  User? user = User.fromJson(GetStorage().read('userP'));
+  User? user = User.fromJson(GetStorage().read('user'));
   List<TollbothModel> tollbothsList = <TollbothModel>[];
   double lastSpeed = -1;
 
@@ -57,7 +57,7 @@ class HomeController extends GetxController {
         tollbothsList = TollbothModel.fromJsonList(responseApi.data);
       }
     }
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 5000));
 /*
     for (int i = 0; i < gasStationList.length; i++) {
       BitmapDescriptor temp = await createMarkerFromAssets(Assets.GAS_STATION);
