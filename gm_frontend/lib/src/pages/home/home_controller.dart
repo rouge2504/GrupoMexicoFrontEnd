@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -85,6 +86,10 @@ class HomeController extends GetxController {
     try {
       await getUserCurrentLocation();
       position = await Geolocator.getLastKnownPosition();
+      if (Platform.isIOS) {
+        await Future.delayed(Duration(milliseconds: 500));
+      }
+
       List<int> popUpList = [];
 
       LocationSettings locationSettings = LocationSettings(

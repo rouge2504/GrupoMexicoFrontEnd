@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -142,7 +144,12 @@ class InitSessionPage extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       child: ElevatedButton(
-          onPressed: /*con.validForm.value ?*/ () => con.Login() /*: null*/,
+          onPressed: () => {
+                if (Platform.isIOS)
+                  {con.Login()}
+                else
+                  con.validForm.value ? () => con.Login() : null
+              },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
