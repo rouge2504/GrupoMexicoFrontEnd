@@ -9,4 +9,8 @@ class LoginController extends GetxController {
   void goToInitSessionPage() {
     Get.toNamed('/init_session');
   }
+
+  void goToForgotPassword() {
+    Get.toNamed('/forgot_password');
+  }
 }

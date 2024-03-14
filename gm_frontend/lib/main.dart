@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gm_frontend/src/models/user.dart';
+import 'package:gm_frontend/src/pages/forgot_password/forgot_password_page.dart';
 import 'package:gm_frontend/src/pages/home/both_payment/both_payment_page.dart';
 import 'package:gm_frontend/src/pages/home/events/home_events_page.dart';
 import 'package:gm_frontend/src/pages/home/home_page.dart';
@@ -90,6 +91,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/register', page: () => RegisterPage()),
         GetPage(name: '/init_session', page: () => InitSessionPage()),
         GetPage(name: '/register_car', page: () => RegisterCarPage()),
+        GetPage(name: '/forgot_password', page: () => ForgotPasswordPage()),
         GetPage(name: '/on_boarding', page: () => OnBoardingPage()),
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(

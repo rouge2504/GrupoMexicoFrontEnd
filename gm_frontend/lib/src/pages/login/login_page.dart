@@ -80,7 +80,7 @@ class LoginPage extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: con.goToForgotPassword,
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.transparent,
               foregroundColor: Colors.black,
