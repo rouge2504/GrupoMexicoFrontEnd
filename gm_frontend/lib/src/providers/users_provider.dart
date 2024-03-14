@@ -38,6 +38,25 @@ class UsersProvider extends GetConnect {
     });
   }*/
 
+  Future<ResponseApi> changePassword(User user) async {
+    String url = '${Environment.API_URL}api/users/updatePassword';
+    String json = user.toJson().toString();
+    Response response = await post(url, user.toJson(),
+        headers: {'Content-Type': 'application/json'});
+    print(response.status);
+    if (response.body == null) {
+      print("Todo se fue a la chingada con el password");
+      return ResponseApi();
+    } else {
+      ResponseApi responseApi = ResponseApi.fromJson(response.body);
+      print('Response Api data: ${responseApi.data}');
+      print('Response Api success: ${responseApi.success}');
+      return responseApi;
+    }
+
+    return ResponseApi();
+  }
+
   Future<ResponseApi> createUser(User user) async {
     String url = '${Environment.API_URL}api/users/create';
     String json = user.toJson().toString();

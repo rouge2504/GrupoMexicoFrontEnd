@@ -248,7 +248,7 @@ class ForgotPasswordPage extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
         child: TextField(
-          //controller: , //con.emailController,
+          controller: con.emailController,
           textAlign: TextAlign.left,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(

@@ -24,6 +24,32 @@ class ForgotPasswordController extends GetxController {
   var validFormPassword = false.obs;
   var validForm = false.obs;
 
+  ForgotPasswordController() {
+    passwordController.addListener(() {
+      validFormPassword.value = isValidPassword(passwordController.text.trim(),
+          passwordConfirmController.text.trim());
+    });
+
+    passwordConfirmController.addListener(() {
+      validFormPassword.value = isValidPassword(passwordController.text.trim(),
+          passwordConfirmController.text.trim());
+    });
+  }
+
+  bool isValidPassword(String password, String passwordConfirm) {
+    if (password.isEmpty) {
+      //Get.snackbar('Formulario no valido', 'El email no es valido');
+      return false;
+    }
+
+    if (passwordConfirm.isEmpty) {
+      //Get.snackbar('Formulario no valido', 'Debes ingresar el nombre');
+      return false;
+    }
+
+    return true;
+  }
+
   void nextButton() {
     activePage.value++;
     pageController.nextPage(
@@ -54,7 +80,7 @@ class ForgotPasswordController extends GetxController {
     if (isValidForm(password, confirmPassword)) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
       progressDialog.show(max: 100, msg: 'Registrando Datos...');
-      ResponseApi responseApi = await usersProvider.createUser(user);
+      ResponseApi responseApi = await usersProvider.changePassword(user);
       if (responseApi.data != null) {
         if (responseApi.success!) {
           progressDialog.close();
@@ -77,7 +103,13 @@ class ForgotPasswordController extends GetxController {
 }
 
 bool isValidForm(String password, String confirmPassword) {
-  if (password.compareTo(confirmPassword) == 0) {
+  if (password.isEmpty) {
+    //Get.snackbar('Formulario no valido', 'El email no es valido');
+    return false;
+  }
+
+  if (confirmPassword.isEmpty) {
+    //Get.snackbar('Formulario no valido', 'Debes ingresar el nombre');
     return false;
   }
   return true;
