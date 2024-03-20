@@ -315,7 +315,7 @@ class BothPaymentPage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         con.carAlias.value = car.alias!;
-        con.carEdges.value = car.edges!;
+        con.carEdges.value = car.edge!;
         con.nextPagePay(context);
       },
       child: Card(
@@ -345,7 +345,7 @@ class BothPaymentPage extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.all(8),
-              child: Text('${car.edges}',
+              child: Text('${car.edge}',
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.surface,
                       fontSize: 18,

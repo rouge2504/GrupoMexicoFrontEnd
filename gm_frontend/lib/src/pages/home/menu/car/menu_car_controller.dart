@@ -37,6 +37,10 @@ class MenuCarController extends GetxController {
       cars.add(userSession.cars![i]);
     }
 
+    if (userSession.cars!.isEmpty) {
+      print("No hay ni un puñetero carro");
+    }
+
     aliasController.addListener(() {
       validForm.value = isValid(
         aliasController.text.trim(),
@@ -118,13 +122,13 @@ class MenuCarController extends GetxController {
         mark: mark,
         model: model,
         year: year,
-        edges: edges);
+        edge: edges);
     if (isValidForm(alias, numberPlate, mark, model, year, edges)) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
       progressDialog.show(max: 100, msg: 'Registrando Datos del Carro...');
       ResponseApi responseApi = await carsProvider.createCar(car);
       if (responseApi != null) {
-        if (responseApi.success!) {
+        if (responseApi.data != null) {
           progressDialog.close();
           car.id = responseApi.data.toString();
           //GetStorage().write('car', car);
@@ -132,12 +136,18 @@ class MenuCarController extends GetxController {
           //goToHomePage();
         } else {
           progressDialog.close();
-          Get.snackbar('Algo salio mal', '');
+          Get.snackbar(
+              'Algo salio mal con el registro del carro, por favor intentalo más tarde',
+              '');
         }
       }
     } else {
       print('Algo salio terriblemente mal');
     }
+  }
+
+  void DeleteCar(BuildContext context, String numberPlate) async {
+    print("Number Plate to Delete:  ${numberPlate}");
   }
 
   bool isValidForm(String alias, String numberPlate, String mark, String model,

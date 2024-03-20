@@ -57,4 +57,17 @@ class CarsProvider extends GetConnect {
     ResponseApi responseApi = ResponseApi.fromJson(response.body);
     return responseApi;
   }
+
+  Future<ResponseApi> DeleteCar(String numberPlate) async {
+    String url = '${Environment.API_URL}api/car/deleteCarByNumberPlate';
+
+    Response response = await post(url, {
+      'number_plate': numberPlate,
+    }, headers: {
+      'Content-Type': 'application/json'
+    });
+
+    ResponseApi responseApi = ResponseApi.fromJson(response.body);
+    return responseApi;
+  }
 }

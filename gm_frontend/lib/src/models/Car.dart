@@ -16,7 +16,7 @@ class Car {
   String? mark;
   String? model;
   String? year;
-  String? edges;
+  String? edge;
 
   Car({
     this.id,
@@ -26,7 +26,7 @@ class Car {
     this.mark,
     this.model,
     this.year,
-    this.edges,
+    this.edge,
   });
 
   static List<Car> fromJsonList(List<dynamic> jsonList) {
@@ -48,7 +48,7 @@ class Car {
         "numberPlate": e.number_plate,
         "mark": e.mark,
         "year": e.year,
-        "edges": e.edges
+        "edges": e.edge
       };
     }).toList();
 
@@ -64,7 +64,7 @@ class Car {
         mark: json["mark"],
         model: json["model"],
         year: json["year"],
-        edges: json["edges"],
+        edge: json["edge"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,6 +75,6 @@ class Car {
         "mark": mark,
         "model": model,
         "year": year,
-        "edges": edges,
+        "edge": edge,
       };
 }

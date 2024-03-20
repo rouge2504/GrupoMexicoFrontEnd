@@ -46,6 +46,21 @@ class HomeController extends GetxController {
     print("Home Controller active");
     getUserCurrentLocation();
     checkGPS();
+    checkUser();
+  }
+
+  void checkUser() async {
+    //Checand carros
+    if (user!.cars!.isEmpty) {
+      print("No hay ni un puñetero carro, vamos a buscarlo");
+      ResponseApi responseApi = await carsProvider.getCars(user!.id);
+      print('Response Api data: ${responseApi.data}');
+      user!.cars = Car.fromJsonList(responseApi.data);
+      for (var car in user!.cars!) {
+        print(car.alias);
+      }
+      GetStorage().write('user', user!.toJson());
+    }
   }
 
   void checkGPS() async {

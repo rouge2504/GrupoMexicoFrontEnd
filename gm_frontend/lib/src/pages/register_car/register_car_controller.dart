@@ -225,7 +225,7 @@ class RegisterCarController extends GetxController {
     String mark = markController.text.trim();
     String model = modelController.text.trim();
     String year = yearController.text.trim();
-    String edges = edgeController.text.trim();
+    String edge = edgeController.text.trim();
 
     Car car = Car(
         id: user.id,
@@ -234,8 +234,8 @@ class RegisterCarController extends GetxController {
         mark: mark,
         model: model,
         year: year,
-        edges: edges);
-    if (isValidForm(alias, numberPlate, mark, model, year, edges)) {
+        edge: edge);
+    if (isValidForm(alias, numberPlate, mark, model, year, edge)) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
       progressDialog.show(max: 100, msg: 'Registrando Datos del Carro...');
       ResponseApi responseApi = await carsProvider.createCar(car);

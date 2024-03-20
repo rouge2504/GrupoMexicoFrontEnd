@@ -360,7 +360,6 @@ class _MenuCarPageState extends State<MenuCarPage> {
                 fontWeight: FontWeight.w400,
                 fontSize: 20),
             controller: con.modelController,
-            keyboardType: TextInputType.number,
             textAlign: TextAlign.left,
             decoration: InputDecoration(
               hintText: 'Modelo',
@@ -600,7 +599,7 @@ class _MenuCarPageState extends State<MenuCarPage> {
             ),
             IconButton(
               onPressed: () {
-                print('Delete');
+                con.DeleteCar(context, car.number_plate!);
               },
               icon: ImageIcon(
                 AssetImage(Assets.DELETE_OUTLINE),
