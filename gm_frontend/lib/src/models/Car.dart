@@ -45,10 +45,10 @@ class Car {
         "id": e.id,
         "image": e.image,
         "alias": e.alias,
-        "numberPlate": e.number_plate,
+        "number_plate": e.number_plate,
         "mark": e.mark,
         "year": e.year,
-        "edges": e.edge
+        "edge": e.edge
       };
     }).toList();
 
@@ -60,7 +60,7 @@ class Car {
         id: json["id"],
         image: json["image"],
         alias: json["alias"],
-        number_plate: json["numberPlate"],
+        number_plate: json["number_plate"],
         mark: json["mark"],
         model: json["model"],
         year: json["year"],

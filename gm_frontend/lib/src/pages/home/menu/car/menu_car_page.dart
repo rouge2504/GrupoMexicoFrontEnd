@@ -599,7 +599,7 @@ class _MenuCarPageState extends State<MenuCarPage> {
             ),
             IconButton(
               onPressed: () {
-                con.DeleteCar(context, car.number_plate!);
+                con.DeleteCar(context, car.number_plate);
               },
               icon: ImageIcon(
                 AssetImage(Assets.DELETE_OUTLINE),

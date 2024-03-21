@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MenuCarController extends GetxController {
-  User userSession = User.fromJson(GetStorage().read('user') ?? {});
+  User userSession =
+      User() /*= User.fromJson(GetStorage().read('user') ?? {})*/;
   var validForm = false.obs;
   PageController pageController = PageController();
   CarsProvider carsProvider = CarsProvider();
@@ -29,9 +30,10 @@ class MenuCarController extends GetxController {
 
   var selectedOption = 0.obs;
 
-  List<Car> cars = <Car>[].obs;
+  var cars = <Car>[].obs;
 
   MenuCarController() {
+    userSession = User.fromJson(GetStorage().read('user') ?? {});
     for (var i = 0; i < userSession.cars!.length; i++) {
       print('Car CAR CONTROLLER: ${userSession.cars![i].model}');
       cars.add(userSession.cars![i]);
@@ -146,8 +148,31 @@ class MenuCarController extends GetxController {
     }
   }
 
-  void DeleteCar(BuildContext context, String numberPlate) async {
+  void DeleteCar(BuildContext context, String? numberPlate) async {
     print("Number Plate to Delete:  ${numberPlate}");
+    ProgressDialog progressDialog = ProgressDialog(context: context);
+    progressDialog.show(max: 100, msg: 'Borrando carro...');
+    if (numberPlate == null) {
+      print("A checar esta madre de los carros");
+      ResponseApi responseApi = await carsProvider.getCars(userSession!.id);
+      List<Car>? cars = Car.fromJsonList(responseApi.data);
+      userSession.cars = cars;
+      GetStorage().write('user', userSession.toJson());
+    } else {
+      ResponseApi responseApiDelete = await carsProvider.DeleteCar(numberPlate);
+      if (responseApiDelete.success!) {
+        progressDialog.close();
+        userSession.cars!
+            .removeWhere((item) => item.number_plate == numberPlate);
+        Get.snackbar('Borrado de carro', '');
+        //Get.toNamed('/home');
+        cars.value = userSession.cars!;
+        GetStorage().write('user', userSession.toJson());
+      } else {
+        progressDialog.close();
+        Get.snackbar('Hubo un error intentelo mas tarde', '');
+      }
+    }
   }
 
   bool isValidForm(String alias, String numberPlate, String mark, String model,

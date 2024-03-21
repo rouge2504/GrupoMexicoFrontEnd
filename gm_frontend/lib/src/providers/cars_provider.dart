@@ -34,10 +34,10 @@ class CarsProvider extends GetConnect {
         user.cars = [];
         user.cars?.add(carTemp);
         print('Add to list: ${user.cars}');
-        GetStorage().write('user', user);
+        GetStorage().write('user', user.toJson());
       } else {
         user.cars?.add(carTemp);
-        GetStorage().write('user', user);
+        GetStorage().write('user', user.toJson());
       }
 
       return responseApi;

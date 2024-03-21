@@ -39,7 +39,7 @@ class HomeRoutesServicesAreaPage extends StatelessWidget {
             ],
             backgroundColor: Colors.white,
             title: Text(
-              'Gasolinerass',
+              'Areas de servicio',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.surface,
                 fontFamily: 'Raleway',
