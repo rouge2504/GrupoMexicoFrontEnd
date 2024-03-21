@@ -148,7 +148,7 @@ class InitSessionPage extends StatelessWidget {
                 if (Platform.isIOS)
                   {con.Login()}
                 else
-                  con.validForm.value ? con.Login() : null
+                  con.validForm.value ? () => con.Login() : null
               },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
