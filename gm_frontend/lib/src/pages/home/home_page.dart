@@ -261,7 +261,7 @@ class _HomePage extends State<HomePage> {
 
   Widget NavBarNavigatorBottom(BuildContext context) {
     return Obx(() => Container(
-          height: MediaQuery.of(context).size.height * 0.125,
+          height: MediaQuery.of(context).size.height * 0.14,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(30), topLeft: Radius.circular(30)),
