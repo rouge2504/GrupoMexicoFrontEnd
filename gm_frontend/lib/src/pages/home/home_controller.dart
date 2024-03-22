@@ -73,7 +73,7 @@ class HomeController extends GetxController {
         tollbothsList = TollbothModel.fromJsonList(responseApi.data);
       }
     }
-    await Future.delayed(Duration(milliseconds: 5000));
+    await Future.delayed(Duration(milliseconds: 10000));
 /*
     for (int i = 0; i < gasStationList.length; i++) {
       BitmapDescriptor temp = await createMarkerFromAssets(Assets.GAS_STATION);
@@ -93,7 +93,7 @@ class HomeController extends GetxController {
   }
 
   void ResetCheckerTollboth() async {
-    await Future.delayed(Duration(seconds: 300));
+    await Future.delayed(Duration(seconds: 3000));
     checkTollboth = true;
   }
 
@@ -167,6 +167,9 @@ class HomeController extends GetxController {
   }
 
   Future<Position> getUserCurrentLocation() async {
+    if (Platform.isIOS) {
+      await Future.delayed(Duration(milliseconds: 500000));
+    }
     await Geolocator.requestPermission()
         .then((value) {})
         .onError((error, stackTrace) async {
